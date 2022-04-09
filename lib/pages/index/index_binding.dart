@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'logic.dart';
+import 'index_logic.dart';
 
 class IndexBinding extends Bindings {
   @override

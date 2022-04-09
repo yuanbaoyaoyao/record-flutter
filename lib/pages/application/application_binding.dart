@@ -1,6 +1,6 @@
  import 'package:get/get.dart';
 
-import 'logic.dart';
+import 'application_logic.dart';
 
 class ApplicationBinding extends Bindings {
   @override

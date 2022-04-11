@@ -1,14 +1,10 @@
 import 'package:get/get.dart';
-
 class SplashState {
-  late int _status;
 
-  SplashState() {
-    ///Initialize variables
-    _status = 0;
-  }
+  final _status = 0.obs;
 
-  set status(value) => _status = value;
+  set status(value) => _status.value = value;
 
-  get status => _status;
+  get status => _status.value;
+
 }

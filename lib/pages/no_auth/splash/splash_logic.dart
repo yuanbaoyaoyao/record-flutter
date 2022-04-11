@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:sp_util/sp_util.dart';
 
+import '../../../res/constant.dart';
 import 'splash_state.dart';
 
 class SplashLogic extends GetxController {
@@ -15,10 +19,24 @@ class SplashLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
 
-    state.status = 1;
-
     splashList = ['splash_page_1', 'splash_page_2', 'splash_page_3'];
 
     pageController = PageController();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      await SpUtil.getInstance();
+      initSplash();
+    });
+  }
+
+  void initSplash() {
+    Timer(const Duration(milliseconds: 1500), () {
+      if (SpUtil.getBool(Constant.keyGuide, defValue: true)!) {
+        SpUtil.putBool(Constant.keyGuide, false);
+        state.status = 1;
+      } else {
+        Get.offNamed("/login");
+      }
+    });
   }
 }

@@ -5,6 +5,7 @@ abstract class AppRoutes {
   // static const Index = '/application';
   static const INITIAL = '/';
   static const Login = '/login';
+  static const Search = '/Search';
   static const Register = '/register';
   static const Application = '/application';
 }

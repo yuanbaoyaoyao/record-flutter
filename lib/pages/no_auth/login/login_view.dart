@@ -10,7 +10,7 @@ class LoginPage extends GetView<LoginLogic> {
   Widget _buildLogo() {
     return Container(
         alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: (60)),
+        margin: const EdgeInsets.only(top: (90)),
         child: Column(
           children: <Widget>[
             Image.asset(
@@ -78,7 +78,8 @@ class LoginPage extends GetView<LoginLogic> {
                   obscureText: true,
                   decoration: InputDecoration(
                       hintText: '请输入密码',
-                      suffixIcon: Obx(() {
+                      suffixIcon:
+                      Obx(() {
                         return Visibility(
                           visible: controller.state.hasPassWordContent,
                           child: IconButton(
@@ -90,7 +91,8 @@ class LoginPage extends GetView<LoginLogic> {
                             },
                           ),
                         );
-                      })),
+                      })
+                  ),
                   onChanged: (text) {
                     if (text.isNotEmpty) {
                       controller.state.hasPassWordContent = true;
@@ -118,23 +120,38 @@ class LoginPage extends GetView<LoginLogic> {
                     const Size(double.infinity, 40.0)),
               ),
               onPressed: () {
-                // Get.offNamed("/application");
                 if (_formKey.currentState!.validate()) {
+                  Get.offNamed("/application");
                   print("点击了登录");
                 }
               },
               child: const Text('登录'),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 10.0),
-            child: TextButton(
-              onPressed: () {
-                print("点击了'忘记密码'");
-              },
-              child: const Text('忘记了密码?'),
-            ),
-          )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 100.0),
+                child: TextButton(
+                  onPressed: () {
+                    print("点击了'忘记密码'");
+                  },
+                  child: const Text('忘记了密码?'),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 100.0),
+                child: TextButton(
+                  onPressed: () {
+                    print("点击了'注册'");
+                    Get.toNamed("/register");
+                  },
+                  child: const Text('注册'),
+                ),
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -142,7 +159,7 @@ class LoginPage extends GetView<LoginLogic> {
 
   Widget _buildLoginBottom() {
     return Container(
-        margin: const EdgeInsets.only(top: 200.0),
+        margin: const EdgeInsets.only(top: 160.0),
         child: Column(
           children: [
             Text("其他登录方式"),

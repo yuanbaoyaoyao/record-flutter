@@ -31,8 +31,8 @@ class SplashLogic extends GetxController {
 
   void initSplash() {
     Timer(const Duration(milliseconds: 1500), () {
-      if (SpUtil.getBool(Constant.keyGuide, defValue: true)!) {
-        SpUtil.putBool(Constant.keyGuide, false);
+      if (SpUtil.getBool(Constant.firstStart, defValue: true)!) {
+        SpUtil.putBool(Constant.firstStart, false);
         state.status = 1;
       } else {
         Get.offNamed("/login");

@@ -9,6 +9,8 @@ import 'package:record_flutter/pages/no_auth/register/register_binding.dart';
 import 'package:record_flutter/pages/no_auth/register/register_view.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_view.dart';
+import 'package:record_flutter/pages/search/search_binding.dart';
+import 'package:record_flutter/pages/search/search_view.dart';
 
 part 'app_routes.dart';
 
@@ -28,6 +30,10 @@ class AppPages {
         name: AppRoutes.Login,
         page: () => LoginPage(),
         binding: LoginBinding()),
+    GetPage(
+        name: AppRoutes.Search,
+        page: () => SearchPage(),
+        binding: SearchBinding()),
     GetPage(
         name: AppRoutes.Register,
         page: () => RegisterPage(),

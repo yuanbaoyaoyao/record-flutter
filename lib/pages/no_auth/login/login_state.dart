@@ -1,12 +1,15 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../../global.dart';
+import 'package:get/get.dart';
 
 class LoginState {
-  late final GlobalKey<FormState> _formKey;
+  ///Initialize variables
+  final _hasAccountContent = false.obs;
+  final _hasPassWordContent = false.obs;
 
-  LoginState() {
-    ///Initialize variables
-    // _formKey = Global<FormState>();
-  }
+  set hasAccountContent(value) => _hasAccountContent.value = value;
+
+  get hasAccountContent => _hasAccountContent.value;
+
+  set hasPassWordContent(value) => _hasPassWordContent.value = value;
+
+  get hasPassWordContent => _hasPassWordContent.value;
 }

@@ -40,6 +40,7 @@ dependencies:
   card_swiper: ^2.0.3
   sp_util: ^2.0.3
   flutter_screenutil: ^5.3.1
+  font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter:
     - assets/images/splash/splash_page_3.png
     - assets/images/logo.png
     - assets/images/logo_no_fonts.png
+    - assets/images/dingding.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

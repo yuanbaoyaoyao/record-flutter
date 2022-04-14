@@ -20,7 +20,15 @@ class SearchLogic extends GetxController {
 
   void initSearchHistory() {
     state.searchHistory = SpUtil.getStringList(Constant.searchHistory)!;
-    state.hasHistory = false;
+    if (state.searchHistory.length == 0) {
+      state.searchHistory.insert(0, "");
+    }
+    print("初始化initSearchHistory:${state.searchHistory}");
+    if (state.searchHistory[0] == "") {
+      state.hasHistory = false;
+    } else {
+      state.hasHistory = true;
+    }
   }
 
   void putSearchHistory(inputSearchContent) {
@@ -42,6 +50,11 @@ class SearchLogic extends GetxController {
       }
       SpUtil.putStringList(Constant.searchHistory, state.searchHistory);
     }
+  }
+
+  void deleteOneSearchHistory(oneSearchHistory) {
+    state.searchHistory.remove(oneSearchHistory);
+    SpUtil.putStringList(Constant.searchHistory, state.searchHistory);
   }
 
   void clearSearchHistory() {

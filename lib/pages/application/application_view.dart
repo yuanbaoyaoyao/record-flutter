@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sp_util/sp_util.dart';
 
+import '../../res/constant.dart';
 import 'application_logic.dart';
 
 class ApplicationPage extends GetView<ApplicationLogic> {
@@ -13,7 +15,8 @@ class ApplicationPage extends GetView<ApplicationLogic> {
         readOnly: true,
         decoration: InputDecoration(
             isCollapsed: true,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
             fillColor: Colors.white,
@@ -38,11 +41,20 @@ class ApplicationPage extends GetView<ApplicationLogic> {
       ),
       actions: [
         Container(
-          child: const Icon(
-            Icons.message,
-            size: 30.0,
+          child: IconButton(
+            onPressed: () {
+              print("${SpUtil.getStringList(Constant.searchHistory)!}");
+            },
+            icon: const Icon(
+              Icons.mail_outline,
+              size: 30.0,
+            ),
           ),
-          margin: const EdgeInsets.only(right: 15.0),
+          // const Icon(
+          //   Icons.message,
+          //   size: 30.0,
+          // ),
+          margin: const EdgeInsets.only(right: 8.0),
         )
       ],
       // title: Text("耗材管理系统"),

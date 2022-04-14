@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/global.dart';
-import 'package:record_flutter/pages/index/index_binding.dart';
+import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
 import 'package:record_flutter/router/app_pages.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: '耗材管理系统',
       // home: IndexPage(),
-      initialBinding: IndexBinding(),
+      initialBinding: SplashBinding(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

@@ -1,8 +1,14 @@
 import 'package:get/get.dart';
 import 'package:record_flutter/pages/application/application_binding.dart';
 import 'package:record_flutter/pages/application/application_view.dart';
-import 'package:record_flutter/pages/index/index_binding.dart';
-import 'package:record_flutter/pages/index/index_view.dart';
+import 'package:record_flutter/pages/message/feedback_message/feedback_message_binding.dart';
+import 'package:record_flutter/pages/message/feedback_message/feedback_message_view.dart';
+import 'package:record_flutter/pages/message/message_box/message_box_binding.dart';
+import 'package:record_flutter/pages/message/message_box/message_box_view.dart';
+import 'package:record_flutter/pages/message/notification_message/notification_message_binding.dart';
+import 'package:record_flutter/pages/message/notification_message/notification_message_view.dart';
+import 'package:record_flutter/pages/message/order_message/order_message_binding.dart';
+import 'package:record_flutter/pages/message/order_message/order_message_view.dart';
 import 'package:record_flutter/pages/no_auth/login/login_binding.dart';
 import 'package:record_flutter/pages/no_auth/login/login_view.dart';
 import 'package:record_flutter/pages/no_auth/register/register_binding.dart';
@@ -38,6 +44,22 @@ class AppPages {
         name: AppRoutes.Register,
         page: () => RegisterPage(),
         binding: RegisterBinding()),
+    GetPage(
+        name: AppRoutes.MessageBox,
+        page: () => Message_boxPage(),
+        binding: Message_boxBinding()),
+    GetPage(
+        name: AppRoutes.OrderMessage,
+        page: () => Order_messagePage(),
+        binding: Order_messageBinding()),
+    GetPage(
+        name: AppRoutes.FeedbackMessage,
+        page: () => Feedback_messagePage(),
+        binding: Feedback_messageBinding()),
+    GetPage(
+        name: AppRoutes.NotificationMessage,
+        page: () => Notification_messagePage(),
+        binding: Notification_messageBinding()),
     GetPage(
         name: AppRoutes.Application,
         page: () => ApplicationPage(),

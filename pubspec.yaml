@@ -76,6 +76,13 @@ flutter:
     - assets/images/logo.png
     - assets/images/logo_no_fonts.png
     - assets/images/dingding.png
+    - assets/images/message_box_bg.png
+    - assets/images/mock/88a1.png
+    - assets/images/mock/88a2.png
+    - assets/images/mock/88a3.png
+    - assets/images/mock/88a4.png
+    - assets/images/mock/88a5.png
+    - assets/images/mock/88a6.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

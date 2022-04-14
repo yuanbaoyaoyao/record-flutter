@@ -28,8 +28,10 @@ class SearchPage extends GetView<SearchLogic> {
               onPressed: () {
                 print("点击了搜索");
                 print("搜索内容为:${controller.textSearchEditingController.text}");
-                controller.putSearchHistory(
-                    controller.textSearchEditingController.text);
+                if (controller.textSearchEditingController.text != "") {
+                  controller.putSearchHistory(
+                      controller.textSearchEditingController.text);
+                }
                 print(
                     "localStorage中存储内容为:${SpUtil.getStringList(Constant.searchHistory)}");
               },
@@ -47,6 +49,7 @@ class SearchPage extends GetView<SearchLogic> {
     );
   }
 
+  //再加一个探索发现，后端直接来个接口
   Widget _buildBodyView() {
     return Column(
       children: [

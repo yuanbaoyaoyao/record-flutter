@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/pages/cart/cart_view.dart';
+import 'package:record_flutter/pages/classification/classification_view.dart';
+import 'package:record_flutter/pages/home/home_view.dart';
+import 'package:record_flutter/pages/mine/mine_view.dart';
 import 'package:sp_util/sp_util.dart';
 
 import '../../res/constant.dart';
@@ -44,6 +48,7 @@ class ApplicationPage extends GetView<ApplicationLogic> {
           child: IconButton(
             onPressed: () {
               print("${SpUtil.getStringList(Constant.searchHistory)!}");
+              Get.toNamed("/message_box");
             },
             icon: const Icon(
               Icons.mail_outline,
@@ -63,11 +68,11 @@ class ApplicationPage extends GetView<ApplicationLogic> {
 
   Widget _buildPageView() {
     return PageView(
-      children: const [
-        Text("首页", textAlign: TextAlign.center),
-        Text("分类"),
-        Text("购物车"),
-        Text("我的"),
+      children:  [
+        HomePage(),
+        ClassificationPage(),
+        CartPage(),
+        MinePage(),
       ],
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,

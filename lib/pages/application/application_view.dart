@@ -68,6 +68,7 @@ class ApplicationPage extends GetView<ApplicationLogic> {
 
   Widget _buildPageView() {
     return PageView(
+      physics: const NeverScrollableScrollPhysics(),
       children:  [
         HomePage(),
         ClassificationPage(),

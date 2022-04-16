@@ -9,12 +9,16 @@ import 'package:record_flutter/pages/message/notification_message/notification_m
 import 'package:record_flutter/pages/message/notification_message/notification_message_view.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_binding.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_view.dart';
+import 'package:record_flutter/pages/new_consumables/new_consumables_binding.dart';
+import 'package:record_flutter/pages/new_consumables/new_consumables_view.dart';
 import 'package:record_flutter/pages/no_auth/login/login_binding.dart';
 import 'package:record_flutter/pages/no_auth/login/login_view.dart';
 import 'package:record_flutter/pages/no_auth/register/register_binding.dart';
 import 'package:record_flutter/pages/no_auth/register/register_view.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_view.dart';
+import 'package:record_flutter/pages/old_consumables/old_consumables_binding.dart';
+import 'package:record_flutter/pages/old_consumables/old_consumables_view.dart';
 import 'package:record_flutter/pages/search/search_binding.dart';
 import 'package:record_flutter/pages/search/search_view.dart';
 
@@ -64,5 +68,13 @@ class AppPages {
         name: AppRoutes.Application,
         page: () => ApplicationPage(),
         binding: ApplicationBinding()),
+    GetPage(
+        name: AppRoutes.NewConsumables,
+        page: () => New_consumablesPage(),
+        binding: New_consumablesBinding()),
+    GetPage(
+        name: AppRoutes.OldConsumables,
+        page: () => OldConsumablesPage(),
+        binding: OldConsumablesBinding()),
   ];
 }

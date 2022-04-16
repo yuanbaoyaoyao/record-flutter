@@ -10,6 +10,8 @@ abstract class AppRoutes {
   static const MessageBox = '/message_box';
   static const FeedbackMessage = '/feedback_message';
   static const OrderMessage = '/order_message';
+  static const NewConsumables = '/new_consumables';
+  static const OldConsumables = '/old_consumables';
   static const NotificationMessage = '/notification_message';
   static const Application = '/application';
 }

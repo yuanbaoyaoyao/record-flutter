@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'new_consumables_logic.dart';
 
-class New_consumablesPage extends StatelessWidget {
+class NewConsumablesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.find<New_consumablesLogic>();

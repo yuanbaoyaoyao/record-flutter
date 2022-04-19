@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'message_box_logic.dart';
 
-class Message_boxPage extends StatelessWidget {
+class MessageBoxPage extends StatelessWidget {
   final logic = Get.find<Message_boxLogic>();
   final state = Get.find<Message_boxLogic>().state;
 

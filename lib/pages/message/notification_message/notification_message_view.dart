@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'notification_message_logic.dart';
 
-class Notification_messagePage extends StatelessWidget {
+class NotificationMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.find<Notification_messageLogic>();

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:record_flutter/pages/application/application_binding.dart';
 import 'package:record_flutter/pages/application/application_view.dart';
+import 'package:record_flutter/pages/consumables_detail/consumables_detail_binding.dart';
+import 'package:record_flutter/pages/consumables_detail/consumables_detail_view.dart';
 import 'package:record_flutter/pages/message/feedback_message/feedback_message_binding.dart';
 import 'package:record_flutter/pages/message/feedback_message/feedback_message_view.dart';
 import 'package:record_flutter/pages/message/message_box/message_box_binding.dart';
@@ -50,31 +52,35 @@ class AppPages {
         binding: RegisterBinding()),
     GetPage(
         name: AppRoutes.MessageBox,
-        page: () => Message_boxPage(),
-        binding: Message_boxBinding()),
+        page: () => MessageBoxPage(),
+        binding: MessageBoxBinding()),
     GetPage(
         name: AppRoutes.OrderMessage,
-        page: () => Order_messagePage(),
-        binding: Order_messageBinding()),
+        page: () => OrderMessagePage(),
+        binding: OrderMessageBinding()),
     GetPage(
         name: AppRoutes.FeedbackMessage,
-        page: () => Feedback_messagePage(),
-        binding: Feedback_messageBinding()),
+        page: () => FeedbackMessagePage(),
+        binding: FeedbackMessageBinding()),
     GetPage(
         name: AppRoutes.NotificationMessage,
-        page: () => Notification_messagePage(),
-        binding: Notification_messageBinding()),
+        page: () => NotificationMessagePage(),
+        binding: NotificationMessageBinding()),
     GetPage(
         name: AppRoutes.Application,
         page: () => ApplicationPage(),
         binding: ApplicationBinding()),
     GetPage(
         name: AppRoutes.NewConsumables,
-        page: () => New_consumablesPage(),
-        binding: New_consumablesBinding()),
+        page: () => NewConsumablesPage(),
+        binding: NewConsumablesBinding()),
     GetPage(
         name: AppRoutes.OldConsumables,
         page: () => OldConsumablesPage(),
         binding: OldConsumablesBinding()),
+    GetPage(
+        name: AppRoutes.ConsumablesDetail,
+        page: () => ConsumablesDetailPage(),
+        binding: ConsumablesDetailBinding()),
   ];
 }

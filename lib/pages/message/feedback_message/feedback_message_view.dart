@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'feedback_message_logic.dart';
 
-class Feedback_messagePage extends StatelessWidget {
+class FeedbackMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.find<Feedback_messageLogic>();

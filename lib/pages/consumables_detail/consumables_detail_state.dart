@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ConsumablesDetailState {
-  // double statusHeight = MediaQueryData.fromWindow(window).padding.top;
   final headerWKey = GlobalKey();
   final evaluateWKey = GlobalKey();
   final detailWKey = GlobalKey();

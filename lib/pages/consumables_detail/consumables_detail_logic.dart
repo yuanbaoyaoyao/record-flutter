@@ -52,13 +52,6 @@ class ConsumablesDetailLogic extends GetxController
 
   void onScroll(double pixels) {
     print("使用中");
-    // double T = pixels / 50;
-    // if (T < 0.0) {
-    //   T = 0.0;
-    // } else if (T > 1.0) {
-    //   T = 1.0;
-    // }
-    // state.appBarT = T;
     state.appBarT = pixels / 50;
     if (state.appBarT < 0.0) {
       state.appBarT = 0.0;

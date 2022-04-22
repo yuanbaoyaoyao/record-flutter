@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'widgets/custom_appbar.dart';
+import 'widgets/custom_bottom_nav_bar.dart';
 
 import 'consumables_detail_logic.dart';
 
@@ -136,7 +136,68 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                         key: state.evaluateWKey,
                         color: Colors.green,
                         height: 300,
-                        // child: ,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text("评价"),
+                                Expanded(child: Text("")),
+                                TextButton(
+                                    onPressed: () {
+                                      print("点击了评价详情页");
+                                    },
+                                    child: Text("评价详情"))
+                              ],
+                            ),
+                            Container(
+                              height: 30.0,
+                              child: Text("关键词提取"),
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "assets/images/dingding.png",
+                                  width: 20.0,
+                                  fit: BoxFit.fill,
+                                ),
+                                Container(
+                                  width: 20,
+                                ),
+                                Text("名称")
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 40,
+                                ),
+                                Column(
+                                  children: [
+                                    Text("这是评价"),
+                                    Container(
+                                      height: 150,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 3,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Container(
+                                              height: 10,
+                                              child: Image.asset(
+                                                "assets/images/dingding.png",
+                                                fit: BoxFit.fill,
+                                              ),
+                                            );
+                                          }),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         key: state.detailWKey,
@@ -165,6 +226,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                   onPressed: () {
                                     print("点击了返回按钮");
                                     Get.back();
+                                    print("点击了Get.back()");
                                   },
                                   icon: const Icon(Icons.arrow_back_outlined),
                                 ),
@@ -201,6 +263,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
           return [];
         },
       ),
+      bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 

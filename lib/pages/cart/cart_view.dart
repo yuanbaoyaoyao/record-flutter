@@ -12,55 +12,56 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("购物车"),
-        centerTitle: true,
-        actions: [
-          TextButton(
-              onPressed: () {
-                print("点击了编辑按钮");
-              },
-              child: const Text(
-                "编辑",
-                style: TextStyle(color: Colors.white),
-              ))
-        ],
-      ),
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Column(
-            children: _buildListCartItem(),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 20.0),
-            child: Column(
-              children: [
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Icon(Icons.music_note),
-                      Text("为你推荐"),
-                      Icon(Icons.music_note),
-                    ],
+    return ScreenUtilInit(
+        builder: () => Scaffold(
+              appBar: AppBar(
+                title: const Text("购物车"),
+                centerTitle: true,
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        print("点击了编辑按钮");
+                      },
+                      child: const Text(
+                        "编辑",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+              ),
+              body: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  Column(
+                    children: _buildCartItemList(),
                   ),
-                  width: 180.0,
-                ),
-                Column(
-                  children: _buildListrecommendList(),
-                )
-              ],
-            ),
-          )
-        ],
-      )),
-      bottomNavigationBar: CustomBottomNavBar(),
-    );
+                  Container(
+                    margin: const EdgeInsets.only(top: 20.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: const [
+                              Icon(Icons.music_note),
+                              Text("为你推荐"),
+                              Icon(Icons.music_note),
+                            ],
+                          ),
+                          width: 180.0,
+                        ),
+                        Column(
+                          children: _buildRecommendList(),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )),
+              bottomNavigationBar: CustomBottomNavBar(),
+            ));
   }
 
-  List<Widget> _buildListrecommendList() => List.generate(8, (index) {
+  List<Widget> _buildRecommendList() => List.generate(8, (index) {
         return Row(
           children: [
             GestureDetector(
@@ -79,7 +80,7 @@ class CartPage extends StatelessWidget {
                     Text("这是描述"),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "这是剩余数量",
                           style: TextStyle(fontSize: 20.0),
                         ),
@@ -131,7 +132,7 @@ class CartPage extends StatelessWidget {
         );
       });
 
-  List<Widget> _buildListCartItem() => List.generate(4, (index) {
+  List<Widget> _buildCartItemList() => List.generate(4, (index) {
         return Container(
           child: Row(
             children: [

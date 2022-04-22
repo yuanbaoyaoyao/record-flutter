@@ -46,14 +46,26 @@ class HomePage extends GetView<HomeLogic> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: _buildListTextButton(),
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  Text("123"),
-                  Text("123"),
-                  Text("123"),
-                  Text("123"),
-                ],
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Icon(Icons.music_note),
+                          Text("为你推荐"),
+                          Icon(Icons.music_note),
+                        ],
+                      ),
+                      width: 180.0,
+                    ),
+                    Column(
+                      children: _buildRecommendList(),
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -61,6 +73,77 @@ class HomePage extends GetView<HomeLogic> {
       ),
     );
   }
+
+  List<Widget> _buildRecommendList() => List.generate(8, (index) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.toNamed("/consumables_detail");
+          },
+          child: Card(
+              child: Container(
+                width: ScreenUtil().screenWidth / 2.2,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset("assets/images/mock/88a1.png"),
+                    Text("这是标题"),
+                    Text("这是描述"),
+                    Row(
+                      children: [
+                        const Text(
+                          "这是剩余数量",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Expanded(child: Text("")),
+                        IconButton(
+                            onPressed: () {
+                              print("点击了添加按钮");
+                            },
+                            icon: Icon(Icons.add_circle_outline)),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+        ),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed("/consumables_detail");
+          },
+          child: Card(
+              child: Container(
+                width: ScreenUtil().screenWidth / 2.2,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset("assets/images/mock/88a1.png"),
+                    Text("这是标题"),
+                    Text("这是描述"),
+                    Row(
+                      children: [
+                        Text(
+                          "这是剩余数量",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Expanded(child: Text("")),
+                        IconButton(
+                            onPressed: () {
+                              print("点击了添加按钮");
+                            },
+                            icon: Icon(Icons.add_circle_outline)),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+        )
+      ],
+    );
+  });
 
   List<Widget> _buildListTextButton() => List.generate(4, (index) {
         return InkWell(

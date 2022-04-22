@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import 'address_management_logic.dart';
+
+class AddressManagementPage extends StatelessWidget {
+  final logic = Get.find<AddressManagementLogic>();
+  final state = Get.find<AddressManagementLogic>().state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("地址管理"),
+        centerTitle: true,
+      ),
+      body: ScreenUtilInit(
+        builder: () {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Column(
+              children: [
+                InkWell(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0, vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "元宝尧尧",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text("    "),
+                                Text(
+                                  "180****9340",
+                                  style: TextStyle(fontSize: 16),
+                                )
+                              ],
+                            ),
+                            Text("这是地区"),
+                            Text("这是详细地址")
+                          ],
+                        ),
+                        Expanded(child: Text("")),
+                        Icon(Icons.chevron_right)
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    print("点击了个人信息");
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

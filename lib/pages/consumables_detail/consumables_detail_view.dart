@@ -244,7 +244,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                 child: IconButton(
                                   onPressed: () {
                                     print("点击了搜索按钮");
-                                    Get.toNamed("/Search");
+                                    Get.toNamed("/search");
                                   },
                                   icon: const Icon(Icons.search_outlined),
                                 ),

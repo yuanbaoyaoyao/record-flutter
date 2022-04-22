@@ -12,29 +12,30 @@ AppBar buildAppBar() {
       autofocus: true,
       readOnly: true,
       decoration: InputDecoration(
-          isCollapsed: true,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
-          fillColor: Colors.white,
-          filled: true,
-          hintText: '请输入搜索内容',
-          suffix: ElevatedButton.icon(
-            onPressed: () {
-              print("点击了搜索");
-              Get.toNamed("/Search");
-            },
-            icon: const Icon(Icons.search_outlined),
-            label: const Text("搜索"),
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40))),
-                elevation: MaterialStateProperty.all(0.0)),
-          )),
-      onTap: () {
-        print("点击了title");
-        Get.toNamed("/Search");
-      },
+        isCollapsed: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
+        fillColor: Colors.white,
+        filled: true,
+        hintText: '请输入搜索内容',
+        suffix: Container(
+            child: ElevatedButton.icon(
+          onPressed: () {
+            print("点击了搜索");
+            Get.toNamed("/search");
+          },
+          icon: const Icon(
+            Icons.search_outlined,
+          ),
+          label: const Text(
+            "搜索",
+          ),
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40))),
+              elevation: MaterialStateProperty.all(0.0)),
+        )),
+      ),
     ),
     actions: [
       Container(
@@ -48,10 +49,6 @@ AppBar buildAppBar() {
             size: 30.0,
           ),
         ),
-        // const Icon(
-        //   Icons.message,
-        //   size: 30.0,
-        // ),
         margin: const EdgeInsets.only(right: 8.0),
       )
     ],

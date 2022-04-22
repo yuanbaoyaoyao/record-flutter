@@ -23,6 +23,16 @@ import 'package:record_flutter/pages/old_consumables/old_consumables_binding.dar
 import 'package:record_flutter/pages/old_consumables/old_consumables_view.dart';
 import 'package:record_flutter/pages/search/search_binding.dart';
 import 'package:record_flutter/pages/search/search_view.dart';
+import 'package:record_flutter/pages/setting/setting_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_view.dart';
+import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_view.dart';
+import 'package:record_flutter/pages/setting/setting_details/password_management/password_management_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/password_management/password_management_view.dart';
+import 'package:record_flutter/pages/setting/setting_details/user_info/user_info_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/user_info/user_info_view.dart';
+import 'package:record_flutter/pages/setting/setting_view.dart';
 
 part 'app_routes.dart';
 
@@ -82,5 +92,25 @@ class AppPages {
         name: AppRoutes.ConsumablesDetail,
         page: () => ConsumablesDetailPage(),
         binding: ConsumablesDetailBinding()),
+    GetPage(
+        name: AppRoutes.Setting,
+        page: () => SettingPage(),
+        binding: SettingBinding()),
+    GetPage(
+        name: AppRoutes.UserInfo,
+        page: () => UserInfoPage(),
+        binding: UserInfoBinding()),
+    GetPage(
+        name: AppRoutes.AddressManagement,
+        page: () => AddressManagementPage(),
+        binding: AddressManagementBinding()),
+    GetPage(
+        name: AppRoutes.PasswordManagement,
+        page: () => PasswordManagementPage(),
+        binding: PasswordManagementBinding()),
+    GetPage(
+        name: AppRoutes.AboutMe,
+        page: () => AboutMePage(),
+        binding: AboutMeBinding()),
   ];
 }

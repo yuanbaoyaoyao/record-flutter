@@ -79,7 +79,7 @@ class CustomAppbarState extends State<CustomAppBar> {
               //             child: IconButton(
               //               onPressed: () {
               //                 print("点击了搜索");
-              //                 Get.toNamed("/Search");
+              //                 Get.toNamed("/search");
               //               },
               //               icon: const Icon(Icons.search),
               //             ),

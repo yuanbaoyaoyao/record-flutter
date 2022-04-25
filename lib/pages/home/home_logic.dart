@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../application/application_state.dart';
 import 'home_state.dart';
 
 class HomeLogic extends GetxController {
   final HomeState state = HomeState();
+  final ApplicationState appState = ApplicationState();
 
   late final ScrollController scrollController;
 
   late final PageController pageController;
+
 
   void handleHomeListNavBarTap(int index) {
     // print(index);
@@ -27,6 +30,7 @@ class HomeLogic extends GetxController {
     super.onInit();
     scrollController = ScrollController();
     scrollerAddListener();
+
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       state.sliderMaxValue = scrollController.position.maxScrollExtent;
     });

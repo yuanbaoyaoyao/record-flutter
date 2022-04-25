@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class HomeState {
+
   final _listPage = 0.obs;
 
   set listPage(value) => _listPage.value = value;

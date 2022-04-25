@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
+import 'package:record_flutter/common/widgets/red_dot_page.dart';
+import 'package:record_flutter/pages/application/application_logic.dart';
 import 'package:record_flutter/pages/home/widgets/home_classification.dart';
 import 'package:record_flutter/pages/home/widgets/home_new_old.dart';
 import 'package:record_flutter/pages/home/widgets/home_swiper.dart';
@@ -10,6 +12,7 @@ import 'home_logic.dart';
 
 class HomePage extends GetView<HomeLogic> {
   final logic = Get.find<HomeLogic>();
+  final appLogic = Get.find<ApplicationLogic>();
   final state = Get.find<HomeLogic>().state;
 
   @override
@@ -94,12 +97,32 @@ class HomePage extends GetView<HomeLogic> {
                           "这是剩余数量",
                           style: TextStyle(fontSize: 20.0),
                         ),
-                        Expanded(child: Text("")),
-                        IconButton(
-                            onPressed: () {
-                              print("点击了添加按钮");
-                            },
-                            icon: Icon(Icons.add_circle_outline)),
+                        const Expanded(child: Text("")),
+                        Builder(
+                          builder: (context) {
+                            return IconButton(
+                                onPressed: () {
+                                  print("点击了添加按钮");
+                                  OverlayEntry? _overlayEntry =
+                                      OverlayEntry(builder: (_) {
+                                    RenderBox? box = context.findRenderObject()
+                                        as RenderBox?;
+                                    var offset =
+                                        box!.localToGlobal(Offset.zero);
+                                    return RedDotPage(
+                                        startPosition: offset,
+                                        endPosition: appLogic.endOffset);
+                                  });
+                                  Overlay.of(context)?.insert(_overlayEntry);
+                                  Future.delayed(Duration(milliseconds: 800),
+                                      () {
+                                    _overlayEntry?.remove();
+                                    _overlayEntry = null;
+                                  });
+                                },
+                                icon: Icon(Icons.add_circle_outline));
+                          },
+                        )
                       ],
                     )
                   ],
@@ -122,16 +145,36 @@ class HomePage extends GetView<HomeLogic> {
                     Text("这是描述"),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "这是剩余数量",
                           style: TextStyle(fontSize: 20.0),
                         ),
-                        Expanded(child: Text("")),
-                        IconButton(
-                            onPressed: () {
-                              print("点击了添加按钮");
-                            },
-                            icon: Icon(Icons.add_circle_outline)),
+                        const Expanded(child: Text("")),
+                        Builder(
+                          builder: (context) {
+                            return IconButton(
+                                onPressed: () {
+                                  print("点击了添加按钮");
+                                  OverlayEntry? _overlayEntry =
+                                  OverlayEntry(builder: (_) {
+                                    RenderBox? box = context.findRenderObject()
+                                    as RenderBox?;
+                                    var offset =
+                                    box!.localToGlobal(Offset.zero);
+                                    return RedDotPage(
+                                        startPosition: offset,
+                                        endPosition: appLogic.endOffset);
+                                  });
+                                  Overlay.of(context)?.insert(_overlayEntry);
+                                  Future.delayed(Duration(milliseconds: 800),
+                                          () {
+                                        _overlayEntry?.remove();
+                                        _overlayEntry = null;
+                                      });
+                                },
+                                icon: Icon(Icons.add_circle_outline));
+                          },
+                        )
                       ],
                     )
                   ],
@@ -143,18 +186,27 @@ class HomePage extends GetView<HomeLogic> {
       });
 
   List<Widget> _buildListTextButton() => List.generate(4, (index) {
-        return InkWell(
-          onTap: () {
-            print("点击了图标$index");
-            state.listPage = index;
-          },
-          child: Column(
+        return InkWell(onTap: () {
+          print("点击了图标$index");
+          state.listPage = index;
+        }, child: Obx(() {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("第${index + 1}button"),
-              Text("button简介"),
+              Text(
+                "第${index + 1}button",
+                style: TextStyle(
+                    color:
+                        state.listPage == index ? Colors.blue : Colors.black),
+              ),
+              Text(
+                "button简介",
+                style: TextStyle(
+                    color:
+                        state.listPage == index ? Colors.blue : Colors.black),
+              ),
             ],
-          ),
-        );
+          );
+        }));
       });
 }

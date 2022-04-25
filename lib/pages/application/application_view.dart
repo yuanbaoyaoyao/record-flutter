@@ -4,9 +4,7 @@ import 'package:record_flutter/pages/cart/cart_view.dart';
 import 'package:record_flutter/pages/classification/classification_view.dart';
 import 'package:record_flutter/pages/home/home_view.dart';
 import 'package:record_flutter/pages/mine/mine_view.dart';
-import 'package:sp_util/sp_util.dart';
 
-import '../../res/constant.dart';
 import 'application_logic.dart';
 
 class ApplicationPage extends GetView<ApplicationLogic> {

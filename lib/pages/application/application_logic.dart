@@ -12,6 +12,8 @@ class ApplicationLogic extends GetxController {
 
   late final PageController pageController;
 
+  late final Offset endOffset;
+
   void handleBottomNavBarTap(int index) {
     // print(index);
     pageController.animateToPage(index,
@@ -28,6 +30,12 @@ class ApplicationLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
 
+    WidgetsBinding.instance?.addPostFrameCallback((c) {
+      // 获取「购物车」的位置
+      endOffset = (state.cartKey.currentContext!.findRenderObject() as RenderBox)
+          .localToGlobal(Offset.zero);
+    });
+
     tabTitles = ['首页', '分类', '购物车', '我的'];
     bottomTabs = <BottomNavigationBarItem>[
       const BottomNavigationBarItem(
@@ -40,7 +48,7 @@ class ApplicationLogic extends GetxController {
             color: Colors.lightBlueAccent,
           ),
           label: '首页'),
-      const BottomNavigationBarItem(
+       const BottomNavigationBarItem(
           icon: Icon(
             Icons.category,
             color: Colors.grey,
@@ -50,9 +58,10 @@ class ApplicationLogic extends GetxController {
             color: Colors.lightBlueAccent,
           ),
           label: '分类'),
-      const BottomNavigationBarItem(
+       BottomNavigationBarItem(
           icon: Icon(
             Icons.shopping_cart,
+            key: state.cartKey,
             color: Colors.grey,
           ),
           activeIcon: Icon(

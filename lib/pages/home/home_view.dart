@@ -18,72 +18,69 @@ class HomePage extends GetView<HomeLogic> {
       appBar: buildAppBar(),
       body: SingleChildScrollView(
         child: ScreenUtilInit(
-          designSize: const Size(375, 812),
-          builder: () => Column(
-            children: [
-              SizedBox(height: 200, child: buildHomeSwiper()),
-              buildHomeClassification(
-                context: context,
-                state: state,
-                logic: logic,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  buildNewOld(
-                    textTitle: "旧耗材",
-                    testDescription: "描述",
-                    onTapInfo: "剩余:8个",
-                  ),
-                  buildNewOld(
-                    textTitle: "新耗材",
-                    testDescription: "描述",
-                    onTapInfo: "剩余:8个",
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _buildListTextButton(),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
+            designSize: const Size(375, 812),
+            builder: () => Container(
+                color: Colors.grey,
                 child: Column(
                   children: [
+                    SizedBox(
+                        height: ScreenUtil().setHeight(200),
+                        child: buildHomeSwiper()),
                     Container(
+                      margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
+                      child: buildHomeClassification(
+                        context: context,
+                        state: state,
+                        logic: logic,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Icon(Icons.music_note),
-                          Text("为你推荐"),
-                          Icon(Icons.music_note),
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          buildNewOld(
+                            textTitle: "旧耗材",
+                            testDescription: "描述",
+                            onTapInfo: "剩余:8个",
+                          ),
+                          buildNewOld(
+                            textTitle: "新耗材",
+                            testDescription: "描述",
+                            onTapInfo: "剩余:8个",
+                          ),
                         ],
                       ),
-                      width: 180.0,
                     ),
-                    Column(
-                      children: _buildRecommendList(),
+                    Container(
+                      margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: _buildListTextButton(),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        children: _buildRecommendList(),
+                      ),
                     )
                   ],
-                ),
-              )
-            ],
-          ),
-        ),
+                ))),
       ),
     );
   }
 
   List<Widget> _buildRecommendList() => List.generate(8, (index) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            Get.toNamed("/consumables_detail");
-          },
-          child: Card(
-              child: Container(
-                width: ScreenUtil().screenWidth / 2.2,
+        return Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed("/consumables_detail");
+              },
+              child: Card(
+                  child: Container(
+                width: ScreenUtil().screenWidth / 2.1,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,14 +105,14 @@ class HomePage extends GetView<HomeLogic> {
                   ],
                 ),
               )),
-        ),
-        GestureDetector(
-          onTap: () {
-            Get.toNamed("/consumables_detail");
-          },
-          child: Card(
-              child: Container(
-                width: ScreenUtil().screenWidth / 2.2,
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed("/consumables_detail");
+              },
+              child: Card(
+                  child: Container(
+                width: ScreenUtil().screenWidth / 2.1,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,10 +137,10 @@ class HomePage extends GetView<HomeLogic> {
                   ],
                 ),
               )),
-        )
-      ],
-    );
-  });
+            )
+          ],
+        );
+      });
 
   List<Widget> _buildListTextButton() => List.generate(4, (index) {
         return InkWell(
@@ -152,12 +149,9 @@ class HomePage extends GetView<HomeLogic> {
             state.listPage = index;
           },
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextButton(
-                  onPressed: () {
-                    print("点击了分类");
-                  },
-                  child: Text("第${index + 1}button")),
+              Text("第${index + 1}button"),
               Text("button简介"),
             ],
           ),

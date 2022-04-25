@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:record_flutter/pages/application/application_binding.dart';
 import 'package:record_flutter/pages/application/application_view.dart';
+import 'package:record_flutter/pages/cart/cart_binding.dart';
+import 'package:record_flutter/pages/cart/cart_view.dart';
+import 'package:record_flutter/pages/classification/classification_binding.dart';
+import 'package:record_flutter/pages/classification/classification_view.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_binding.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_view.dart';
 import 'package:record_flutter/pages/message/feedback_message/feedback_message_binding.dart';
@@ -52,6 +56,10 @@ class AppPages {
         name: AppRoutes.Login,
         page: () => LoginPage(),
         binding: LoginBinding()),
+    GetPage(
+        name: AppRoutes.Cart,
+        page: () => CartPage(),
+        binding: CartBinding()),
     GetPage(
         name: AppRoutes.Search,
         page: () => SearchPage(),

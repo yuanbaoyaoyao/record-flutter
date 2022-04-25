@@ -11,7 +11,8 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      Scaffold(
       body: NestedScrollView(
         body: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification notification) {

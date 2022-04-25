@@ -29,34 +29,46 @@ class CartPage extends StatelessWidget {
                 ],
               ),
               body: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  Column(
-                    children: _buildCartItemList(),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              Icon(Icons.music_note),
-                              Text("为你推荐"),
-                              Icon(Icons.music_note),
-                            ],
+                  child: Container(
+                      color: Colors.grey,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(5)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(
+                                      ScreenUtil().setWidth(5))),
+                            ),
+                            child: Column(
+                              children: _buildCartItemList(),
+                            ),
                           ),
-                          width: 180.0,
-                        ),
-                        Column(
-                          children: _buildRecommendList(),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )),
+                          Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: const [
+                                      Icon(Icons.music_note),
+                                      Text("为你推荐"),
+                                      Icon(Icons.music_note),
+                                    ],
+                                  ),
+                                  width: 180.0,
+                                ),
+                                Column(
+                                  children: _buildRecommendList(),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ))),
               bottomNavigationBar: CustomBottomNavBar(),
             ));
   }
@@ -70,7 +82,7 @@ class CartPage extends StatelessWidget {
               },
               child: Card(
                   child: Container(
-                width: ScreenUtil().screenWidth / 2.2,
+                width: ScreenUtil().screenWidth / 2.1,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +114,7 @@ class CartPage extends StatelessWidget {
               },
               child: Card(
                   child: Container(
-                width: ScreenUtil().screenWidth / 2.2,
+                width: ScreenUtil().screenWidth / 2.1,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,9 +146,12 @@ class CartPage extends StatelessWidget {
 
   List<Widget> _buildCartItemList() => List.generate(4, (index) {
         return Container(
+          color: Colors.white,
+          margin: EdgeInsets.only(bottom: ScreenUtil().setWidth(0.5)),
           child: Row(
             children: [
               Container(
+                margin: EdgeInsets.only(bottom: ScreenUtil().setWidth(5)),
                 padding: const EdgeInsets.only(left: 10.0),
                 child: IconButton(
                     onPressed: () {

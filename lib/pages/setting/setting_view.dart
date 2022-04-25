@@ -15,14 +15,17 @@ class SettingPage extends StatelessWidget {
         title: Text("设置"),
         centerTitle: true,
       ),
-      body:
-      ScreenUtilInit(
+      body: ScreenUtilInit(
         builder: () {
           return Container(
+            color: Colors.grey,
             child: Column(
               children: [
                 InkWell(
                   child: Container(
+                    color: Colors.white,
+                    margin:
+                        EdgeInsets.only(bottom: ScreenUtil().setHeight(0.5)),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 5.0, vertical: 8.0),
                     child: Row(
@@ -44,6 +47,9 @@ class SettingPage extends StatelessWidget {
                 ),
                 InkWell(
                   child: Container(
+                    color: Colors.white,
+                    margin:
+                        EdgeInsets.only(bottom: ScreenUtil().setHeight(0.5)),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 5.0, vertical: 8.0),
                     child: Row(
@@ -65,6 +71,9 @@ class SettingPage extends StatelessWidget {
                 ),
                 InkWell(
                   child: Container(
+                    color: Colors.white,
+                    margin:
+                        EdgeInsets.only(bottom: ScreenUtil().setHeight(0.5)),
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
                     child: Row(
@@ -86,6 +95,9 @@ class SettingPage extends StatelessWidget {
                 ),
                 InkWell(
                   child: Container(
+                    color: Colors.white,
+                    margin:
+                        EdgeInsets.only(bottom: ScreenUtil().setHeight(0.5)),
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
                     child: Row(
@@ -105,21 +117,26 @@ class SettingPage extends StatelessWidget {
                     Get.toNamed("/about_me");
                   },
                 ),
+                InkWell(
+                  child: Container(
+                      width: ScreenUtil().screenWidth,
+                      alignment: Alignment.topCenter,
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: 10.0),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+                      child: const Text(
+                        "退出登录",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      )),
+                  onTap: () {
+                    print("点击了退出登录");
+                  },
+                ),
               ],
             ),
           );
         },
-      ),
-      bottomNavigationBar: ElevatedButton(
-        onPressed: () {
-          print("点击了退出登录");
-        },
-        child: Text("退出登录"),
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40))),
-            elevation: MaterialStateProperty.all(0.0)),
       ),
     );
   }

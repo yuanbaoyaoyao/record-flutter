@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -62,6 +63,23 @@ class AddressManagementPage extends StatelessWidget {
             ),
           );
         },
+      ),
+      bottomNavigationBar: ElevatedButton(
+        onPressed: () {
+          print("点击了新增地址");
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add,size: 15,),
+            Text("新建收货地址"),
+          ],
+        ),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40))),
+            elevation: MaterialStateProperty.all(0.0)),
       ),
     );
   }

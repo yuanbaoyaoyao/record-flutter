@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import '../../application/application_logic.dart';
 
 Widget buildHomeClassification({
   required context,
@@ -9,16 +11,14 @@ Widget buildHomeClassification({
 }) {
   return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 6.0),
       child: Column(
         children: [
           Container(
-            color: Colors.white,
             width: ScreenUtil().screenWidth,
-            margin: EdgeInsets.only(bottom: 0.0),
-            height: 130.0,
+            height: ScreenUtil().setHeight(170),
             child: ListView(
               controller: logic.scrollController,
               scrollDirection: Axis.horizontal,
@@ -64,44 +64,46 @@ Widget buildHomeClassification({
 
 List<Widget> _buildClassificationFirstFloorIconButton() =>
     List.generate(8, (index) {
+      final applicationLogic = Get.find<ApplicationLogic>();
       return InkWell(
-        onTap: () {
-          print("点击了图标");
-        },
-        child: Column(
-          children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 20.0,
+          onTap: () {
+            print("点击了图标");
+            applicationLogic.handlePageChanged(1);
+            applicationLogic.handleBottomNavBarTap(1);
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/logo.png",
+                  width: 50.0,
+                ),
+                Text("硒鼓")
+              ],
             ),
-            TextButton(
-                onPressed: () {
-                  print("点击了分类");
-                },
-                child: Text("硒鼓"))
-          ],
-        ),
-      );
+          ));
     });
 
 List<Widget> _buildClassificationSecondFloorIconButton() =>
     List.generate(8, (index) {
+      final applicationLogic = Get.find<ApplicationLogic>();
       return InkWell(
-        onTap: () {
-          print("点击了图标");
-        },
-        child: Column(
-          children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 20.0,
+          onTap: () {
+            print("点击了图标");
+            applicationLogic.handlePageChanged(1);
+            applicationLogic.handleBottomNavBarTap(1);
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/logo.png",
+                  width: 50.0,
+                ),
+                Text("硒鼓")
+              ],
             ),
-            TextButton(
-                onPressed: () {
-                  print("点击了分类");
-                },
-                child: Text("硒鼓"))
-          ],
-        ),
-      );
+          ));
     });

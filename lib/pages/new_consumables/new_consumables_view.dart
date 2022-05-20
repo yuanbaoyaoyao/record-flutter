@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/pages/new_consumables/widgets/custom_appbar.dart';
 
+import '../../common/widgets/red_dot_page.dart';
+import '../application/application_logic.dart';
 import 'new_consumables_logic.dart';
 
 class NewConsumablesPage extends StatelessWidget {
@@ -60,7 +62,6 @@ class NewConsumablesPage extends StatelessWidget {
                     )
                   ],
                 ),
-
                 Align(
                     alignment: Alignment.topCenter,
                     child: Column(
@@ -123,8 +124,9 @@ class NewConsumablesPage extends StatelessWidget {
             Get.toNamed("/cart");
           },
           backgroundColor: Colors.white,
-          child: const Icon(
+          child: Icon(
             Icons.shopping_cart,
+            key: state.oldNewCartKey,
             color: Colors.black,
           ),
         ),
@@ -134,6 +136,7 @@ class NewConsumablesPage extends StatelessWidget {
 
   List<Widget> _buildListRecommendNewConsumables() =>
       List.generate(10, (index) {
+        final appLogic = Get.find<ApplicationLogic>();
         return InkWell(
             onTap: () {
               print("点击了图标$index");
@@ -171,12 +174,36 @@ class NewConsumablesPage extends StatelessWidget {
                               children: [
                                 Text("这是剩余数量"),
                                 Expanded(child: Text("")),
-                                IconButton(
-                                    onPressed: () {
-                                      print("点击了加入购物车");
-                                    },
-                                    icon: const Icon(
-                                        Icons.add_circle_outline_outlined))
+                                Builder(
+                                  builder: (context) {
+                                    return IconButton(
+                                        onPressed: () {
+                                          print("点击了添加按钮");
+                                          OverlayEntry? _overlayEntry =
+                                              OverlayEntry(builder: (_) {
+                                            RenderBox? box =
+                                                context.findRenderObject()
+                                                    as RenderBox?;
+                                            var offset =
+                                                box!.localToGlobal(Offset.zero);
+                                            return RedDotPage(
+                                                startPosition: offset,
+                                                endPosition:
+                                                    appLogic.endOffset);
+                                          });
+                                          Overlay.of(context)
+                                              ?.insert(_overlayEntry);
+                                          Future.delayed(
+                                              Duration(milliseconds: 800), () {
+                                            _overlayEntry?.remove();
+                                            _overlayEntry = null;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add_circle_outline,
+                                        ));
+                                  },
+                                )
                               ],
                             ))
                       ],

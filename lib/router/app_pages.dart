@@ -26,6 +26,8 @@ import 'package:record_flutter/pages/no_auth/splash/splash_view.dart';
 import 'package:record_flutter/pages/old_consumables/old_consumables_binding.dart';
 import 'package:record_flutter/pages/old_consumables/old_consumables_view.dart';
 import 'package:record_flutter/pages/search/search_binding.dart';
+import 'package:record_flutter/pages/search/search_details/search_details_binding.dart';
+import 'package:record_flutter/pages/search/search_details/search_details_view.dart';
 import 'package:record_flutter/pages/search/search_view.dart';
 import 'package:record_flutter/pages/setting/setting_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_binding.dart';
@@ -64,6 +66,10 @@ class AppPages {
         name: AppRoutes.Search,
         page: () => SearchPage(),
         binding: SearchBinding()),
+    GetPage(
+        name: AppRoutes.SearchDetails,
+        page: () => SearchDetailsPage(),
+        binding: SearchDetailsBinding()),
     GetPage(
         name: AppRoutes.Register,
         page: () => RegisterPage(),

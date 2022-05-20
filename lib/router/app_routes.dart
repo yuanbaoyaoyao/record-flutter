@@ -7,6 +7,7 @@ abstract class AppRoutes {
   static const Login = '/login';
   static const Cart = '/cart';
   static const Search = '/search';
+  static const SearchDetails = '/search_details';
   static const Register = '/register';
   static const MessageBox = '/message_box';
   static const FeedbackMessage = '/feedback_message';

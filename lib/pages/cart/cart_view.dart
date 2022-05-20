@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../common/widgets/red_dot_page.dart';
+import '../application/application_logic.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 
 import 'cart_logic.dart';
@@ -74,6 +76,7 @@ class CartPage extends StatelessWidget {
   }
 
   List<Widget> _buildRecommendList() => List.generate(8, (index) {
+    final appLogic = Get.find<ApplicationLogic>();
         return Row(
           children: [
             GestureDetector(
@@ -97,11 +100,31 @@ class CartPage extends StatelessWidget {
                           style: TextStyle(fontSize: 20.0),
                         ),
                         Expanded(child: Text("")),
-                        IconButton(
-                            onPressed: () {
-                              print("点击了添加按钮");
-                            },
-                            icon: Icon(Icons.add_circle_outline)),
+                        Builder(
+                          builder: (context) {
+                            return IconButton(
+                                onPressed: () {
+                                  print("点击了添加按钮");
+                                  OverlayEntry? _overlayEntry =
+                                  OverlayEntry(builder: (_) {
+                                    RenderBox? box = context.findRenderObject()
+                                    as RenderBox?;
+                                    var offset =
+                                    box!.localToGlobal(Offset.zero);
+                                    return RedDotPage(
+                                        startPosition: offset,
+                                        endPosition: appLogic.endOffset);
+                                  });
+                                  Overlay.of(context)?.insert(_overlayEntry);
+                                  Future.delayed(Duration(milliseconds: 800),
+                                          () {
+                                        _overlayEntry?.remove();
+                                        _overlayEntry = null;
+                                      });
+                                },
+                                icon: Icon(Icons.add_circle_outline));
+                          },
+                        )
                       ],
                     )
                   ],
@@ -129,11 +152,31 @@ class CartPage extends StatelessWidget {
                           style: TextStyle(fontSize: 20.0),
                         ),
                         Expanded(child: Text("")),
-                        IconButton(
-                            onPressed: () {
-                              print("点击了添加按钮");
-                            },
-                            icon: Icon(Icons.add_circle_outline)),
+                        Builder(
+                          builder: (context) {
+                            return IconButton(
+                                onPressed: () {
+                                  print("点击了添加按钮");
+                                  OverlayEntry? _overlayEntry =
+                                  OverlayEntry(builder: (_) {
+                                    RenderBox? box = context.findRenderObject()
+                                    as RenderBox?;
+                                    var offset =
+                                    box!.localToGlobal(Offset.zero);
+                                    return RedDotPage(
+                                        startPosition: offset,
+                                        endPosition: appLogic.endOffset);
+                                  });
+                                  Overlay.of(context)?.insert(_overlayEntry);
+                                  Future.delayed(Duration(milliseconds: 800),
+                                          () {
+                                        _overlayEntry?.remove();
+                                        _overlayEntry = null;
+                                      });
+                                },
+                                icon: Icon(Icons.add_circle_outline));
+                          },
+                        )
                       ],
                     )
                   ],

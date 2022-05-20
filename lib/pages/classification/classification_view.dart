@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
 
+import '../../common/widgets/red_dot_page.dart';
+import '../application/application_logic.dart';
 import 'classification_logic.dart';
 
 class ClassificationPage extends GetView<ClassificationLogic> {
@@ -21,7 +22,7 @@ class ClassificationPage extends GetView<ClassificationLogic> {
             Expanded(
                 child: Container(
               color: Colors.white,
-              child: _rightCatePageView(),
+              child: rightCatePageView(),
             )),
           ],
         ),
@@ -30,7 +31,7 @@ class ClassificationPage extends GetView<ClassificationLogic> {
   }
 }
 
-Widget _rightCatePageView() {
+Widget rightCatePageView() {
   return Column(
     children: [
       Container(
@@ -70,6 +71,8 @@ Widget _rightCatePageView() {
 }
 
 Widget _buildConsumables() {
+  final appLogic = Get.find<ApplicationLogic>();
+
   //listView.builder
   return Flexible(
     child: ListView.builder(
@@ -92,11 +95,31 @@ Widget _buildConsumables() {
                         children: [
                           Text("数量"),
                           Expanded(child: Text("")),
-                          IconButton(
-                              onPressed: () {
-                                print("点击了iconButton");
-                              },
-                              icon: Icon(Icons.add_circle_outline_outlined)),
+                          Builder(
+                            builder: (context) {
+                              return IconButton(
+                                  onPressed: () {
+                                    print("点击了添加按钮");
+                                    OverlayEntry? _overlayEntry =
+                                        OverlayEntry(builder: (_) {
+                                      RenderBox? box = context
+                                          .findRenderObject() as RenderBox?;
+                                      var offset =
+                                          box!.localToGlobal(Offset.zero);
+                                      return RedDotPage(
+                                          startPosition: offset,
+                                          endPosition: appLogic.endOffset);
+                                    });
+                                    Overlay.of(context)?.insert(_overlayEntry);
+                                    Future.delayed(Duration(milliseconds: 800),
+                                        () {
+                                      _overlayEntry?.remove();
+                                      _overlayEntry = null;
+                                    });
+                                  },
+                                  icon: Icon(Icons.add_circle_outline));
+                            },
+                          )
                         ],
                       )
                     ],
@@ -128,17 +151,24 @@ Widget _leftInkWell(int index) {
   return InkWell(
     child: Obx(() {
       return Container(
-        decoration: BoxDecoration(
-          color: state.navActive[index] ? Colors.white : Colors.grey,
-          // border: Border.all(color: Colors.grey, width: 1),
-          // borderRadius: const BorderRadius.only(
-          //     topRight: Radius.circular(5.0),
-          //     bottomRight: Radius.circular(5.0))
-        ),
-        height: ScreenUtil().setHeight(60),
-        padding: const EdgeInsets.only(left: 15, top: 20),
-        child: const Text("123"),
-      );
+          decoration: BoxDecoration(
+            color: state.navActive[index] ? Colors.white : Colors.grey,
+          ),
+          height: ScreenUtil().setHeight(60),
+          child: Container(
+            alignment: Alignment.center,
+            child: const Text("222"),
+            height: ScreenUtil().setHeight(40),
+            margin: const EdgeInsets.symmetric(vertical: 10.0),
+            decoration: BoxDecoration(
+                border: Border(
+                    left: BorderSide(
+                        width: 5.0,
+                        color: state.navActive[index]
+                            ? Colors.black
+                            : Colors.grey)),
+                color: Colors.blueAccent),
+          ));
     }),
     onTap: () {
       print("点击了种类");

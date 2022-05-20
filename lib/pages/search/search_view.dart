@@ -28,6 +28,7 @@ class SearchPage extends GetView<SearchLogic> {
               onPressed: () {
                 print("点击了搜索");
                 print("搜索内容为:${controller.textSearchEditingController.text}");
+                Get.offNamed("/search_details");
                 if (controller.textSearchEditingController.text != "") {
                   controller.putSearchHistory(
                       controller.textSearchEditingController.text);

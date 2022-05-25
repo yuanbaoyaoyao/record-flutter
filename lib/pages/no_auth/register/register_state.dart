@@ -2,12 +2,28 @@ import 'package:get/get.dart';
 
 class RegisterState {
   final _hasNameContent = false.obs;
-  final _hasAccountContent = false.obs;
+  final _hasEmailContent = false.obs;
+  final _hasEmailCodeContent = false.obs;
+  final _hasTapSendEmailButton = false.obs;
   final _hasPassWordContent = false.obs;
 
-  set hasAccountContent(value) => _hasAccountContent.value = value;
+  final _countDown = 0.obs;
 
-  get hasAccountContent => _hasAccountContent.value;
+  set countDown(value) => _countDown.value = value;
+
+  get countDown => _countDown.value;
+
+  set hasEmailContent(value) => _hasEmailContent.value = value;
+
+  get hasEmailContent => _hasEmailContent.value;
+
+  set hasEmailCodeContent(value) => _hasEmailCodeContent.value = value;
+
+  get hasEmailCodeContent => _hasEmailCodeContent.value;
+
+  set hasTapSendEmailButton(value) => _hasTapSendEmailButton.value = value;
+
+  get hasTapSendEmailButton => _hasTapSendEmailButton.value;
 
   set hasNameContent(value) => _hasNameContent.value = value;
 

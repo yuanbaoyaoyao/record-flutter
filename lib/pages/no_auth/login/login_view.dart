@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:record_flutter/common/utils/toast_util.dart';
 
 import 'login_logic.dart';
 
@@ -17,15 +19,6 @@ class LoginPage extends GetView<LoginLogic> {
               "assets/images/logo.png",
               width: 160.0,
             ),
-            // Container(
-            //   margin: const EdgeInsets.only(top: (5.0)),
-            //   child: const Text(
-            //     '耗材管理系统',
-            //     style: TextStyle(
-            //       fontSize: 50.0,
-            //     ),
-            //   ),
-            // ),
           ],
         ));
   }
@@ -43,7 +36,7 @@ class LoginPage extends GetView<LoginLogic> {
                 TextFormField(
                     controller: controller.textAccountEditingController,
                     decoration: InputDecoration(
-                        hintText: '请输入邮箱',
+                        hintText: '请输入邮箱/用户名',
                         suffixIcon: Obx(() {
                           return Visibility(
                             visible: controller.state.hasAccountContent,
@@ -63,51 +56,48 @@ class LoginPage extends GetView<LoginLogic> {
                       } else {
                         controller.state.hasAccountContent = false;
                       }
-                    }
-                    // validator: (String? value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return '请输入密码';
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // }
-                    ),
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入邮箱';
+                      } else {
+                        return null;
+                      }
+                    }),
                 TextFormField(
-                  controller: controller.textPasswordEditingController,
-                  obscuringCharacter: "*",
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: '请输入密码',
-                      suffixIcon:
-                      Obx(() {
-                        return Visibility(
-                          visible: controller.state.hasPassWordContent,
-                          child: IconButton(
-                            icon: const FaIcon(FontAwesomeIcons.circleXmark,
-                                color: Color.fromRGBO(142, 142, 142, 1.0)),
-                            onPressed: () {
-                              controller.textPasswordEditingController.clear();
-                              controller.state.hasPassWordContent = false;
-                            },
-                          ),
-                        );
-                      })
-                  ),
-                  onChanged: (text) {
-                    if (text.isNotEmpty) {
-                      controller.state.hasPassWordContent = true;
-                    } else {
-                      controller.state.hasPassWordContent = false;
-                    }
-                  },
-                  // validator: (String? value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '请输入密码';
-                  //   } else {
-                  //     return null;
-                  //   }
-                  // }
-                ),
+                    controller: controller.textPasswordEditingController,
+                    obscuringCharacter: "*",
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: '请输入密码',
+                        suffixIcon: Obx(() {
+                          return Visibility(
+                            visible: controller.state.hasPassWordContent,
+                            child: IconButton(
+                              icon: const FaIcon(FontAwesomeIcons.circleXmark,
+                                  color: Color.fromRGBO(142, 142, 142, 1.0)),
+                              onPressed: () {
+                                controller.textPasswordEditingController
+                                    .clear();
+                                controller.state.hasPassWordContent = false;
+                              },
+                            ),
+                          );
+                        })),
+                    onChanged: (text) {
+                      if (text.isNotEmpty) {
+                        controller.state.hasPassWordContent = true;
+                      } else {
+                        controller.state.hasPassWordContent = false;
+                      }
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入密码';
+                      } else {
+                        return null;
+                      }
+                    }),
               ],
             ),
           ),
@@ -121,8 +111,7 @@ class LoginPage extends GetView<LoginLogic> {
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  Get.offNamed("/application");
-                  print("点击了登录");
+                  controller.handleLogin();
                 }
               },
               child: const Text('登录'),
@@ -179,7 +168,7 @@ class LoginPage extends GetView<LoginLogic> {
                   child: IconButton(
                     icon: const FaIcon(FontAwesomeIcons.qq),
                     onPressed: () {
-                      print("点击了QQ");
+                      ToastUtil().showToast("暂不支持QQ登录");
                     },
                   ),
                 ),
@@ -188,7 +177,7 @@ class LoginPage extends GetView<LoginLogic> {
                   child: IconButton(
                     icon: const FaIcon(FontAwesomeIcons.weixin),
                     onPressed: () {
-                      print("点击了微信");
+                      ToastUtil().showToast("暂不支持微信登录");
                     },
                   ),
                 ),
@@ -200,23 +189,33 @@ class LoginPage extends GetView<LoginLogic> {
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.find<LoginLogic>();
-    final state = Get.find<LoginLogic>().state;
-
-    return Scaffold(
-      body: GestureDetector(
-        // onTap: () => Get.offAndToNamed(AppRoutes.Application),
-
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _buildLogo(),
-              _buildInputBox(),
-              _buildLoginBottom()
-            ],
-          ),
-        ),
-      ),
-    );
+    return ScreenUtilInit(
+        builder: () => Scaffold(
+                body: SizedBox(
+              height: ScreenUtil().screenHeight,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: ScreenUtil().setHeight(30.0),
+                    width: ScreenUtil().screenWidth,
+                    child: GestureDetector(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            _buildLogo(),
+                            _buildInputBox(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    child: _buildLoginBottom(),
+                    bottom: ScreenUtil().setHeight(60.0),
+                  )
+                ],
+              ),
+            )));
   }
 }

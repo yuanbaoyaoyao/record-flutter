@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -17,19 +18,11 @@ class RegisterPage extends GetView<RegisterLogic> {
               width: 160.0,
             ),
             const Text(
-              "注册页面",
-              style: TextStyle(fontSize: 30.0,
+              "注册账号",
+              style: TextStyle(
+                fontSize: 30.0,
               ),
             )
-            // Container(
-            //   margin: const EdgeInsets.only(top: (5.0)),
-            //   child: const Text(
-            //     '耗材管理系统',
-            //     style: TextStyle(
-            //       fontSize: 50.0,
-            //     ),
-            //   ),
-            // ),
           ],
         ));
   }
@@ -67,81 +60,137 @@ class RegisterPage extends GetView<RegisterLogic> {
                       } else {
                         controller.state.hasNameContent = false;
                       }
-                    }
-                    // validator: (String? value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return '请输入密码';
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // }
-                    ),
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入名字';
+                      } else {
+                        return null;
+                      }
+                    }),
                 TextFormField(
-                    controller: controller.textAccountEditingController,
+                    controller: controller.textEmailEditingController,
                     decoration: InputDecoration(
                         hintText: '请输入邮箱',
                         suffixIcon: Obx(() {
                           return Visibility(
-                            visible: controller.state.hasAccountContent,
+                              visible: controller.state.hasEmailContent,
+                              child: SizedBox(
+                                width: ScreenUtil().screenWidth / 2.8,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Visibility(
+                                      visible: controller.state.countDown == 0,
+                                      child: TextButton(
+                                          onPressed: () {
+                                            controller.handleSendEmailCode();
+                                          },
+                                          child: const Text("发送验证码")),
+                                    ),
+                                    Obx(() {
+                                      return Visibility(
+                                          visible:
+                                              controller.state.countDown > 0,
+                                          child: Text(
+                                              "剩余${controller.state.countDown}秒重发"));
+                                    }),
+                                    IconButton(
+                                      icon: const FaIcon(
+                                          FontAwesomeIcons.circleXmark,
+                                          color: Color.fromRGBO(
+                                              142, 142, 142, 1.0)),
+                                      onPressed: () {
+                                        controller.textEmailEditingController
+                                            .clear();
+                                        controller.state.hasEmailContent =
+                                            false;
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ));
+                        })),
+                    onChanged: (text) {
+                      if (text.isNotEmpty) {
+                        controller.state.hasEmailContent = true;
+                      } else {
+                        controller.state.hasEmailContent = false;
+                      }
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入邮箱';
+                      } else {
+                        return null;
+                      }
+                    }),
+                TextFormField(
+                    controller: controller.textEmailCodeEditingController,
+                    decoration: InputDecoration(
+                        hintText: '请输入邮箱验证码',
+                        suffixIcon: Obx(() {
+                          return Visibility(
+                            visible: controller.state.hasEmailCodeContent,
                             child: IconButton(
                               icon: const FaIcon(FontAwesomeIcons.circleXmark,
                                   color: Color.fromRGBO(142, 142, 142, 1.0)),
                               onPressed: () {
-                                controller.textAccountEditingController.clear();
-                                controller.state.hasAccountContent = false;
+                                controller.textEmailCodeEditingController
+                                    .clear();
+                                controller.state.hasEmailCodeContent = false;
                               },
                             ),
                           );
                         })),
                     onChanged: (text) {
                       if (text.isNotEmpty) {
-                        controller.state.hasAccountContent = true;
+                        controller.state.hasEmailCodeContent = true;
                       } else {
-                        controller.state.hasAccountContent = false;
+                        controller.state.hasEmailCodeContent = false;
                       }
-                    }
-                    // validator: (String? value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return '请输入密码';
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // }
-                    ),
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入邮箱验证码';
+                      } else {
+                        return null;
+                      }
+                    }),
                 TextFormField(
-                  controller: controller.textPasswordEditingController,
-                  obscuringCharacter: "*",
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: '请输入密码',
-                      suffixIcon: Obx(() {
-                        return Visibility(
-                          visible: controller.state.hasPassWordContent,
-                          child: IconButton(
-                            icon: const FaIcon(FontAwesomeIcons.circleXmark,
-                                color: Color.fromRGBO(142, 142, 142, 1.0)),
-                            onPressed: () {
-                              controller.textPasswordEditingController.clear();
-                              controller.state.hasPassWordContent = false;
-                            },
-                          ),
-                        );
-                      })),
-                  onChanged: (text) {
-                    if (text.isNotEmpty) {
-                      controller.state.hasPassWordContent = true;
-                    } else {
-                      controller.state.hasPassWordContent = false;
-                    }
-                  },
-                  // validator: (String? value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '请输入密码';
-                  //   } else {
-                  //     return null;
-                  //   }
-                  // }
-                ),
+                    controller: controller.textPasswordEditingController,
+                    obscuringCharacter: "*",
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: '请输入密码',
+                        suffixIcon: Obx(() {
+                          return Visibility(
+                            visible: controller.state.hasPassWordContent,
+                            child: IconButton(
+                              icon: const FaIcon(FontAwesomeIcons.circleXmark,
+                                  color: Color.fromRGBO(142, 142, 142, 1.0)),
+                              onPressed: () {
+                                controller.textPasswordEditingController
+                                    .clear();
+                                controller.state.hasPassWordContent = false;
+                              },
+                            ),
+                          );
+                        })),
+                    onChanged: (text) {
+                      if (text.isNotEmpty) {
+                        controller.state.hasPassWordContent = true;
+                      } else {
+                        controller.state.hasPassWordContent = false;
+                      }
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '请输入密码';
+                      } else {
+                        return null;
+                      }
+                    }),
               ],
             ),
           ),
@@ -154,9 +203,8 @@ class RegisterPage extends GetView<RegisterLogic> {
                     const Size(double.infinity, 40.0)),
               ),
               onPressed: () {
-                // Get.offNamed("/application");
                 if (_formKey.currentState!.validate()) {
-                  print("点击了创建账号");
+                  controller.handleRegister();
                 }
               },
               child: const Text('创建账号'),
@@ -169,21 +217,20 @@ class RegisterPage extends GetView<RegisterLogic> {
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.find<RegisterLogic>();
-    final state = Get.find<RegisterLogic>().state;
-
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: const Color.fromRGBO(250, 250, 250, 1.0),
           elevation: 0.0,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildLogo(),
-              _buildInputBox(),
-            ],
+        body: ScreenUtilInit(
+          builder: () => SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildLogo(),
+                _buildInputBox(),
+              ],
+            ),
           ),
         ));
   }

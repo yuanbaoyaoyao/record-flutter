@@ -15,6 +15,8 @@ import 'package:record_flutter/pages/message/notification_message/notification_m
 import 'package:record_flutter/pages/message/notification_message/notification_message_view.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_binding.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_view.dart';
+import 'package:record_flutter/pages/mine/mine_details/orders/orders_binding.dart';
+import 'package:record_flutter/pages/mine/mine_details/orders/orders_view.dart';
 import 'package:record_flutter/pages/new_consumables/new_consumables_binding.dart';
 import 'package:record_flutter/pages/new_consumables/new_consumables_view.dart';
 import 'package:record_flutter/pages/no_auth/login/login_binding.dart';
@@ -29,6 +31,10 @@ import 'package:record_flutter/pages/search/search_binding.dart';
 import 'package:record_flutter/pages/search/search_details/search_details_binding.dart';
 import 'package:record_flutter/pages/search/search_details/search_details_view.dart';
 import 'package:record_flutter/pages/search/search_view.dart';
+import 'package:record_flutter/pages/search_orders/search_orders_binding.dart';
+import 'package:record_flutter/pages/search_orders/search_orders_details/search_orders_details_binding.dart';
+import 'package:record_flutter/pages/search_orders/search_orders_details/search_orders_details_view.dart';
+import 'package:record_flutter/pages/search_orders/search_orders_view.dart';
 import 'package:record_flutter/pages/setting/setting_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_view.dart';
@@ -126,5 +132,17 @@ class AppPages {
         name: AppRoutes.AboutMe,
         page: () => AboutMePage(),
         binding: AboutMeBinding()),
+    GetPage(
+        name: AppRoutes.Orders,
+        page: () => OrdersPage(),
+        binding: OrdersBinding()),
+    GetPage(
+        name: AppRoutes.SearchOrders,
+        page: () => SearchOrdersPage(),
+        binding: SearchOrdersBinding()),
+    GetPage(
+        name: AppRoutes.SearchOrdersDetails,
+        page: () => SearchOrdersDetailsPage(),
+        binding: SearchOrdersDetailsBinding()),
   ];
 }

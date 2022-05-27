@@ -16,7 +16,7 @@ Widget buildHomeClassification({
       margin: const EdgeInsets.symmetric(horizontal: 6.0),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().setHeight(170),
             child: ListView(

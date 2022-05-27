@@ -3,5 +3,7 @@ class Constant {
 
   static const String searchHistory = 'searchHistory';
 
+  static const String searchOrdersHistory = 'searchOrdersHistory';
+
   static const baseURL = '';
 }

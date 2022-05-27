@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ConsumablesDetailState {
+//  试试PageStorageKey
   final headerWKey = GlobalKey();
   final evaluateWKey = GlobalKey();
   final detailWKey = GlobalKey();

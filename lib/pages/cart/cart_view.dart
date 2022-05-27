@@ -20,14 +20,22 @@ class CartPage extends StatelessWidget {
                 title: const Text("购物车"),
                 centerTitle: true,
                 actions: [
-                  TextButton(
-                      onPressed: () {
-                        print("点击了编辑按钮");
-                      },
-                      child: const Text(
-                        "编辑",
-                        style: TextStyle(color: Colors.white),
-                      ))
+                  Obx(() {
+                    return TextButton(
+                        onPressed: () {
+                          state.isEditing = !state.isEditing;
+                          print("state.isEditing:${state.isEditing}");
+                        },
+                        child: state.isEditing
+                            ? const Text(
+                                "编辑",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            : const Text(
+                                "完成",
+                                style: TextStyle(color: Colors.white),
+                              ));
+                  })
                 ],
               ),
               body: SingleChildScrollView(
@@ -76,7 +84,7 @@ class CartPage extends StatelessWidget {
   }
 
   List<Widget> _buildRecommendList() => List.generate(8, (index) {
-    final appLogic = Get.find<ApplicationLogic>();
+        final appLogic = Get.find<ApplicationLogic>();
         return Row(
           children: [
             GestureDetector(
@@ -106,21 +114,21 @@ class CartPage extends StatelessWidget {
                                 onPressed: () {
                                   print("点击了添加按钮");
                                   OverlayEntry? _overlayEntry =
-                                  OverlayEntry(builder: (_) {
+                                      OverlayEntry(builder: (_) {
                                     RenderBox? box = context.findRenderObject()
-                                    as RenderBox?;
+                                        as RenderBox?;
                                     var offset =
-                                    box!.localToGlobal(Offset.zero);
+                                        box!.localToGlobal(Offset.zero);
                                     return RedDotPage(
                                         startPosition: offset,
                                         endPosition: appLogic.endOffset);
                                   });
                                   Overlay.of(context)?.insert(_overlayEntry);
                                   Future.delayed(Duration(milliseconds: 800),
-                                          () {
-                                        _overlayEntry?.remove();
-                                        _overlayEntry = null;
-                                      });
+                                      () {
+                                    _overlayEntry?.remove();
+                                    _overlayEntry = null;
+                                  });
                                 },
                                 icon: Icon(Icons.add_circle_outline));
                           },
@@ -158,21 +166,21 @@ class CartPage extends StatelessWidget {
                                 onPressed: () {
                                   print("点击了添加按钮");
                                   OverlayEntry? _overlayEntry =
-                                  OverlayEntry(builder: (_) {
+                                      OverlayEntry(builder: (_) {
                                     RenderBox? box = context.findRenderObject()
-                                    as RenderBox?;
+                                        as RenderBox?;
                                     var offset =
-                                    box!.localToGlobal(Offset.zero);
+                                        box!.localToGlobal(Offset.zero);
                                     return RedDotPage(
                                         startPosition: offset,
                                         endPosition: appLogic.endOffset);
                                   });
                                   Overlay.of(context)?.insert(_overlayEntry);
                                   Future.delayed(Duration(milliseconds: 800),
-                                          () {
-                                        _overlayEntry?.remove();
-                                        _overlayEntry = null;
-                                      });
+                                      () {
+                                    _overlayEntry?.remove();
+                                    _overlayEntry = null;
+                                  });
                                 },
                                 icon: Icon(Icons.add_circle_outline));
                           },

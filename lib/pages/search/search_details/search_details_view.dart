@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 import '../../../common/widgets/red_dot_page.dart';
 import 'search_details_logic.dart';
 
-class SearchDetailsPage extends GetView<SearchDetailsLogic> {
-  final logic = Get.find<SearchDetailsLogic>();
-  final state = Get.find<SearchDetailsLogic>().state;
+final logic = Get.find<SearchDetailsLogic>();
+final state = Get.find<SearchDetailsLogic>().state;
 
+class SearchDetailsPage extends GetView<SearchDetailsLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: () => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(),
         body: rightCatePageView(),
         floatingActionButton: FloatingActionButton(
@@ -33,45 +34,10 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
   }
 
   Widget rightCatePageView() {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 10.0),
-          decoration: const BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: Colors.black26, width: 1))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    print("点击了TextButton");
-                  },
-                  child: Text("综合")),
-              TextButton(
-                  onPressed: () {
-                    print("点击了TextButton");
-                  },
-                  child: Text("销量")),
-              TextButton(
-                  onPressed: () {
-                    print("点击了TextButton");
-                  },
-                  child: Text("库存量")),
-              TextButton(
-                  onPressed: () {
-                    print("点击了TextButton");
-                  },
-                  child: Text("筛选")),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          child: Column(
-            children: _buildConsumables(),
-          ),
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: _buildConsumables(),
+      ),
     );
   }
 
@@ -129,8 +95,6 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
           },
         );
       });
-
-//listView.builder
 }
 
 AppBar _buildAppBar() {
@@ -162,5 +126,19 @@ AppBar _buildAppBar() {
         Get.toNamed("/search");
       },
     ),
+    bottom: TabBar(
+        controller: logic.tabController,
+        isScrollable: false,
+        indicatorSize: TabBarIndicatorSize.label,
+        tabs: _buildTabsItemsList()),
   );
 }
+
+List<Widget> _buildTabsItemsList() => List.generate(4, (index) {
+      return Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Text("${state.tabs[index]}"),
+      );
+    });

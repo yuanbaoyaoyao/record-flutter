@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'search_logic.dart';
+import 'search_orders_logic.dart';
 
-class SearchPage extends GetView<SearchLogic> {
-  final logic = Get.find<SearchLogic>();
-  final state = Get.find<SearchLogic>().state;
+class SearchOrdersPage extends GetView<SearchOrdersLogic> {
+  final logic = Get.find<SearchOrdersLogic>();
+  final state = Get.find<SearchOrdersLogic>().state;
 
   AppBar _buildAppBar() {
     return AppBar(
       leadingWidth: 30.0,
       title: TextFormField(
-        controller: controller.textSearchEditingController,
+        controller: controller.textSearchOrdersEditingController,
         decoration: InputDecoration(
             isCollapsed: true,
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
+            const EdgeInsets.symmetric(horizontal: 5, vertical: -3),
             border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
+            OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
             fillColor: Colors.white,
             filled: true,
             hintText: '请输入搜索内容',
             suffix: ElevatedButton.icon(
               onPressed: () {
                 Get.offNamed("/search_details");
-                if (controller.textSearchEditingController.text != "") {
-                  controller.putSearchHistory(
-                      controller.textSearchEditingController.text);
+                if (controller.textSearchOrdersEditingController.text != "") {
+                  controller.putSearchOrdersHistory(
+                      controller.textSearchOrdersEditingController.text);
                 }
               },
               icon: const Icon(Icons.search_outlined),
@@ -49,7 +49,7 @@ class SearchPage extends GetView<SearchLogic> {
       children: [
         Obx(() {
           return Visibility(
-            visible: controller.state.hasHistory,
+            visible: controller.state.hasOrdersHistory,
             child: Column(
               children: [
                 Row(
@@ -61,23 +61,23 @@ class SearchPage extends GetView<SearchLogic> {
                     //撑开
                     const Expanded(child: Text("")),
                     Visibility(
-                      visible: !state.onDeleteHistory,
+                      visible: !state.onDeleteOrdersHistory,
                       child: IconButton(
                           onPressed: () {
-                            state.onDeleteHistory = true;
+                            state.onDeleteOrdersHistory = true;
                           },
                           icon: const Icon(Icons.delete)),
                     ),
                     Visibility(
-                        visible: state.onDeleteHistory,
+                        visible: state.onDeleteOrdersHistory,
                         child: Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               TextButton(
                                   onPressed: () {
-                                    logic.clearSearchHistory();
-                                    state.onDeleteHistory = false;
+                                    logic.clearSearchOrdersHistory();
+                                    state.onDeleteOrdersHistory = false;
                                   },
                                   child: const Text("全部删除",
                                       style: TextStyle(
@@ -86,7 +86,7 @@ class SearchPage extends GetView<SearchLogic> {
                               const Text("|"),
                               TextButton(
                                   onPressed: () {
-                                    state.onDeleteHistory = false;
+                                    state.onDeleteOrdersHistory = false;
                                   },
                                   child: const Text(
                                     "完成",
@@ -101,7 +101,7 @@ class SearchPage extends GetView<SearchLogic> {
                     children: [
                       Obx(() {
                         return Visibility(
-                          visible: !state.onDeleteHistory,
+                          visible: !state.onDeleteOrdersHistory,
                           child: Wrap(
                             children: _buildActionHistoryChip(),
                           ),
@@ -109,7 +109,7 @@ class SearchPage extends GetView<SearchLogic> {
                       }),
                       Obx(() {
                         return Visibility(
-                          visible: state.onDeleteHistory,
+                          visible: state.onDeleteOrdersHistory,
                           child: Wrap(
                             children: _buildHistoryChip(),
                           ),
@@ -129,11 +129,11 @@ class SearchPage extends GetView<SearchLogic> {
   }
 
   List<Widget> _buildActionHistoryChip() =>
-      List.generate(controller.state.searchHistory.length, (index) {
+      List.generate(controller.state.searchOrdersHistory.length, (index) {
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
           child: ActionChip(
-              label: Text("${controller.state.searchHistory[index]}"),
+              label: Text("${controller.state.searchOrdersHistory[index]}"),
               onPressed: () {
                 print("点击了标签");
               }),
@@ -141,15 +141,15 @@ class SearchPage extends GetView<SearchLogic> {
       });
 
   List<Widget> _buildHistoryChip() =>
-      List.generate(controller.state.searchHistory.length, (index) {
+      List.generate(controller.state.searchOrdersHistory.length, (index) {
         return Container(
             margin: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
             child: Chip(
-              label: Text("${controller.state.searchHistory[index]}"),
+              label: Text("${controller.state.searchOrdersHistory[index]}"),
               deleteIcon: const Icon(Icons.close),
               onDeleted: () {
-                logic.deleteOneSearchHistory(
-                    controller.state.searchHistory[index]);
+                logic.deleteOneSearchOrdersHistory(
+                    controller.state.searchOrdersHistory[index]);
               },
             ));
       });
@@ -162,3 +162,4 @@ class SearchPage extends GetView<SearchLogic> {
     );
   }
 }
+

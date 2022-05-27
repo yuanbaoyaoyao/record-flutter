@@ -22,4 +22,7 @@ abstract class AppRoutes {
   static const PasswordManagement = '/password_management';
   static const AboutMe = '/about_me';
   static const Application = '/application';
+  static const Orders = '/orders';
+  static const SearchOrders = '/search_orders';
+  static const SearchOrdersDetails = '/search_orders_details';
 }

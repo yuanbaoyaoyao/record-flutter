@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sp_util/sp_util.dart';
 
-import '../../res/constant.dart';
+import '../../../res/constant.dart';
+import '../home_logic.dart';
 
-AppBar buildAppBar() {
+AppBar buildHomeAppBar() {
+  final logic = Get.find<HomeLogic>();
+  final state = Get.find<HomeLogic>().state;
   return AppBar(
     leading: null,
     automaticallyImplyLeading: false,
@@ -19,7 +22,8 @@ AppBar buildAppBar() {
         filled: true,
         hintText: '请输入搜索内容',
         suffix: Container(
-            child: ElevatedButton.icon(
+            child:
+            ElevatedButton.icon(
           onPressed: () {
             Get.toNamed("/search");
           },
@@ -33,7 +37,8 @@ AppBar buildAppBar() {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40))),
               elevation: MaterialStateProperty.all(0.0)),
-        )),
+        )
+        ),
       ),
     ),
     actions: [
@@ -51,5 +56,37 @@ AppBar buildAppBar() {
         margin: const EdgeInsets.only(right: 8.0),
       )
     ],
+    bottom:
+    TabBar(
+      controller: logic.tabController,
+      isScrollable: false,
+      indicatorSize: TabBarIndicatorSize.label,
+      tabs: [
+        Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: const Text("第一button"),
+        ),
+        Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: const Text("第二button"),
+        ),
+        Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: const Text("第三button"),
+        ),
+        Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: const Text("第四button"),
+        ),
+      ],
+    ),
   );
 }

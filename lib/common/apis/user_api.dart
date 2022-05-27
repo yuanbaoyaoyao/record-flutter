@@ -26,13 +26,14 @@ class UserAPI {
     return response;
   }
 
-  static Future<UserInfoEntity> login({
+  static Future login({
     required UserLoginEntity params,
   }) async {
     params.password = EncryptionUtil().generateMD5(params.password);
-    var response =
-        await HttpUtil().post('/auth/client/login', data: params.toJson());
-    return UserInfoEntity.fromJson(response);
+    var response = await HttpUtil().post(
+        UrlConstant.debugShiroIp + '/auth/client/login',
+        data: params.toJson());
+    return response;
   }
 
   static Future<UserInfoEntity> getUserInfo() async {

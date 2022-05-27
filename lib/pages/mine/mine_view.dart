@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import '../../common/widgets/red_dot_page.dart';
 import '../application/application_logic.dart';
 import 'mine_logic.dart';
+import 'widgets/order_widget.dart';
+import 'widgets/service_widget.dart';
 
 class MinePage extends StatelessWidget {
   final logic = Get.find<MineLogic>();
@@ -44,28 +46,32 @@ class MinePage extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 15.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey),
-                          child: ClipOval(
-                            child: Image.asset(
-                              "assets/images/dingding.png",
-                              height: 60,
-                              width: 60,
-                              fit: BoxFit.contain,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 20.0),
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/user_info");
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 15.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.grey),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  "assets/images/dingding.png",
+                                  height: 60,
+                                  width: 60,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                             ),
-                          ),
+                            const Text("这是名称")
+                          ],
                         ),
-                        const Text("这是名称")
-                      ],
-                    ),
-                  ),
+                      )),
                   orderWidget(),
                   serviceWidget(),
                   Container(
@@ -207,351 +213,4 @@ class MinePage extends StatelessWidget {
           ],
         );
       });
-
-  Widget serviceWidget() {
-    return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: ScreenUtil().setWidth(5),
-          vertical: ScreenUtil().setHeight(5)),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: ScreenUtil().setWidth(5.0)),
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
-                color: Colors.white),
-            height: ScreenUtil().setHeight(40),
-            child: Row(
-              children: [
-                Text(
-                  "我的服务",
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ],
-            ),
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(5)),
-                  color: Colors.white),
-              height: ScreenUtil().setHeight(150),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10.0),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(10.0),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(10.0),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(10.0),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: TextButton(
-                            onPressed: () {
-                              print("点击了待确认");
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.library_add_check_outlined,
-                                  size: ScreenUtil().setWidth(20),
-                                ),
-                                Text(
-                                  "待确认",
-                                  style: TextStyle(
-                                      fontSize: ScreenUtil().setWidth(12)),
-                                )
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ],
-              ))
-        ],
-      ),
-    );
-  }
-
-  Widget orderWidget() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
-      child: Column(
-        children: [
-          SizedBox(
-              height: ScreenUtil().setHeight(40),
-              child: Container(
-                padding: EdgeInsets.only(left: ScreenUtil().setWidth(5.0)),
-                decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(5)),
-                    color: Colors.white),
-                child: Row(
-                  children: [
-                    const Text(
-                      "全部订单",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    Expanded(child: Text("")),
-                    TextButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          shadowColor: MaterialStateProperty.all(Colors.white)),
-                      onPressed: () {
-                        print("点击了查看全部订单");
-                      },
-                      child: Row(
-                        children: const [
-                          Text(
-                            "查看全部订单",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          Icon(
-                            Icons.chevron_right,
-                            color: Colors.grey,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )),
-          Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(5)),
-                color: Colors.white),
-            height: ScreenUtil().setHeight(80),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: TextButton(
-                      onPressed: () {
-                        print("点击了待确认");
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.library_add_check_outlined,
-                            size: ScreenUtil().setWidth(20),
-                          ),
-                          Text(
-                            "待确认",
-                            style:
-                                TextStyle(fontSize: ScreenUtil().setWidth(12)),
-                          )
-                        ],
-                      )),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: TextButton(
-                      onPressed: () {
-                        print("点击了待确认");
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.library_add_check_outlined,
-                            size: ScreenUtil().setWidth(20),
-                          ),
-                          Text(
-                            "待确认",
-                            style:
-                                TextStyle(fontSize: ScreenUtil().setWidth(12)),
-                          )
-                        ],
-                      )),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: TextButton(
-                      onPressed: () {
-                        print("点击了待确认");
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.library_add_check_outlined,
-                            size: ScreenUtil().setWidth(20),
-                          ),
-                          Text(
-                            "待确认",
-                            style:
-                                TextStyle(fontSize: ScreenUtil().setWidth(12)),
-                          )
-                        ],
-                      )),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: TextButton(
-                      onPressed: () {
-                        print("点击了待确认");
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.library_add_check_outlined,
-                            size: ScreenUtil().setWidth(20),
-                          ),
-                          Text(
-                            "待确认",
-                            style:
-                                TextStyle(fontSize: ScreenUtil().setWidth(12)),
-                          )
-                        ],
-                      )),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }

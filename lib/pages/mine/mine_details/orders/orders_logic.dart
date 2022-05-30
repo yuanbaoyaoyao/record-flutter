@@ -15,4 +15,5 @@ class OrdersLogic extends GetxController
     super.onInit();
     tabController = TabController(length: state.tabs.length, vsync: this);
   }
+
 }

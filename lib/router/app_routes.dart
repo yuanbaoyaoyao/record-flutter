@@ -23,6 +23,10 @@ abstract class AppRoutes {
   static const AboutMe = '/about_me';
   static const Application = '/application';
   static const Orders = '/orders';
+  static const OrderDetail = '/order_detail';
+  static const Collections = '/collections';
+  //申请
+  static const Applications = '/applications';
   static const SearchOrders = '/search_orders';
   static const SearchOrdersDetails = '/search_orders_details';
 }

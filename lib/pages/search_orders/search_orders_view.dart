@@ -20,10 +20,10 @@ class SearchOrdersPage extends GetView<SearchOrdersLogic> {
             OutlineInputBorder(borderRadius: BorderRadius.circular(40.0)),
             fillColor: Colors.white,
             filled: true,
-            hintText: '请输入搜索内容',
+            hintText: '商品名称/订单编号',
             suffix: ElevatedButton.icon(
               onPressed: () {
-                Get.offNamed("/search_details");
+                Get.offNamed("/search_orders_details");
                 if (controller.textSearchOrdersEditingController.text != "") {
                   controller.putSearchOrdersHistory(
                       controller.textSearchOrdersEditingController.text);

@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class CartState {
+class CollectionsState {
+  GlobalKey collectionKey = GlobalKey();
 
   final _isEditing = false.obs;
 

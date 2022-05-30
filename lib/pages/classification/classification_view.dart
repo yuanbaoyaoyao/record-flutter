@@ -75,7 +75,8 @@ Widget _buildConsumables() {
 
   //listView.builder
   return Flexible(
-    child: ListView.builder(
+    child:
+    ListView.builder(
         itemCount: 8,
         itemBuilder: (context, index) => GestureDetector(
               child: Row(

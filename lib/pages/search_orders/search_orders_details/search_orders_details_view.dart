@@ -9,6 +9,11 @@ class SearchOrdersDetailsPage extends StatelessWidget {
     final logic = Get.find<SearchOrdersDetailsLogic>();
     final state = Get.find<SearchOrdersDetailsLogic>().state;
 
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Text("这是订单详情页"),
+      ),
+    );
   }
 }

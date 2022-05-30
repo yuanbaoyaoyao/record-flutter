@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 Widget serviceWidget() {
   return Container(
@@ -27,7 +29,7 @@ Widget serviceWidget() {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(5)),
                 color: Colors.white),
-            height: ScreenUtil().setHeight(150),
+            height: ScreenUtil().setHeight(80),
             child: Column(
               children: [
                 Row(
@@ -37,16 +39,17 @@ Widget serviceWidget() {
                       margin: const EdgeInsets.all(10.0),
                       child: TextButton(
                           onPressed: () {
-                            print("点击了待确认");
+                            print("点击了收藏");
+                            Get.toNamed("/collections");
                           },
                           child: Column(
                             children: [
                               Icon(
-                                Icons.library_add_check_outlined,
+                                Icons.stars,
                                 size: ScreenUtil().setWidth(20),
                               ),
                               Text(
-                                "待确认",
+                                "收藏",
                                 style: TextStyle(
                                     fontSize: ScreenUtil().setWidth(12)),
                               )
@@ -57,16 +60,17 @@ Widget serviceWidget() {
                       margin: const EdgeInsets.all(10.0),
                       child: TextButton(
                           onPressed: () {
-                            print("点击了待确认");
+                            print("点击了收货地址");
+                            Get.toNamed("/address_management");
                           },
                           child: Column(
                             children: [
                               Icon(
-                                Icons.library_add_check_outlined,
+                                Icons.edit_location_outlined,
                                 size: ScreenUtil().setWidth(20),
                               ),
                               Text(
-                                "待确认",
+                                "收货地址",
                                 style: TextStyle(
                                     fontSize: ScreenUtil().setWidth(12)),
                               )
@@ -77,16 +81,17 @@ Widget serviceWidget() {
                       margin: const EdgeInsets.all(10.0),
                       child: TextButton(
                           onPressed: () {
-                            print("点击了待确认");
+                            print("点击了我的反馈");
+                            Get.toNamed("/feedback_message");
                           },
                           child: Column(
                             children: [
                               Icon(
-                                Icons.library_add_check_outlined,
+                                Icons.comment_outlined,
                                 size: ScreenUtil().setWidth(20),
                               ),
                               Text(
-                                "待确认",
+                                "我的反馈",
                                 style: TextStyle(
                                     fontSize: ScreenUtil().setWidth(12)),
                               )
@@ -97,101 +102,17 @@ Widget serviceWidget() {
                       margin: const EdgeInsets.all(10.0),
                       child: TextButton(
                           onPressed: () {
-                            print("点击了待确认");
+                            print("点击了直接申请耗材");
+                            Get.toNamed("/applications");
                           },
                           child: Column(
                             children: [
                               Icon(
-                                Icons.library_add_check_outlined,
+                                FontAwesomeIcons.penToSquare,
                                 size: ScreenUtil().setWidth(20),
                               ),
                               Text(
-                                "待确认",
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setWidth(12)),
-                              )
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: TextButton(
-                          onPressed: () {
-                            print("点击了待确认");
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.library_add_check_outlined,
-                                size: ScreenUtil().setWidth(20),
-                              ),
-                              Text(
-                                "待确认",
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setWidth(12)),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: TextButton(
-                          onPressed: () {
-                            print("点击了待确认");
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.library_add_check_outlined,
-                                size: ScreenUtil().setWidth(20),
-                              ),
-                              Text(
-                                "待确认",
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setWidth(12)),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: TextButton(
-                          onPressed: () {
-                            print("点击了待确认");
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.library_add_check_outlined,
-                                size: ScreenUtil().setWidth(20),
-                              ),
-                              Text(
-                                "待确认",
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setWidth(12)),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: TextButton(
-                          onPressed: () {
-                            print("点击了待确认");
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.library_add_check_outlined,
-                                size: ScreenUtil().setWidth(20),
-                              ),
-                              Text(
-                                "待确认",
+                                "直接申请",
                                 style: TextStyle(
                                     fontSize: ScreenUtil().setWidth(12)),
                               )

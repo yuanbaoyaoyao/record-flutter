@@ -19,7 +19,7 @@ AppBar buildOrdersAppBar() {
         child:
         IconButton(
           onPressed: () {
-            Get.toNamed("/message_box");
+            Get.toNamed("/search_orders");
           },
           icon: const Icon(
             Icons.search,

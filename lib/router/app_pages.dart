@@ -15,6 +15,13 @@ import 'package:record_flutter/pages/message/notification_message/notification_m
 import 'package:record_flutter/pages/message/notification_message/notification_message_view.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_binding.dart';
 import 'package:record_flutter/pages/message/order_message/order_message_view.dart';
+import 'package:record_flutter/pages/mine/mine_details/applications/applications_binding.dart';
+import 'package:record_flutter/pages/mine/mine_details/applications/applications_view.dart';
+import 'package:record_flutter/pages/mine/mine_details/collections/collections_binding.dart';
+import 'package:record_flutter/pages/mine/mine_details/collections/collections_logic.dart';
+import 'package:record_flutter/pages/mine/mine_details/collections/collections_view.dart';
+import 'package:record_flutter/pages/mine/mine_details/orders/order_detail/order_detail_binding.dart';
+import 'package:record_flutter/pages/mine/mine_details/orders/order_detail/order_detail_view.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/orders_binding.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/orders_view.dart';
 import 'package:record_flutter/pages/new_consumables/new_consumables_binding.dart';
@@ -137,6 +144,10 @@ class AppPages {
         page: () => OrdersPage(),
         binding: OrdersBinding()),
     GetPage(
+        name: AppRoutes.OrderDetail,
+        page: () => OrderDetailPage(),
+        binding: OrderDetailBinding()),
+    GetPage(
         name: AppRoutes.SearchOrders,
         page: () => SearchOrdersPage(),
         binding: SearchOrdersBinding()),
@@ -144,5 +155,13 @@ class AppPages {
         name: AppRoutes.SearchOrdersDetails,
         page: () => SearchOrdersDetailsPage(),
         binding: SearchOrdersDetailsBinding()),
+    GetPage(
+        name: AppRoutes.Collections,
+        page: () => CollectionsPage(),
+        binding: CollectionsBinding()),
+    GetPage(
+        name: AppRoutes.Applications,
+        page: () => ApplicationsPage(),
+        binding: ApplicationsBinding()),
   ];
 }

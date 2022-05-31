@@ -16,7 +16,7 @@ class SettingPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ScreenUtilInit(
-        builder: () {
+        builder: (context , child) {
           return Container(
             color: Colors.grey,
             child: Column(
@@ -123,8 +123,8 @@ class SettingPage extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       color: Colors.white,
                       margin: EdgeInsets.only(top: 10.0),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 8.0),
                       child: const Text(
                         "退出登录",
                         style: TextStyle(fontSize: 16, color: Colors.red),
@@ -140,7 +140,4 @@ class SettingPage extends StatelessWidget {
       ),
     );
   }
-// Widget _buildBottomButton(){
-//   return
-// }
 }

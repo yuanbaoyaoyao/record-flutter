@@ -15,7 +15,7 @@ class OldConsumablesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: () => Scaffold(
+      builder: (context , child) => Scaffold(
         body: NestedScrollView(
           body: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {

@@ -12,7 +12,7 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: () => Scaffold(
+      builder: (context , child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(),
         body: rightCatePageView(),

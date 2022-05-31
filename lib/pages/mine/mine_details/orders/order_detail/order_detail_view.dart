@@ -17,7 +17,7 @@ class OrderDetailPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: ScreenUtilInit(
-          builder: () {
+          builder: (context , child) {
             return SingleChildScrollView(
               child: Column(
                 children: [

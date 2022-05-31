@@ -14,7 +14,7 @@ class ClassificationPage extends GetView<ClassificationLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: () => Scaffold(
+      builder: (context , child) => Scaffold(
         appBar: buildAppBar(),
         body: Row(
           children: [

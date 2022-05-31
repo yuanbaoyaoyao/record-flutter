@@ -15,7 +15,7 @@ class OrdersPage extends StatelessWidget {
     return Scaffold(
         appBar: buildOrdersAppBar(),
         body: ScreenUtilInit(
-          builder: () {
+          builder: (context , child) {
             return Container(
                 color: Colors.grey,
                 child: MediaQuery.removePadding(

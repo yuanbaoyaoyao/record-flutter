@@ -39,7 +39,7 @@ class MinePage extends StatelessWidget {
           ],
         ),
         body: ScreenUtilInit(
-          builder: () {
+          builder: (context , child) {
             return SingleChildScrollView(
                 child: Container(
               color: Colors.grey,

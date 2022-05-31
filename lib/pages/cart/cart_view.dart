@@ -15,7 +15,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        builder: () => Scaffold(
+        builder: (context , child) => Scaffold(
               appBar: AppBar(
                 title: const Text("购物车"),
                 centerTitle: true,

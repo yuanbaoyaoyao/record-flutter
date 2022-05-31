@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'user_info_logic.dart';
 
 class UserInfoPage extends StatelessWidget {
-
   final logic = Get.find<UserInfoLogic>();
   final state = Get.find<UserInfoLogic>().state;
 
@@ -17,7 +16,7 @@ class UserInfoPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ScreenUtilInit(
-        builder: () {
+        builder: (context , child) {
           return Container(
             child: Column(
               children: [

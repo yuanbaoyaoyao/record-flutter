@@ -1,8 +1,7 @@
 part of 'app_pages.dart';
 
 abstract class AppRoutes {
-  // static const Index = '/index';
-  // static const Index = '/application';
+
   static const INITIAL = '/';
   static const Login = '/login';
   static const Cart = '/cart';
@@ -25,8 +24,10 @@ abstract class AppRoutes {
   static const Orders = '/orders';
   static const OrderDetail = '/order_detail';
   static const Collections = '/collections';
+
   //申请
   static const Applications = '/applications';
   static const SearchOrders = '/search_orders';
   static const SearchOrdersDetails = '/search_orders_details';
+  static const AddressManagementDetails = '/address_management_details';
 }

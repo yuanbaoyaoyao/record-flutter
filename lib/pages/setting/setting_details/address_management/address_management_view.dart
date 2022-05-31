@@ -17,7 +17,7 @@ class AddressManagementPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ScreenUtilInit(
-        builder: () {
+        builder: (context , child) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Column(
@@ -57,6 +57,7 @@ class AddressManagementPage extends StatelessWidget {
                   ),
                   onTap: () {
                     print("点击了个人信息");
+                    Get.toNamed("/address_management_details");
                   },
                 ),
               ],
@@ -67,11 +68,15 @@ class AddressManagementPage extends StatelessWidget {
       bottomNavigationBar: ElevatedButton(
         onPressed: () {
           print("点击了新增地址");
+          //使用address_management_details一样的模板
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add,size: 15,),
+            Icon(
+              Icons.add,
+              size: 15,
+            ),
             Text("新建收货地址"),
           ],
         ),

@@ -46,6 +46,8 @@ import 'package:record_flutter/pages/setting/setting_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/about_me/about_me_view.dart';
 import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_details/address_management_details_binding.dart';
+import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_details/address_management_details_view.dart';
 import 'package:record_flutter/pages/setting/setting_details/address_management/address_management_view.dart';
 import 'package:record_flutter/pages/setting/setting_details/password_management/password_management_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/password_management/password_management_view.dart';
@@ -72,9 +74,7 @@ class AppPages {
         page: () => LoginPage(),
         binding: LoginBinding()),
     GetPage(
-        name: AppRoutes.Cart,
-        page: () => CartPage(),
-        binding: CartBinding()),
+        name: AppRoutes.Cart, page: () => CartPage(), binding: CartBinding()),
     GetPage(
         name: AppRoutes.Search,
         page: () => SearchPage(),
@@ -163,5 +163,9 @@ class AppPages {
         name: AppRoutes.Applications,
         page: () => ApplicationsPage(),
         binding: ApplicationsBinding()),
+    GetPage(
+        name: AppRoutes.AddressManagementDetails,
+        page: () => AddressManagementDetailsPage(),
+        binding: AddressManagementDetailsBinding()),
   ];
 }

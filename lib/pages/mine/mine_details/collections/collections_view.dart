@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/pages/mine/mine_details/collections/widgets/custom_bottom_nav_bar.dart';
 
 import '../../../../common/widgets/red_dot_page.dart';
 import 'collections_logic.dart';
@@ -31,29 +32,37 @@ class CollectionsPage extends StatelessWidget {
           ],
         ),
         body: ScreenUtilInit(
-          builder: () {
+          builder: (context , child) {
             return SingleChildScrollView(
                 child: Column(
               children: _buildListRecommendNewConsumables(),
             ));
           },
         ),
-        floatingActionButton: Obx(() {
-          return Visibility(
-            visible: !state.isEditing,
-            child: FloatingActionButton(
-              onPressed: () {
-                // Add your onPressed code here!
-                print("点击了购物车");
-                Get.toNamed("/cart");
-              },
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.shopping_cart,
-                key: state.collectionKey,
-                color: Colors.black,
+        floatingActionButton: Obx(
+          () {
+            return Visibility(
+              visible: !state.isEditing,
+              child: FloatingActionButton(
+                onPressed: () {
+                  // Add your onPressed code here!
+                  print("点击了购物车");
+                  Get.toNamed("/cart");
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.shopping_cart,
+                  key: state.collectionKey,
+                  color: Colors.black,
+                ),
               ),
-            ),
+            );
+          },
+        ),
+        bottomNavigationBar: Obx(() {
+          return Visibility(
+            visible: state.isEditing,
+            child: CustomBottomNavBar(),
           );
         }));
   }

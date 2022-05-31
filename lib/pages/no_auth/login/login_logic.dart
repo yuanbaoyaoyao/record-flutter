@@ -31,4 +31,12 @@ class LoginLogic extends GetxController {
     await UserAPI.login(params: params);
     Get.offNamed("/application");
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    textAccountEditingController.dispose();
+    textPasswordEditingController.dispose();
+  }
 }

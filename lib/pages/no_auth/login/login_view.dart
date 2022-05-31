@@ -24,7 +24,8 @@ class LoginPage extends GetView<LoginLogic> {
   }
 
   Widget _buildInputBox() {
-    return Form(
+    return
+      Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +191,7 @@ class LoginPage extends GetView<LoginLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        builder: () => Scaffold(
+        builder: (context , child) => Scaffold(
                 body: SizedBox(
               height: ScreenUtil().screenHeight,
               child: Stack(

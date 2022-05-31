@@ -25,7 +25,7 @@ class HomePage extends GetView<HomeLogic> {
           controller: logic.tabsScrollController,
           child: ScreenUtilInit(
               designSize: const Size(375, 812),
-              builder: () => Container(
+              builder: (context , child) => Container(
                   color: Colors.grey,
                   child:
                   Column(

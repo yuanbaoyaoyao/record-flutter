@@ -17,7 +17,7 @@ class ApplicationsLogic extends GetxController {
 
   late final TextEditingController textDescriptionEditingController;
 
-  final ImagePicker picker = ImagePicker();
+  final ImagePicker imagePicker = ImagePicker();
 
   @override
   void onInit() {
@@ -34,8 +34,18 @@ class ApplicationsLogic extends GetxController {
     textDescriptionEditingController = TextEditingController();
   }
 
-  Future handleGetImage()async{
-    // await ImagePic
+  Future handleGetImage(BuildContext context) async {
+    late XFile? image;
+    if (state.isGallery == true) {
+      image = await imagePicker.pickImage(source: ImageSource.gallery);
+      state.isGallery = false;
+    }else if(state.isCamera == true){
+      image = await imagePicker.pickImage(source: ImageSource.camera);
+      state.isGallery = false;
+    }
+    if (image != null) {
+      Navigator.pop(context);
+    }
   }
 
   @override

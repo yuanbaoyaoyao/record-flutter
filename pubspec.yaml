@@ -88,6 +88,7 @@ flutter:
     - assets/images/mock/88a4.png
     - assets/images/mock/88a5.png
     - assets/images/mock/88a6.png
+    - assets/images/no_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

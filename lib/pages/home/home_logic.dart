@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/common/apis/front_show_api.dart';
 
 import '../application/application_state.dart';
 import 'home_state.dart';
@@ -18,13 +20,11 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
 
   void handleHomeListNavBarTap(int index) {
-    // print(index);
     pageController.animateToPage(index,
         duration: const Duration(microseconds: 300), curve: Curves.bounceIn);
   }
 
   void handlePageChanged(int listPage) {
-    // print(page);
     state.listPage = listPage;
   }
 
@@ -42,11 +42,12 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
       state.sliderMaxValue = scrollController.position.maxScrollExtent;
       state.tabsSliderMaxValue = tabsScrollController.position.maxScrollExtent;
       subInitState();
-      print("123");
-      print("tabs初始化位置为：${state.tabsSliderValue}");
+      log("123");
+      log("tabs初始化位置为：${state.tabsSliderValue}");
     });
     pageController = PageController();
     tabController = TabController(length: state.tabs.length, vsync: this);
+    getRotationList();
   }
 
   void subInitState() {
@@ -61,8 +62,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
   void scrollerAddListener() {
     scrollController.addListener(() {
       state.sliderValue = scrollController.position.pixels;
-      print(
-          "_scrollController.position.pixels:${scrollController.position.pixels}");
+      log("_scrollController.position.pixels:${scrollController.position.pixels}");
     });
   }
 
@@ -72,15 +72,29 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
       var of = tabsScrollController.position.pixels +
           MediaQuery.of(Get.context!).padding.top +
           50.0;
-      print("of:::::" + of.toString());
-      print("state.tabsSliderValue");
-      print(state.tabsSliderValue);
+      log("of:::::" + of.toString());
+      log("state.tabsSliderValue");
+      log(state.tabsSliderValue);
 
       if (of > state.tabsSliderValue) {
         state.showTab = true;
       } else {
         state.showTab = false;
       }
+    });
+  }
+
+  void getRotationList() async {
+    await FrontShowAPI.listFrontShowRotationAPI().then((value) {
+      log(value.data.length.toString());
+      for (var data in value.data) {
+        log("productSkusId:" + data.productSkusId.toString());
+        log("productSkusName:" + data.productSkusName);
+        log("productName:" + data.productName);
+        log("avatar:" + data.avatar);
+      }
+      state.rotations = value.data;
+      log("state.rotations.avatar:"+state.rotations[0].avatar);
     });
   }
 

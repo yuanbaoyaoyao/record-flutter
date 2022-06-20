@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class RegisterLogic extends GetxController {
   }
 
   void handleRegister() async {
-    print("触发了handleRegister");
+    log("触发了handleRegister");
     UserRegisterEntity params = UserRegisterEntity(
         name: textNameEditingController.text,
         password: textPasswordEditingController.text,

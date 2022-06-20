@@ -127,7 +127,7 @@ class HttpUtil {
         bool noCache = !CacheConstant.cacheEnable,
         bool list = false,
         String cacheKey = '',
-        bool cacheDisk = false,
+        bool cacheDisk = false, data,
       }) async {
     Options requestOptions = options ?? Options();
     requestOptions.extra ??= {};

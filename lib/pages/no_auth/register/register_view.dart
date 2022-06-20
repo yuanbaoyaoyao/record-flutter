@@ -224,7 +224,7 @@ class RegisterPage extends GetView<RegisterLogic> {
           elevation: 0.0,
         ),
         body: ScreenUtilInit(
-          builder: (context , child) => SingleChildScrollView(
+          builder: (context, child) => SingleChildScrollView(
             child: Column(
               children: [
                 _buildLogo(),

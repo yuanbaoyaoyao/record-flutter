@@ -1,4 +1,6 @@
 //修改
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:record_flutter/common/constant/url_constant.dart';
 import 'package:record_flutter/common/entities/user_entity.dart';
@@ -30,6 +32,7 @@ class UserAPI {
     required UserLoginEntity params,
   }) async {
     params.password = EncryptionUtil().generateMD5(params.password);
+    log("params.password:"+params.password);
     var response = await HttpUtil().post(
         UrlConstant.debugShiroIp + '/auth/client/login',
         data: params.toJson());

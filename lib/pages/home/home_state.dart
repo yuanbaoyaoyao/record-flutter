@@ -8,6 +8,8 @@ class HomeState {
 
   List tabs = ["第一button", "第二button", "第三button", "第四button"];
 
+  List rotations = [];
+
   final _listPage = 0.obs;
   final _tabsSliderValue = 0.0.obs;
   final _tabsSliderMaxValue = 0.0.obs;

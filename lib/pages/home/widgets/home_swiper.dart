@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../home_logic.dart';
+
 Widget buildHomeSwiper() {
+  final logic = Get.find<HomeLogic>();
+  final state = Get.find<HomeLogic>().state;
   return Container(
       width: ScreenUtil().screenWidth,
       margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), 0,
@@ -14,13 +18,13 @@ Widget buildHomeSwiper() {
           color: Colors.white),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return Image.asset(
-            "assets/images/mock/88a${index + 1}.png",
-            fit: BoxFit.contain,
+          return Image.network(
+            state.rotations[index].avatar,
+            fit: BoxFit.cover,
           );
         },
         autoplay: true,
-        itemCount: 5,
+        itemCount: state.rotations.length,
         pagination: const SwiperPagination(
           builder: DotSwiperPaginationBuilder(
             color: Colors.blueGrey,

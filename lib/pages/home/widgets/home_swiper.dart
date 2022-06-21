@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,25 +18,28 @@ Widget buildHomeSwiper() {
           borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(ScreenUtil().setWidth(5))),
           color: Colors.white),
-      child: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return Image.network(
-            state.rotations[index].avatar,
-            fit: BoxFit.cover,
-          );
-        },
-        autoplay: true,
-        itemCount: state.rotations.length,
-        pagination: const SwiperPagination(
-          builder: DotSwiperPaginationBuilder(
-            color: Colors.blueGrey,
-            activeColor: Colors.blue,
+      child: Obx(() {
+        return Swiper(
+          itemBuilder: (BuildContext context, int index) {
+            return Image.network(
+              state.rotations[index].avatar,
+              fit: BoxFit.cover,
+            );
+          },
+          autoplay: true,
+          itemCount: state.rotations.length,
+          // itemCount: 4,
+          pagination: const SwiperPagination(
+            builder: DotSwiperPaginationBuilder(
+              color: Colors.blueGrey,
+              activeColor: Colors.blue,
+            ),
           ),
-        ),
-        controller: SwiperController(),
-        onTap: (index) {
-          print("点击了第${index}个");
-          Get.toNamed("/consumables_detail");
-        },
-      ));
+          controller: SwiperController(),
+          onTap: (index) {
+            log("点击了${state.rotations[index].avatar}");
+            Get.toNamed("/consumables_detail");
+          },
+        );
+      }));
 }

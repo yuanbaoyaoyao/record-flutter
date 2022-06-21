@@ -6,7 +6,7 @@ import '../constant/url_constant.dart';
 import '../entities/front_show_entity.dart';
 import '../utils/http_util.dart';
 
-class FrontShowAPI {
+class UserAddressAPI {
   static String request = '/client/userAddress/';
 
   static Future listUserAddressAPI({required int userId}) async {

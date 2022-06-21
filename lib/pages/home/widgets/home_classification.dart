@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../application/application_logic.dart';
+import '../home_logic.dart';
+
+final logic = Get.find<HomeLogic>();
+final state = Get.find<HomeLogic>().state;
 
 Widget buildHomeClassification({
   required context,
-  required state,
-  required logic,
 }) {
   return Card(
       shape: RoundedRectangleBorder(
@@ -18,19 +22,23 @@ Widget buildHomeClassification({
         children: [
           SizedBox(
             width: ScreenUtil().screenWidth,
-            height: ScreenUtil().setHeight(170),
+            height: ScreenUtil().setHeight(165),
             child: ListView(
               controller: logic.scrollController,
               scrollDirection: Axis.horizontal,
               children: [
                 Column(
                   children: [
-                    Wrap(
-                      children: _buildClassificationFirstFloorIconButton(),
-                    ),
-                    Wrap(
-                      children: _buildClassificationSecondFloorIconButton(),
-                    )
+                    Obx(() {
+                      return Wrap(
+                        children: _buildClassificationFirstFloorIconButton(),
+                      );
+                    }),
+                    Obx(() {
+                      return Wrap(
+                        children: _buildClassificationSecondFloorIconButton(),
+                      );
+                    })
                   ],
                 )
               ],
@@ -38,7 +46,8 @@ Widget buildHomeClassification({
             ),
           ),
           Obx(() {
-            return Container(
+            return Visibility(
+                child: Container(
               margin: const EdgeInsets.all(0.0),
               width: 5.0,
               height: 15.0,
@@ -52,18 +61,17 @@ Widget buildHomeClassification({
                     value: state.sliderValue,
                     max: state.sliderMaxValue,
                     onChanged: (value) {
-                      print("$value");
                       state.sliderValue = value;
                     }),
               ),
-            );
+            ));
           })
         ],
       ));
 }
 
 List<Widget> _buildClassificationFirstFloorIconButton() =>
-    List.generate(8, (index) {
+    List.generate((state.products.length / 2).toInt(), (index) {
       final applicationLogic = Get.find<ApplicationLogic>();
       return InkWell(
           onTap: () {
@@ -75,35 +83,42 @@ List<Widget> _buildClassificationFirstFloorIconButton() =>
             margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             child: Column(
               children: [
-                Image.asset(
-                  "assets/images/logo.png",
+                Image.network(
+                  state.products[index].avatar,
                   width: 50.0,
+                  height: 50.0,
+                  fit: BoxFit.cover,
                 ),
-                Text("硒鼓")
+                Text(state.products[index].title)
               ],
             ),
           ));
     });
 
-List<Widget> _buildClassificationSecondFloorIconButton() =>
-    List.generate(8, (index) {
-      final applicationLogic = Get.find<ApplicationLogic>();
-      return InkWell(
-          onTap: () {
-            print("点击了图标");
-            applicationLogic.handlePageChanged(1);
-            applicationLogic.handleBottomNavBarTap(1);
-          },
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-            child: Column(
-              children: [
-                Image.asset(
-                  "assets/images/logo.png",
-                  width: 50.0,
-                ),
-                Text("硒鼓")
-              ],
-            ),
-          ));
-    });
+List<Widget> _buildClassificationSecondFloorIconButton() {
+  return List.generate(
+      state.products.length - (state.products.length / 2).toInt(), (index) {
+    final applicationLogic = Get.find<ApplicationLogic>();
+    return InkWell(
+        onTap: () {
+          print("点击了图标");
+          applicationLogic.handlePageChanged(1);
+          applicationLogic.handleBottomNavBarTap(1);
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+          child: Column(
+            children: [
+              Image.network(
+                state.products[index + (state.products.length / 2).toInt()]
+                    .avatar,
+                width: 50.0,
+                height: 50.0,
+                fit: BoxFit.cover,
+              ),
+              Text(state.products[index + (state.products.length / 2).toInt()].title)
+            ],
+          ),
+        ));
+  });
+}

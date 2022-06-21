@@ -37,18 +37,21 @@ class Datum {
   Datum({
     required this.id,
     required this.title,
+    required this.avatar,
     required this.description,
     required this.createdAt,
   });
 
   int id;
   String title;
+  String avatar;
   String description;
   DateTime createdAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         title: json["title"],
+        avatar: json["avatar"],
         description: json["description"],
         createdAt: DateTime.parse(json["createdAt"]),
       );
@@ -56,6 +59,7 @@ class Datum {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "avatar": avatar,
         "description": description,
         "createdAt": createdAt.toIso8601String(),
       };

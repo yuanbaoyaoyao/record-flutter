@@ -25,10 +25,9 @@ class HomePage extends GetView<HomeLogic> {
           controller: logic.tabsScrollController,
           child: ScreenUtilInit(
               designSize: const Size(375, 812),
-              builder: (context , child) => Container(
+              builder: (context, child) => Container(
                   color: Colors.grey,
-                  child:
-                  Column(
+                  child: Column(
                     children: [
                       SizedBox(
                           height: ScreenUtil().setHeight(200),
@@ -36,10 +35,7 @@ class HomePage extends GetView<HomeLogic> {
                       Container(
                         margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
                         child: buildHomeClassification(
-                          context: context,
-                          state: state,
-                          logic: logic,
-                        ),
+                            context: context),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
@@ -48,13 +44,11 @@ class HomePage extends GetView<HomeLogic> {
                           children: [
                             buildNewOld(
                               textTitle: "旧耗材",
-                              testDescription: "描述",
-                              onTapInfo: "剩余:8个",
+                              testDescription: "可能有宝藏哦ヽ(✿ﾟ▽ﾟ)ノ",
                             ),
                             buildNewOld(
                               textTitle: "新耗材",
-                              testDescription: "描述",
-                              onTapInfo: "剩余:8个",
+                              testDescription: "我要的终于来了o(￣▽￣)ｄ",
                             ),
                           ],
                         ),
@@ -79,8 +73,7 @@ class HomePage extends GetView<HomeLogic> {
                         ),
                       )
                     ],
-                  )
-              )),
+                  ))),
         ),
       );
     });
@@ -126,8 +119,8 @@ class HomePage extends GetView<HomeLogic> {
                                         endPosition: appLogic.endOffset);
                                   });
                                   Overlay.of(context)?.insert(_overlayEntry);
-                                  Future.delayed(const Duration(milliseconds: 800),
-                                      () {
+                                  Future.delayed(
+                                      const Duration(milliseconds: 800), () {
                                     _overlayEntry?.remove();
                                     _overlayEntry = null;
                                   });
@@ -197,7 +190,7 @@ class HomePage extends GetView<HomeLogic> {
         );
       });
 
-  List<Widget> _buildListTextButton() => List.generate(4, (index) {
+  List<Widget> _buildListTextButton() => List.generate(state.buttonNames.length, (index) {
         return InkWell(onTap: () {
           print("点击了图标$index");
           state.listPage = index;
@@ -206,7 +199,7 @@ class HomePage extends GetView<HomeLogic> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "第${index + 1}button",
+                state.buttonNames[index],
                 style: TextStyle(
                     color:
                         state.listPage == index ? Colors.blue : Colors.black),

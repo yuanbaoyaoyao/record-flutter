@@ -8,7 +8,12 @@ class HomeState {
 
   List tabs = ["第一button", "第二button", "第三button", "第四button"];
 
-  List rotations = [];
+  List buttonNames = ["打印机相关", "电脑显示器", "电脑周边", "其他"];
+
+  final _products = [].obs;
+  final _rotations = [].obs;
+  final _oldProducts = [].obs;
+  final _newProducts = [].obs;
 
   final _listPage = 0.obs;
   final _tabsSliderValue = 0.0.obs;
@@ -16,6 +21,22 @@ class HomeState {
 
   final _sliderValue = 0.0.obs;
   final _sliderMaxValue = 0.0.obs;
+
+  set products(value) => _products.value = value;
+
+  get products => _products;
+
+  set rotations(value) => _rotations.value = value;
+
+  get rotations => _rotations;
+
+  set oldProducts(value) => _oldProducts.value = value;
+
+  get oldProducts => _oldProducts;
+
+  set newProducts(value) => _newProducts.value = value;
+
+  get newProducts => _newProducts;
 
   set showTab(value) => _showTab.value = value;
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../common/widgets/red_dot_page.dart';
 import '../application/application_logic.dart';
@@ -38,68 +39,73 @@ class MinePage extends StatelessWidget {
                 icon: Icon(Icons.mail_outline)),
           ],
         ),
-        body: ScreenUtilInit(
-          builder: (context , child) {
-            return SingleChildScrollView(
-                child: Container(
-              color: Colors.grey,
-              child: Column(
-                children: [
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 20.0),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/user_info");
-                        },
-                        child: Row(
+        body: SmartRefresher(
+            controller: logic.refreshController,
+            enablePullDown: true,
+            enablePullUp: true,
+            child: ScreenUtilInit(
+              builder: (context, child) {
+                return SingleChildScrollView(
+                    child: Container(
+                  color: Colors.grey,
+                  child: Column(
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 20.0),
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed("/user_info");
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 15.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.grey),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      "assets/images/dingding.png",
+                                      height: 60,
+                                      width: 60,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                const Text("这是名称")
+                              ],
+                            ),
+                          )),
+                      orderWidget(),
+                      serviceWidget(),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20.0),
+                        child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(right: 15.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.grey),
-                              child: ClipOval(
-                                child: Image.asset(
-                                  "assets/images/dingding.png",
-                                  height: 60,
-                                  width: 60,
-                                  fit: BoxFit.contain,
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const [
+                                  Icon(Icons.music_note),
+                                  Text("为你推荐"),
+                                  Icon(Icons.music_note),
+                                ],
                               ),
+                              width: 180.0,
                             ),
-                            const Text("这是名称")
+                            Column(
+                              children: _buildRecommendList(),
+                            )
                           ],
                         ),
-                      )),
-                  orderWidget(),
-                  serviceWidget(),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              Icon(Icons.music_note),
-                              Text("为你推荐"),
-                              Icon(Icons.music_note),
-                            ],
-                          ),
-                          width: 180.0,
-                        ),
-                        Column(
-                          children: _buildRecommendList(),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ));
-          },
-        ));
+                      )
+                    ],
+                  ),
+                ));
+              },
+            )));
   }
 
   List<Widget> _buildRecommendList() => List.generate(8, (index) {

@@ -11,6 +11,8 @@ class UserFeedbackDetailAPI {
   static String request = '/userFeedbackDetailClient/';
 
   static Future listUserFeedbackDetailAPI({required int userFeedbackId}) async {
+    Map<String, dynamic> map = {};
+    map["userFeedbackId"] = userFeedbackId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'list',
         data: userFeedbackId);

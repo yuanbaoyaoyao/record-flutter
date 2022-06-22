@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../common/widgets/red_dot_page.dart';
 import '../application/application_logic.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
@@ -15,7 +16,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        builder: (context , child) => Scaffold(
+        builder: (context, child) => Scaffold(
               appBar: AppBar(
                 title: const Text("购物车"),
                 centerTitle: true,
@@ -38,47 +39,51 @@ class CartPage extends StatelessWidget {
                   })
                 ],
               ),
-              body: SingleChildScrollView(
-                  child: Container(
-                      color: Colors.grey,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: ScreenUtil().setWidth(5)),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(
-                                      ScreenUtil().setWidth(5))),
-                            ),
-                            child: Column(
-                              children: _buildCartItemList(),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 20.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: const [
-                                      Icon(Icons.music_note),
-                                      Text("为你推荐"),
-                                      Icon(Icons.music_note),
-                                    ],
-                                  ),
-                                  width: 180.0,
+              body: SmartRefresher(
+                  controller: logic.refreshController,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  child: SingleChildScrollView(
+                      child: Container(
+                          color: Colors.grey,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: ScreenUtil().setWidth(5)),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(
+                                          ScreenUtil().setWidth(5))),
                                 ),
-                                Column(
-                                  children: _buildRecommendList(),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ))),
+                                child: Column(
+                                  children: _buildCartItemList(),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: const [
+                                          Icon(Icons.music_note),
+                                          Text("为你推荐"),
+                                          Icon(Icons.music_note),
+                                        ],
+                                      ),
+                                      width: 180.0,
+                                    ),
+                                    Column(
+                                      children: _buildRecommendList(),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          )))),
               bottomNavigationBar: CustomBottomNavBar(),
             ));
   }

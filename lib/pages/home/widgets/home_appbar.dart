@@ -22,8 +22,7 @@ AppBar buildHomeAppBar() {
         filled: true,
         hintText: '请输入搜索内容',
         suffix: Container(
-            child:
-            ElevatedButton.icon(
+            child: ElevatedButton.icon(
           onPressed: () {
             Get.toNamed("/search");
           },
@@ -37,8 +36,7 @@ AppBar buildHomeAppBar() {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40))),
               elevation: MaterialStateProperty.all(0.0)),
-        )
-        ),
+        )),
       ),
     ),
     actions: [
@@ -56,8 +54,7 @@ AppBar buildHomeAppBar() {
         margin: const EdgeInsets.only(right: 8.0),
       )
     ],
-    bottom:
-    TabBar(
+    bottom: TabBar(
       controller: logic.tabController,
       isScrollable: false,
       indicatorSize: TabBarIndicatorSize.label,
@@ -66,25 +63,28 @@ AppBar buildHomeAppBar() {
           width: double.infinity,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: const Text("第一button"),
+          child: Text(
+            state.tabs[0],
+            style: const TextStyle(fontSize: 12.0),
+          ),
         ),
         Container(
           width: double.infinity,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: const Text("第二button"),
+          child: Text(state.tabs[1], style: TextStyle(fontSize: 12.0)),
         ),
         Container(
           width: double.infinity,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: const Text("第三button"),
+          child: Text(state.tabs[2], style: TextStyle(fontSize: 12.0)),
         ),
         Container(
           width: double.infinity,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: const Text("第四button"),
+          child: Text(state.tabs[3], style: TextStyle(fontSize: 12.0)),
         ),
       ],
     ),

@@ -14,18 +14,25 @@ class UserCollectAPI {
       {required int pageSize,
       required int pageNum,
       required int userId}) async {
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'list',
-        data: {"pageSize": pageSize, "pageNum": pageNum, "userId": userId});
+        queryParameters: map);
 
     return UserCollectEntity.fromJson(response);
   }
 
   static Future IsLikeUserCollectAPI(
       {required int productSkusId, required int userId}) async {
+    Map<String, dynamic> map = {};
+    map["productSkusId"] = productSkusId;
+    map["userId"] = userId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'IsLike',
-        data: {"productSkusId": productSkusId, "userId": userId});
+        queryParameters: map);
 
     return UserCollectEntity.fromJson(response);
   }

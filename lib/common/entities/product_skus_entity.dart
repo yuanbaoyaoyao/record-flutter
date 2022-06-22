@@ -96,6 +96,7 @@ class Record {
     required this.title,
     required this.avatar,
     required this.description,
+    required this.type,
     required this.stock,
     required this.createdAt,
   });
@@ -106,6 +107,7 @@ class Record {
   String title;
   String avatar;
   String description;
+  int type;
   int stock;
   DateTime createdAt;
 
@@ -116,6 +118,7 @@ class Record {
         title: json["title"],
         avatar: json["avatar"],
         description: json["description"],
+        type: json["type"],
         stock: json["stock"],
         createdAt: DateTime.parse(json["createdAt"]),
       );
@@ -127,6 +130,7 @@ class Record {
         "title": title,
         "avatar": avatar,
         "description": description,
+        "type": type,
         "stock": stock,
         "createdAt": createdAt.toIso8601String(),
       };

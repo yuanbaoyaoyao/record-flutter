@@ -10,15 +10,19 @@ class UserAddressAPI {
   static String request = '/client/userAddress/';
 
   static Future listUserAddressAPI({required int userId}) async {
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
     var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', data: userId);
+        .get(UrlConstant.debugClientIp + request + 'list', queryParameters: map);
 
     return UserAddressEntity.fromJson(response);
   }
 
   static Future listOneUserAddressAPI({required int id}) async {
+    Map<String, dynamic> map = {};
+    map["id"] = id;
     var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listOne', data: id);
+        .get(UrlConstant.debugClientIp + request + 'listOne', queryParameters: map);
 
     return UserAddressEntity.fromJson(response);
   }

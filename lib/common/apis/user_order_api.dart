@@ -16,16 +16,16 @@ class UserOrderAPI {
       required String productSkusTitle,
       required int orderSn,
       required bool orderStatus}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["userId"] = userId;
+    map["productTitle"] = productTitle;
+    map["productSkusTitle"] = productSkusTitle;
+    map["orderSn"] = orderSn;
+    map["orderStatus"] = orderStatus;
     var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', data: {
-      "pageSize": pageSize,
-      "pageNum": pageNum,
-      "userId": userId,
-      "productTitle": productTitle,
-      "productSkusTitle": productSkusTitle,
-      "orderSn": orderSn,
-      "orderStatus": orderStatus
-    });
+        .get(UrlConstant.debugClientIp + request + 'list', queryParameters: map);
 
     return UserOrderEntity.fromJson(response);
   }

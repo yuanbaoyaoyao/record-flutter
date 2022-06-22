@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
 import 'package:record_flutter/common/widgets/red_dot_page.dart';
 import 'package:record_flutter/pages/application/application_logic.dart';
@@ -20,62 +22,69 @@ class HomePage extends GetView<HomeLogic> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: state.showTab ? buildHomeAppBar() : buildAppBar(),
-        body: SingleChildScrollView(
-          controller: logic.tabsScrollController,
-          child: ScreenUtilInit(
-              designSize: const Size(375, 812),
-              builder: (context, child) => Container(
-                  color: Colors.grey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          height: ScreenUtil().setHeight(200),
-                          child: buildHomeSwiper()),
-                      Container(
-                        margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
-                        child: buildHomeClassification(
-                            context: context),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: ScreenUtil().setHeight(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            buildNewOld(
-                              textTitle: "旧耗材",
-                              testDescription: "可能有宝藏哦ヽ(✿ﾟ▽ﾟ)ノ",
-                            ),
-                            buildNewOld(
-                              textTitle: "新耗材",
-                              testDescription: "我要的终于来了o(￣▽￣)ｄ",
-                            ),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        key: state.tabsKey,
-                        visible: !state.showTab,
-                        child: Container(
-                          margin:
-                              EdgeInsets.only(top: ScreenUtil().setHeight(8)),
-                          child: Row(
-                            //获得这个组件的位置，到达最高点是，让顶部导航栏显示
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: _buildListTextButton(),
+          appBar: state.showTab ? buildHomeAppBar() : buildAppBar(),
+          body: SmartRefresher(
+            controller: logic.refreshController,
+            enablePullDown: true,
+            enablePullUp: true,
+            child: SingleChildScrollView(
+              controller: logic.tabsScrollController,
+              child: ScreenUtilInit(
+                  designSize: const Size(375, 812),
+                  builder: (context, child) => Container(
+                      color: Colors.grey,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: ScreenUtil().setHeight(200),
+                              child: buildHomeSwiper()),
+                          Container(
+                            margin:
+                                EdgeInsets.only(top: ScreenUtil().setHeight(8)),
+                            child: buildHomeClassification(context: context),
                           ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20.0),
-                        child: Column(
-                          children: _buildRecommendList(),
-                        ),
-                      )
-                    ],
-                  ))),
-        ),
-      );
+                          Container(
+                              margin: EdgeInsets.only(
+                                  top: ScreenUtil().setHeight(8)),
+                              height: ScreenUtil().setHeight(140.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  buildNewOld(
+                                    textTitle: "旧耗材",
+                                    testDescription: "可能有宝藏哦ヽ(✿ﾟ▽ﾟ)ノ",
+                                  ),
+                                  buildNewOld(
+                                    textTitle: "新耗材",
+                                    testDescription: "我要的终于来了o(￣▽￣)ｄ",
+                                  ),
+                                ],
+                              )),
+                          Visibility(
+                            key: state.tabsKey,
+                            visible: !state.showTab,
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  top: ScreenUtil().setHeight(8)),
+                              child: Row(
+                                //获得这个组件的位置，到达最高点是，让顶部导航栏显示
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: _buildListTextButton(),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            child: Column(
+                              children: _buildRecommendList(),
+                            ),
+                          )
+                        ],
+                      ))),
+            ),
+          ));
     });
   }
 
@@ -190,26 +199,54 @@ class HomePage extends GetView<HomeLogic> {
         );
       });
 
-  List<Widget> _buildListTextButton() => List.generate(state.buttonNames.length, (index) {
+  List<Widget> _buildListTextButton() =>
+      List.generate(state.buttonNames.length, (index) {
         return InkWell(onTap: () {
           print("点击了图标$index");
           state.listPage = index;
+          logic.tabController.index = index;
         }, child: Obx(() {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                state.buttonNames[index],
-                style: TextStyle(
-                    color:
-                        state.listPage == index ? Colors.blue : Colors.black),
+              SizedBox(
+                width: ScreenUtil().screenWidth / 4,
+                child: Text(
+                  state.buttonNames[index],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color:
+                          state.listPage == index ? Colors.blue : Colors.black),
+                ),
               ),
-              Text(
-                "button简介",
-                style: TextStyle(
-                    color:
-                        state.listPage == index ? Colors.blue : Colors.black),
-              ),
+              Visibility(
+                  visible: state.buttonNames[index] == "打印机相关",
+                  child: Icon(
+                    Icons.print,
+                    size: 20.0,
+                    color: state.listPage == index ? Colors.blue : Colors.black,
+                  )),
+              Visibility(
+                  visible: state.buttonNames[index] == "显示器电脑",
+                  child: Icon(
+                    Icons.computer,
+                    size: 20.0,
+                    color: state.listPage == index ? Colors.blue : Colors.black,
+                  )),
+              Visibility(
+                  visible: state.buttonNames[index] == "电脑周边",
+                  child: Icon(
+                    Icons.usb,
+                    size: 20.0,
+                    color: state.listPage == index ? Colors.blue : Colors.black,
+                  )),
+              Visibility(
+                  visible: state.buttonNames[index] == "其他",
+                  child: Icon(
+                    Icons.color_lens,
+                    size: 20.0,
+                    color: state.listPage == index ? Colors.blue : Colors.black,
+                  ))
             ],
           );
         }));

@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/apis/front_show_api.dart';
 
 import '../../common/apis/product_api.dart';
+import '../../common/apis/product_skus_api.dart';
 import '../application/application_state.dart';
 import 'home_state.dart';
 
@@ -17,6 +19,8 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
   late final ScrollController tabsScrollController;
 
   late final PageController pageController;
+
+  late final RefreshController refreshController;
 
   late TabController tabController;
 
@@ -36,8 +40,11 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
 
     tabsScrollController = ScrollController();
     scrollController = ScrollController();
+    refreshController = RefreshController();
     scrollerAddListener();
     tabsScrollerAddListener();
+    tabController = TabController(length: state.tabs.length, vsync: this);
+    tabsAddListener();
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       state.tabsSliderMaxValue = tabsScrollController.position.maxScrollExtent;
@@ -48,11 +55,13 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
       log("sliderMaxValue：${state.sliderMaxValue}");
     });
     pageController = PageController();
-    tabController = TabController(length: state.tabs.length, vsync: this);
-    getRotationList();
-    getOld();
-    getNew();
-    getClassification();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    loadData();
   }
 
   void subInitState() {
@@ -61,7 +70,18 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
 
   double? getY(BuildContext? buildContext) {
     RenderObject? evaluationRenderObject = buildContext?.findRenderObject();
-    return evaluationRenderObject?.getTransformTo(null).getTranslation().y;
+    return evaluationRenderObject
+        ?.getTransformTo(null)
+        .getTranslation()
+        .y;
+  }
+
+  void loadData() async {
+    getRotationList();
+    getOld();
+    getNew();
+    getClassification();
+    getListByType();
   }
 
   void scrollerAddListener() {
@@ -70,17 +90,18 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
         state.sliderMaxValue = scrollController.position.maxScrollExtent;
       }
       state.sliderValue = scrollController.position.pixels;
-      // log("_scrollController.position.pixels:${scrollController.position.pixels}");
-      // log("_scrollController.position.maxScrollExtent:${scrollController.position.maxScrollExtent}");
-      // log("sliderMaxValue：${state.sliderMaxValue}");
     });
   }
 
   void tabsScrollerAddListener() {
+    log("state.tabsSliderValue:" + state.tabsSliderValue.toString());
     tabsScrollController.addListener(() {
       //此处50 待处理
       var of = tabsScrollController.position.pixels +
-          MediaQuery.of(Get.context!).padding.top +
+          MediaQuery
+              .of(Get.context!)
+              .padding
+              .top +
           50.0;
 
       if (of > state.tabsSliderValue) {
@@ -91,22 +112,21 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     });
   }
 
+  void tabsAddListener() {
+    tabController.addListener(() {
+      // log("当前菜单index:" + (tabController.index + 1).toString());
+      state.listPage = tabController.index;
+    });
+  }
+
   void getRotationList() async {
     await FrontShowAPI.listFrontShowRotationAPI().then((value) {
-      // log(value.data.length.toString());
-      // for (var data in value.data) {
-      //   log("productSkusId:" + data.productSkusId.toString());
-      //   log("productSkusName:" + data.productSkusName);
-      //   log("productName:" + data.productName);
-      //   log("avatar:" + data.avatar);
-      // }
       state.rotations = value.data;
     });
   }
 
   void getClassification() async {
     await ProductAPI.listProductAllAPI(productName: '').then((value) {
-      // log(value.data[0].toString());
       state.products = value.data;
     });
   }
@@ -123,6 +143,27 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     });
   }
 
+  void getListByType() async {
+    await ProductSkusAPI.listProductSkusByTypeIPageAPI(
+        pageNum: 1, type: 1, pageSize: 5)
+        .then((value) {
+      log(value.data.records.toString());
+    });
+  }
+
+  void onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    log("刷新完成");
+    loadData();
+    refreshController.refreshCompleted();
+  }
+
+  void onLoading() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    log("加載完成");
+    refreshController.loadComplete();
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -130,6 +171,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     tabsScrollController.dispose();
     tabController.dispose();
     pageController.dispose();
+    refreshController.dispose();
     super.dispose();
   }
 }

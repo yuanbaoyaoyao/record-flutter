@@ -8,8 +8,11 @@ class CartAPI {
   static Future listCartAPI({
     required int userId,
   }) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', data: userId);
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'list',
+        queryParameters: map);
 
     return CartEntity.fromJson(response);
   }
@@ -17,17 +20,23 @@ class CartAPI {
   static Future listCartCheckedAPI({
     required int userId,
   }) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listChecked', data: userId);
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listChecked',
+        queryParameters: map);
 
     return CartEntity.fromJson(response);
   }
 
   static Future listOneCartAPI(
       {required int userId, required int productSkusId}) async {
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
+    map["productSkusId"] = productSkusId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'listOne',
-        data: {"userId": userId, "productSkusId": productSkusId});
+        queryParameters: map);
 
     return CartEntity.fromJson(response);
   }

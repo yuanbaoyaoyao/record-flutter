@@ -10,9 +10,11 @@ class ProductAPI {
   static String request = '/productClient/';
 
   static Future listProductAllAPI({required String productName}) async {
+    Map<String, dynamic> map = {};
+    map["productName"] = productName;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'listAll',
-        data: productName);
+        queryParameters: map);
 
     return ProductEntity.fromJson(response);
   }

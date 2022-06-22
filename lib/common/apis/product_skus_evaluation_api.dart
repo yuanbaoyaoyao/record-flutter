@@ -15,14 +15,15 @@ class ProductSkusEvaluationAPI {
       required int orderSn,
       required int orderProductId,
       required int productSkusId}) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listIPage', data: {
-      "pageSize": pageSize,
-      "pageNum": pageNum,
-      "orderSn": orderSn,
-      "orderProductId": orderProductId,
-      "productSkusId": productSkusId
-    });
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["orderSn"] = orderSn;
+    map["orderProductId"] = orderProductId;
+    map["productSkusId"] = productSkusId;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listIPage',
+        queryParameters: map);
 
     return ProductSkusEvaluationEntity.fromJson(response);
   }
@@ -31,12 +32,13 @@ class ProductSkusEvaluationAPI {
       {required int orderSn,
       required int orderProductId,
       required int productSkusId}) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', data: {
-      "orderSn": orderSn,
-      "orderProductId": orderProductId,
-      "productSkusId": productSkusId
-    });
+    Map<String, dynamic> map = {};
+    map["orderSn"] = orderSn;
+    map["orderProductId"] = orderProductId;
+    map["productSkusId"] = productSkusId;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'list',
+        queryParameters: map);
 
     return ProductSkusEvaluationEntity.fromJson(response);
   }

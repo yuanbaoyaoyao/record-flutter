@@ -14,13 +14,14 @@ class OrderProductAPI {
       required int orderSn,
       required String productTitle,
       required String productSkusTitle}) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', data: {
-      "userOrderId": userOrderId,
-      "orderSn": orderSn,
-      "productTitle": productTitle,
-      "productSkusTitle": productSkusTitle
-    });
+    Map<String, dynamic> map = {};
+    map["userOrderId"] = userOrderId;
+    map["orderSn"] = orderSn;
+    map["productTitle"] = productTitle;
+    map["productSkusTitle"] = productSkusTitle;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'list',
+        queryParameters: map);
 
     return OrderProductEntity.fromJson(response);
   }

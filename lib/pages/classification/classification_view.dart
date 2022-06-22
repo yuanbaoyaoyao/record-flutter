@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
 
 import '../../common/widgets/red_dot_page.dart';
 import '../application/application_logic.dart';
 import 'classification_logic.dart';
 
-class ClassificationPage extends GetView<ClassificationLogic> {
-  final logic = Get.find<ClassificationLogic>();
-  final state = Get.find<ClassificationLogic>().state;
+final logic = Get.find<ClassificationLogic>();
+final state = Get.find<ClassificationLogic>().state;
 
+class ClassificationPage extends GetView<ClassificationLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context , child) => Scaffold(
+      builder: (context, child) => Scaffold(
         appBar: buildAppBar(),
         body: Row(
           children: [
@@ -33,41 +34,41 @@ class ClassificationPage extends GetView<ClassificationLogic> {
 
 Widget rightCatePageView() {
   return Column(
-    children: [
-      Container(
-        margin: const EdgeInsets.only(bottom: 10.0),
-        decoration: const BoxDecoration(
-            border:
-                Border(bottom: BorderSide(color: Colors.black26, width: 1))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-                onPressed: () {
-                  print("点击了TextButton");
-                },
-                child: Text("综合")),
-            TextButton(
-                onPressed: () {
-                  print("点击了TextButton");
-                },
-                child: Text("销量")),
-            TextButton(
-                onPressed: () {
-                  print("点击了TextButton");
-                },
-                child: Text("库存量")),
-            TextButton(
-                onPressed: () {
-                  print("点击了TextButton");
-                },
-                child: Text("筛选")),
-          ],
-        ),
-      ),
-      _buildConsumables()
-    ],
-  );
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 10.0),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(color: Colors.black26, width: 1))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      print("点击了TextButton");
+                    },
+                    child: Text("综合")),
+                TextButton(
+                    onPressed: () {
+                      print("点击了TextButton");
+                    },
+                    child: Text("销量")),
+                TextButton(
+                    onPressed: () {
+                      print("点击了TextButton");
+                    },
+                    child: Text("库存量")),
+                TextButton(
+                    onPressed: () {
+                      print("点击了TextButton");
+                    },
+                    child: Text("筛选")),
+              ],
+            ),
+          ),
+          _buildConsumables()
+        ],
+      );
 }
 
 Widget _buildConsumables() {
@@ -75,8 +76,11 @@ Widget _buildConsumables() {
 
   //listView.builder
   return Flexible(
-    child:
-    ListView.builder(
+    child: SmartRefresher(
+      controller: logic.refreshController,
+      enablePullDown: true,
+      enablePullUp: true,
+      child:  ListView.builder(
         itemCount: 8,
         itemBuilder: (context, index) => GestureDetector(
               child: Row(
@@ -130,7 +134,7 @@ Widget _buildConsumables() {
               onTap: () {
                 Get.toNamed("/consumables_detail");
               },
-            )),
+            )),)
   );
 }
 

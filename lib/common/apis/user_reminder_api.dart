@@ -9,9 +9,11 @@ class UserReminderAPI {
   static String request = '/userReminderClient/';
 
   static Future listUserReminderAPI({required int userId}) async {
+    Map<String, dynamic> map = {};
+    map["userId"] = userId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'list',
-        data: {"userId": userId});
+        queryParameters: map);
 
     return UserReminderEntity.fromJson(response);
   }

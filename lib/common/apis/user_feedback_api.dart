@@ -11,9 +11,13 @@ class UserFeedbackAPI {
       {required int pageSize,
       required int pageNum,
       required int userId}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["userId"] = userId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'list',
-        data: {"pageSize": pageSize, "pageNum": pageNum, "userId": userId});
+        queryParameters: map);
 
     return UserFeedbackEntity.fromJson(response);
   }

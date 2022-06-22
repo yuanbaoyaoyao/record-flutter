@@ -4,7 +4,7 @@ import '../constant/url_constant.dart';
 import '../entities/cart_entity.dart';
 import '../utils/http_util.dart';
 
-class CartAPI {
+class ProductSkusAPI {
   static String request = '/productSkusClient/';
 
   static Future listProductSkusSearchIPageAPI(
@@ -13,14 +13,28 @@ class CartAPI {
       required int id,
       required String productName,
       required String productSkusName}) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listSearchIPage', data: {
-      "pageSize": pageSize,
-      "pageNum": pageNum,
-      "id": id,
-      "productName": productName,
-      "productSkusName": productSkusName
-    });
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["id"] = id;
+    map["productName"] = productName;
+    map["productSkusName"] = productSkusName;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listSearchIPage',
+        queryParameters: map);
+
+    return ProductSkusEntity.fromJson(response);
+  }
+
+  static Future listProductSkusByTypeIPageAPI(
+      {required int pageSize, required int pageNum, required int type}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["type"] = type;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listByTypeIPage',
+        queryParameters: map);
 
     return ProductSkusEntity.fromJson(response);
   }
@@ -30,13 +44,14 @@ class CartAPI {
       required int productId,
       required String title,
       required String productSkusName}) async {
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listSearch', data: {
-      "id": id,
-      "productId": productId,
-      "title": title,
-      "productSkusName": productSkusName
-    });
+    Map<String, dynamic> map = {};
+    map["id"] = id;
+    map["productId"] = productId;
+    map["title"] = title;
+    map["productSkusName"] = productSkusName;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listSearch',
+        queryParameters: map);
 
     return ProductSkusEntity.fromJson(response);
   }
@@ -49,9 +64,11 @@ class CartAPI {
   }
 
   static Future listProductSkusLimitByNumberAPI({required int number}) async {
+    Map<String, dynamic> map = {};
+    map["number"] = number;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'listLimitByNumber',
-        data: number);
+        queryParameters: map);
 
     return ProductSkusEntity.fromJson(response);
   }

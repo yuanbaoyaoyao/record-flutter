@@ -6,9 +6,9 @@ class HomeState {
 
   final _showTab = false.obs;
 
-  List tabs = ["第一button", "第二button", "第三button", "第四button"];
+  List tabs = ["打印机相关", "显示器电脑", "电脑周边", "其他"];
 
-  List buttonNames = ["打印机相关", "电脑显示器", "电脑周边", "其他"];
+  List buttonNames = ["打印机相关", "显示器电脑", "电脑周边", "其他"];
 
   final _products = [].obs;
   final _rotations = [].obs;

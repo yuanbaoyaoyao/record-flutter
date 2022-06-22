@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/global.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
       initialBinding: SplashBinding(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      builder: EasyLoading.init(),
+
     );
   }
 }

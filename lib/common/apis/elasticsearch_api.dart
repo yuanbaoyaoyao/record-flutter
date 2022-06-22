@@ -13,9 +13,13 @@ class ElasticsearchAPI {
       {required int pageSize,
       required int pageNum,
       required String keyword}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["keyword"] = keyword;
     var response = await HttpUtil().get(
         UrlConstant.debugSearchIp + request + 'search',
-        data: {"pageSize": pageSize, "pageNum": pageNum, "keyword": keyword});
+        queryParameters: map);
 
     return EsProductEntity.fromJson(response);
   }

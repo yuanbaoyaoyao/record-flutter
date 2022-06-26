@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:record_flutter/common/middelwares/route_middleware.dart';
 import 'package:record_flutter/pages/application/application_binding.dart';
 import 'package:record_flutter/pages/application/application_view.dart';
 import 'package:record_flutter/pages/cart/cart_binding.dart';
 import 'package:record_flutter/pages/cart/cart_view.dart';
 import 'package:record_flutter/pages/classification/classification_binding.dart';
 import 'package:record_flutter/pages/classification/classification_view.dart';
+import 'package:record_flutter/pages/confirm_order/confirm_order_binding.dart';
+import 'package:record_flutter/pages/confirm_order/confirm_order_view.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_binding.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_view.dart';
 import 'package:record_flutter/pages/message/feedback_message/feedback_message_binding.dart';
@@ -75,6 +78,10 @@ class AppPages {
         binding: LoginBinding()),
     GetPage(
         name: AppRoutes.Cart, page: () => CartPage(), binding: CartBinding()),
+    GetPage(
+        name: AppRoutes.ConfirmOrder,
+        page: () => ConfirmOrderPage(),
+        binding: ConfirmOrderBinding()),
     GetPage(
         name: AppRoutes.Search,
         page: () => SearchPage(),
@@ -160,9 +167,13 @@ class AppPages {
         page: () => CollectionsPage(),
         binding: CollectionsBinding()),
     GetPage(
-        name: AppRoutes.Applications,
-        page: () => ApplicationsPage(),
-        binding: ApplicationsBinding()),
+      name: AppRoutes.Applications,
+      page: () => ApplicationsPage(),
+      binding: ApplicationsBinding(),
+      // middlewares: [
+      //   RouteMiddlewares(priority: 1),
+      // ]
+    ),
     GetPage(
         name: AppRoutes.AddressManagementDetails,
         page: () => AddressManagementDetailsPage(),

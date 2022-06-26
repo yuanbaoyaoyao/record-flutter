@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/apis/user_api.dart';
-import 'package:record_flutter/common/entities/user_entity.dart';
+import 'package:record_flutter/common/entities/user_login_entity.dart';
 import 'package:record_flutter/common/utils/toast_util.dart';
 
 import 'register_state.dart';
@@ -38,14 +38,14 @@ class RegisterLogic extends GetxController {
 
   void handleRegister() async {
     log("触发了handleRegister");
-    UserRegisterEntity params = UserRegisterEntity(
-        name: textNameEditingController.text,
-        password: textPasswordEditingController.text,
-        email: textEmailEditingController.text,
-        emailCode: textEmailCodeEditingController.text);
-    await UserAPI.register(params: params);
-    Get.back();
-    ToastUtil().showToast("注册成功");
+    // UserRegisterEntity params = UserRegisterEntity(
+    //     name: textNameEditingController.text,
+    //     password: textPasswordEditingController.text,
+    //     email: textEmailEditingController.text,
+    //     emailCode: textEmailCodeEditingController.text);
+    // await UserAPI.register(params: params);
+    // Get.back();
+    // ToastUtil().showToast("注册成功");
   }
 
   void handleCountDown() {

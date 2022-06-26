@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/apis/user_api.dart';
-import 'package:record_flutter/common/entities/user_entity.dart';
+import 'package:record_flutter/common/entities/user_login_entity.dart';
+import 'package:record_flutter/common/store/user_store/user_store_state.dart';
+import 'package:sp_util/sp_util.dart';
 
 import 'login_state.dart';
 
 class LoginLogic extends GetxController {
   final LoginState state = LoginState();
+  final UserStoreState userStoreState = UserStoreState();
 
   late final PageController pageController;
 
@@ -24,11 +27,11 @@ class LoginLogic extends GetxController {
   }
 
   void handleLogin() async {
-    UserLoginEntity params = UserLoginEntity(
+    UserLoginInputEntity params = UserLoginInputEntity(
         username: textAccountEditingController.text,
         password: textPasswordEditingController.text);
 
-    await UserAPI.login(params: params);
+    await UserAPI.login(userLoginInputEntity: params);
     Get.offNamed("/application");
   }
 

@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
 import 'package:record_flutter/common/widgets/red_dot_page.dart';
 import 'package:record_flutter/pages/application/application_logic.dart';
+import 'package:record_flutter/pages/home/home_state.dart';
 import 'package:record_flutter/pages/home/widgets/home_appbar.dart';
 import 'package:record_flutter/pages/home/widgets/home_classification.dart';
 import 'package:record_flutter/pages/home/widgets/home_new_old.dart';
@@ -23,17 +24,22 @@ class HomePage extends GetView<HomeLogic> {
     return Obx(() {
       return Scaffold(
           appBar: state.showTab ? buildHomeAppBar() : buildAppBar(),
-          body: SmartRefresher(
-            controller: logic.refreshController,
-            enablePullDown: true,
-            enablePullUp: true,
-            child: SingleChildScrollView(
-              controller: logic.tabsScrollController,
-              child: ScreenUtilInit(
-                  designSize: const Size(375, 812),
-                  builder: (context, child) => Container(
-                      color: Colors.grey,
-                      child: Column(
+          body: ScreenUtilInit(
+            designSize: const Size(375, 812),
+            builder: (context, child) => SmartRefresher(
+                controller: logic.refreshController,
+                onRefresh: logic.onRefresh,
+                onLoading: logic.onLoading,
+                enablePullDown: true,
+                enablePullUp: true,
+                scrollController: logic.tabsScrollController,
+                child: Container(
+                    color: Colors.grey,
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           SizedBox(
                               height: ScreenUtil().setHeight(200),
@@ -76,128 +82,127 @@ class HomePage extends GetView<HomeLogic> {
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.only(top: 20.0),
-                            child: Column(
-                              children: _buildRecommendList(),
-                            ),
-                          )
+                              margin: const EdgeInsets.only(top: 20.0),
+                              child: Obx(() {
+                                return GridView.count(
+                                    childAspectRatio:9/10,
+                                    crossAxisCount: 2,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: List.generate(
+                                        state.productSkus.length, (index) {
+                                      return Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  "/consumables_detail");
+                                            },
+                                            child: Card(
+                                                child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.0),
+                                              width: ScreenUtil().screenWidth /
+                                                  2.1,
+                                              //     width:0,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    child: Image.network(
+                                                      state.productSkus[index]
+                                                          .avatar,
+                                                      fit: BoxFit.cover,
+                                                      height: ScreenUtil()
+                                                          .setHeight(110.0),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  ),
+                                                  Text(state.productSkus[index]
+                                                          .productName +
+                                                      ' ' +
+                                                      state.productSkus[index]
+                                                          .title),
+                                                  Text(state.productSkus[index]
+                                                      .description),
+                                                  Flexible(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "剩余${state.productSkus[index].stock.toString()}个",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      20.0),
+                                                        ),
+                                                        Builder(
+                                                            builder: (context) {
+                                                          return IconButton(
+                                                              onPressed: () {
+                                                                print(
+                                                                    "点击了添加按钮");
+                                                                OverlayEntry?
+                                                                    _overlayEntry =
+                                                                    OverlayEntry(
+                                                                        builder:
+                                                                            (_) {
+                                                                  RenderBox?
+                                                                      box =
+                                                                      context.findRenderObject()
+                                                                          as RenderBox?;
+                                                                  var offset = box!
+                                                                      .localToGlobal(
+                                                                          Offset
+                                                                              .zero);
+                                                                  return RedDotPage(
+                                                                      startPosition:
+                                                                          offset,
+                                                                      endPosition:
+                                                                          appLogic
+                                                                              .endOffset);
+                                                                });
+                                                                Overlay.of(
+                                                                        context)
+                                                                    ?.insert(
+                                                                        _overlayEntry);
+                                                                Future.delayed(
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            800),
+                                                                    () {
+                                                                  _overlayEntry
+                                                                      ?.remove();
+                                                                  _overlayEntry =
+                                                                      null;
+                                                                });
+                                                              },
+                                                              icon: const Icon(Icons
+                                                                  .add_circle_outline));
+                                                          // );
+                                                        })
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )),
+                                          ),
+                                        ],
+                                      );
+                                    }));
+                              }))
                         ],
-                      ))),
-            ),
+                      ),
+                      removeTop: true,
+                    ))),
           ));
     });
   }
-
-  List<Widget> _buildRecommendList() => List.generate(8, (index) {
-        return Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/consumables_detail");
-              },
-              child: Card(
-                  child: Container(
-                width: ScreenUtil().screenWidth / 2.1,
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/mock/88a1.png"),
-                    Text("这是标题"),
-                    Text("这是描述"),
-                    Row(
-                      children: [
-                        const Text(
-                          "这是剩余数量",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        const Expanded(child: Text("")),
-                        Builder(
-                          builder: (context) {
-                            return IconButton(
-                                onPressed: () {
-                                  print("点击了添加按钮");
-                                  OverlayEntry? _overlayEntry =
-                                      OverlayEntry(builder: (_) {
-                                    RenderBox? box = context.findRenderObject()
-                                        as RenderBox?;
-                                    var offset =
-                                        box!.localToGlobal(Offset.zero);
-                                    return RedDotPage(
-                                        startPosition: offset,
-                                        endPosition: appLogic.endOffset);
-                                  });
-                                  Overlay.of(context)?.insert(_overlayEntry);
-                                  Future.delayed(
-                                      const Duration(milliseconds: 800), () {
-                                    _overlayEntry?.remove();
-                                    _overlayEntry = null;
-                                  });
-                                },
-                                icon: const Icon(Icons.add_circle_outline));
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/consumables_detail");
-              },
-              child: Card(
-                  child: Container(
-                width: ScreenUtil().screenWidth / 2.1,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/mock/88a1.png"),
-                    Text("这是标题"),
-                    Text("这是描述"),
-                    Row(
-                      children: [
-                        const Text(
-                          "这是剩余数量",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        const Expanded(child: Text("")),
-                        Builder(
-                          builder: (context) {
-                            return IconButton(
-                                onPressed: () {
-                                  print("点击了添加按钮");
-                                  OverlayEntry? _overlayEntry =
-                                      OverlayEntry(builder: (_) {
-                                    RenderBox? box = context.findRenderObject()
-                                        as RenderBox?;
-                                    var offset =
-                                        box!.localToGlobal(Offset.zero);
-                                    return RedDotPage(
-                                        startPosition: offset,
-                                        endPosition: appLogic.endOffset);
-                                  });
-                                  Overlay.of(context)?.insert(_overlayEntry);
-                                  Future.delayed(Duration(milliseconds: 800),
-                                      () {
-                                    _overlayEntry?.remove();
-                                    _overlayEntry = null;
-                                  });
-                                },
-                                icon: Icon(Icons.add_circle_outline));
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )),
-            )
-          ],
-        );
-      });
 
   List<Widget> _buildListTextButton() =>
       List.generate(state.buttonNames.length, (index) {
@@ -205,6 +210,7 @@ class HomePage extends GetView<HomeLogic> {
           print("点击了图标$index");
           state.listPage = index;
           logic.tabController.index = index;
+          logic.getListByType();
         }, child: Obx(() {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:record_flutter/common/constant/user_constant.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
+import 'package:sp_util/sp_util.dart';
 
 import '../../common/widgets/red_dot_page.dart';
 import '../application/application_logic.dart';
@@ -34,41 +39,66 @@ class ClassificationPage extends GetView<ClassificationLogic> {
 
 Widget rightCatePageView() {
   return Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            decoration: const BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Colors.black26, width: 1))),
-            child: Row(
+    children: [
+      Container(
+          margin: const EdgeInsets.only(bottom: 10.0),
+          decoration: const BoxDecoration(
+              border:
+                  Border(bottom: BorderSide(color: Colors.black26, width: 1))),
+          child: Obx(() {
+            return Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
                     onPressed: () {
-                      print("点击了TextButton");
+                      state.onTapType = 1;
+                      logic.getList();
                     },
+                    style: state.onTapType == 1
+                        ? ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.grey))
+                        : null,
                     child: Text("综合")),
                 TextButton(
                     onPressed: () {
-                      print("点击了TextButton");
+                      state.onTapType = 2;
+                      logic.getList();
                     },
+                    style: state.onTapType == 2
+                        ? ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.grey))
+                        : null,
                     child: Text("销量")),
                 TextButton(
                     onPressed: () {
-                      print("点击了TextButton");
+                      state.onTapType = 3;
+                      logic.getList();
                     },
+                    style: state.onTapType == 3
+                        ? ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.grey))
+                        : null,
                     child: Text("库存量")),
                 TextButton(
                     onPressed: () {
-                      print("点击了TextButton");
+                      state.onTapType = 4;
+                      logic.getList();
                     },
-                    child: Text("筛选")),
+                    style: state.onTapType == 4
+                        ? ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.grey))
+                        : null,
+                    child: Text("我常买")),
               ],
-            ),
-          ),
-          _buildConsumables()
-        ],
-      );
+            );
+          })),
+      _buildConsumables()
+    ],
+  );
 }
 
 Widget _buildConsumables() {
@@ -76,77 +106,89 @@ Widget _buildConsumables() {
 
   //listView.builder
   return Flexible(
-    child: SmartRefresher(
-      controller: logic.refreshController,
-      enablePullDown: true,
-      enablePullUp: true,
-      child:  ListView.builder(
-        itemCount: 8,
-        itemBuilder: (context, index) => GestureDetector(
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/images/mock/88a1.png",
-                    width: 100.0,
-                    fit: BoxFit.fill,
-                  ),
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("标题"),
-                      Text("描述"),
-                      Row(
+      child: SmartRefresher(
+          controller: logic.refreshController,
+          onRefresh: logic.onRefresh,
+          onLoading: logic.onLoading,
+          enablePullDown: true,
+          enablePullUp: true,
+          child: Obx(() {
+            return ListView.builder(
+                itemCount: state.productSkus.length,
+                itemBuilder: (context, index) => GestureDetector(
+                      child: Row(
                         children: [
-                          Text("数量"),
-                          Expanded(child: Text("")),
-                          Builder(
-                            builder: (context) {
-                              return IconButton(
-                                  onPressed: () {
-                                    print("点击了添加按钮");
-                                    OverlayEntry? _overlayEntry =
-                                        OverlayEntry(builder: (_) {
-                                      RenderBox? box = context
-                                          .findRenderObject() as RenderBox?;
-                                      var offset =
-                                          box!.localToGlobal(Offset.zero);
-                                      return RedDotPage(
-                                          startPosition: offset,
-                                          endPosition: appLogic.endOffset);
-                                    });
-                                    Overlay.of(context)?.insert(_overlayEntry);
-                                    Future.delayed(Duration(milliseconds: 800),
-                                        () {
-                                      _overlayEntry?.remove();
-                                      _overlayEntry = null;
-                                    });
-                                  },
-                                  icon: Icon(Icons.add_circle_outline));
-                            },
-                          )
+                          Image.network(
+                            state.productSkus[index].avatar,
+                            width: 100.0,
+                            fit: BoxFit.fill,
+                          ),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(state.productSkus[index].productName +
+                                  ' ' +
+                                  state.productSkus[index].title),
+                              Text(state.productSkus[index].description),
+                              Row(
+                                children: [
+                                  Text("剩余${state.productSkus[index].stock}个"),
+                                  Expanded(child: Text("")),
+                                  Builder(
+                                    builder: (context) {
+                                      return IconButton(
+                                          onPressed: () {
+                                            print("点击了添加按钮");
+                                            OverlayEntry? _overlayEntry =
+                                                OverlayEntry(builder: (_) {
+                                              RenderBox? box =
+                                                  context.findRenderObject()
+                                                      as RenderBox?;
+                                              var offset = box!
+                                                  .localToGlobal(Offset.zero);
+                                              return RedDotPage(
+                                                  startPosition: offset,
+                                                  endPosition:
+                                                      appLogic.endOffset);
+                                            });
+                                            Overlay.of(context)
+                                                ?.insert(_overlayEntry);
+                                            Future.delayed(
+                                                Duration(milliseconds: 800),
+                                                () {
+                                              _overlayEntry?.remove();
+                                              _overlayEntry = null;
+                                            });
+                                          },
+                                          icon: Icon(Icons.add_circle_outline));
+                                    },
+                                  )
+                                ],
+                              )
+                            ],
+                          )),
                         ],
-                      )
-                    ],
-                  )),
-                ],
-              ),
-              onTap: () {
-                Get.toNamed("/consumables_detail");
-              },
-            )),)
-  );
+                      ),
+                      onTap: () {
+                        // Get.toNamed("/consumables_detail");
+                        EasyLoading.showToast("是否已登录:" +
+                            SpUtil.getBool(UserConstant.isLogin).toString());
+                      },
+                    ));
+          })));
 }
 
 Widget _leftCategoryNav() {
   final state = Get.find<ClassificationLogic>().state;
 
   return Container(
-    width: ScreenUtil().setWidth(60),
-    child: ListView.builder(
-        itemCount: state.navButtonCount,
-        itemBuilder: (context, index) => _leftInkWell(index)),
-  );
+      width: ScreenUtil().setWidth(60),
+      child: Obx(() {
+        return ListView.builder(
+            itemCount: state.products.length,
+            itemBuilder: (context, index) => _leftInkWell(index));
+      }));
 }
 
 Widget _leftInkWell(int index) {
@@ -162,7 +204,7 @@ Widget _leftInkWell(int index) {
           height: ScreenUtil().setHeight(60),
           child: Container(
             alignment: Alignment.center,
-            child: const Text("222"),
+            child: Text(state.products[index].title),
             height: ScreenUtil().setHeight(40),
             margin: const EdgeInsets.symmetric(vertical: 10.0),
             decoration: BoxDecoration(
@@ -176,7 +218,8 @@ Widget _leftInkWell(int index) {
           ));
     }),
     onTap: () {
-      print("点击了种类");
+      state.onTapProduct = state.products[index].id;
+      logic.getList();
       logic.clearNavActive();
       state.navActive[index] = true;
     },

@@ -1,7 +1,6 @@
 import 'package:record_flutter/common/entities/product_skus_entity.dart';
 
 import '../constant/url_constant.dart';
-import '../entities/cart_entity.dart';
 import '../utils/http_util.dart';
 
 class ProductSkusAPI {
@@ -34,6 +33,21 @@ class ProductSkusAPI {
     map["type"] = type;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'listByTypeIPage',
+        queryParameters: map);
+
+    return ProductSkusEntity.fromJson(response);
+  }
+
+  static Future listCountByProductIdAndTypeIPage(
+      {required int pageSize, required int pageNum, required int productId,required int? userId,required int type}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["productId"] = productId;
+    map["userId"] = userId;
+    map["type"] = type;
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listCountByProductIdAndTypeIPage',
         queryParameters: map);
 
     return ProductSkusEntity.fromJson(response);

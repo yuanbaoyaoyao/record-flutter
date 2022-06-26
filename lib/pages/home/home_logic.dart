@@ -70,10 +70,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
 
   double? getY(BuildContext? buildContext) {
     RenderObject? evaluationRenderObject = buildContext?.findRenderObject();
-    return evaluationRenderObject
-        ?.getTransformTo(null)
-        .getTranslation()
-        .y;
+    return evaluationRenderObject?.getTransformTo(null).getTranslation().y;
   }
 
   void loadData() async {
@@ -89,6 +86,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
       if (state.sliderMaxValue == 0) {
         state.sliderMaxValue = scrollController.position.maxScrollExtent;
       }
+      log("state.sliderValue:" + state.sliderValue);
       state.sliderValue = scrollController.position.pixels;
     });
   }
@@ -98,10 +96,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     tabsScrollController.addListener(() {
       //此处50 待处理
       var of = tabsScrollController.position.pixels +
-          MediaQuery
-              .of(Get.context!)
-              .padding
-              .top +
+          MediaQuery.of(Get.context!).padding.top +
           50.0;
 
       if (of > state.tabsSliderValue) {
@@ -125,6 +120,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     });
   }
 
+  //
   void getClassification() async {
     await ProductAPI.listProductAllAPI(productName: '').then((value) {
       state.products = value.data;
@@ -145,22 +141,26 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
 
   void getListByType() async {
     await ProductSkusAPI.listProductSkusByTypeIPageAPI(
-        pageNum: 1, type: 1, pageSize: 5)
+            pageNum: 1, type: state.listPage + 1, pageSize: state.pageSize)
         .then((value) {
-      log(value.data.records.toString());
+      log(value.data.records[0].avatar.toString());
+      state.productSkus = value.data.records;
     });
   }
 
   void onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     log("刷新完成");
+    state.pageSize = 8;
     loadData();
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
+    state.pageSize += 8;
     log("加載完成");
+    getListByType();
     refreshController.loadComplete();
   }
 

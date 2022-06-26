@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/common/apis/user_api.dart';
+import 'package:record_flutter/common/constant/user_constant.dart';
+import 'package:record_flutter/pages/no_auth/login/login_logic.dart';
 import 'package:sp_util/sp_util.dart';
 
 import '../../../res/constant.dart';
@@ -35,7 +38,12 @@ class SplashLogic extends GetxController {
         SpUtil.putBool(Constant.firstStart, false);
         state.status = 1;
       } else {
-        Get.offNamed("/login");
+        if (SpUtil.getBool(UserConstant.isLogin) == true) {
+          Get.offNamed("/application");
+          UserAPI.getUserInfo();
+        } else {
+          Get.offNamed("/login");
+        }
       }
     });
   }

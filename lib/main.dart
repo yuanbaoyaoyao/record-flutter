@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/global.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
 import 'package:record_flutter/router/app_pages.dart';
@@ -17,14 +18,17 @@ Future<void> main() async => {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: '耗材管理系统',
-      // home: IndexPage(),
-      initialBinding: SplashBinding(),
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-      builder: EasyLoading.init(),
-
-    );
+    return RefreshConfiguration(
+        footerBuilder: () => const ClassicFooter(
+              loadStyle: LoadStyle.ShowWhenLoading,
+            ),
+        child: GetMaterialApp(
+          title: '耗材管理系统',
+          // home: IndexPage(),
+          initialBinding: SplashBinding(),
+          initialRoute: AppPages.INITIAL,
+          getPages: AppPages.routes,
+          builder: EasyLoading.init(),
+        ));
   }
 }

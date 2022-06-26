@@ -14,6 +14,9 @@ class HomeState {
   final _rotations = [].obs;
   final _oldProducts = [].obs;
   final _newProducts = [].obs;
+  final _productSkus = [].obs;
+
+  final _pageSize = 8.obs;
 
   final _listPage = 0.obs;
   final _tabsSliderValue = 0.0.obs;
@@ -25,6 +28,10 @@ class HomeState {
   set products(value) => _products.value = value;
 
   get products => _products;
+
+  set productSkus(value) => _productSkus.value = value;
+
+  get productSkus => _productSkus;
 
   set rotations(value) => _rotations.value = value;
 
@@ -61,4 +68,8 @@ class HomeState {
   set tabsSliderMaxValue(value) => _tabsSliderMaxValue.value = value;
 
   get tabsSliderMaxValue => _tabsSliderMaxValue.value;
+
+  set pageSize(value) => _pageSize.value = value;
+
+  get pageSize => _pageSize.value;
 }

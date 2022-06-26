@@ -6,7 +6,7 @@ class CartAPI {
   static String request = '/cartClient/';
 
   static Future listCartAPI({
-    required int userId,
+    required int? userId,
   }) async {
     Map<String, dynamic> map = {};
     map["userId"] = userId;
@@ -42,41 +42,55 @@ class CartAPI {
   }
 
   static Future createCartAPI({required CartEntity cartEntity}) async {
-    var response = await HttpUtil()
-        .post(UrlConstant.debugClientIp + request + 'create', data: cartEntity);
+    var response = await HttpUtil().post(
+        UrlConstant.debugClientIp + request + 'create',
+        data: cartEntity.toJson());
 
     return CartEntity.fromJson(response);
   }
 
-  static Future updateCartAPI({required CartEntity cartEntity}) async {
-    var response =
-        await HttpUtil().put(UrlConstant.debugClientIp + request + 'update');
+  static Future updateCartAPI(
+      {required CartUpdateEntity cartUpdateEntity}) async {
+    var response = await HttpUtil().put(
+        UrlConstant.debugClientIp + request + 'update',
+        data: cartUpdateEntity);
 
-    return CartEntity.fromJson(response);
+    return response;
   }
 
-  static Future updateCartListAPI({required List<CartEntity> cartList}) async {
+  static Future updateCartListAPI(
+      {required List<CartUpdateEntity> cartUpdateEntity}) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'updateList',
-        data: cartList);
+        data: cartUpdateEntity);
 
-    return CartEntity.fromJson(response);
+    return response;
   }
 
   static Future updateCartCheckedDefaultAPI(
-      {required CartEntity cartEntity}) async {
+      {required CartUpdateEntity cartUpdateEntity}) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'updateCheckedDefault',
-        data: cartEntity);
+        data: cartUpdateEntity);
 
-    return CartEntity.fromJson(response);
+    return response;
   }
 
-  static Future deleteCartAPI({required CartEntity cartEntity}) async {
+  static Future deleteCartAPI(
+      {required CartDeleteEntity cartDeleteEntity}) async {
     var response = await HttpUtil().delete(
         UrlConstant.debugClientIp + request + 'delete',
-        data: cartEntity);
+        data: cartDeleteEntity);
 
-    return CartEntity.fromJson(response);
+    return response;
+  }
+
+  static Future deleteCartListAPI(
+      {required List<CartDeleteEntity> cartDeleteEntityList}) async {
+    var response = await HttpUtil().delete(
+        UrlConstant.debugClientIp + request + 'deleteList',
+        data: cartDeleteEntityList);
+
+    return response;
   }
 }

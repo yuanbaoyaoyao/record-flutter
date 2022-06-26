@@ -1,8 +1,17 @@
 import 'dart:developer';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:record_flutter/common/apis/cart_api.dart';
+import 'package:record_flutter/common/apis/product_skus_api.dart';
+import 'package:record_flutter/common/constant/user_constant.dart';
+import 'package:record_flutter/common/entities/cart_entity.dart';
+import 'package:record_flutter/common/store/user_store/user_store_state.dart';
+import 'package:sp_util/sp_util.dart';
 
+import '../application/application_state.dart';
 import 'cart_state.dart';
 
 class CartLogic extends GetxController {
@@ -14,18 +23,84 @@ class CartLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    loadData();
     refreshController = RefreshController();
   }
 
+  void loadData() async {
+    getCartList();
+    getRecommendList();
+  }
+
+  void getCartList() async {
+    await CartAPI.listCartAPI(userId: SpUtil.getInt(UserConstant.userId))
+        .then((value) {
+      state.cartList = value.data;
+      log("state.cartList:" + state.cartList.toString());
+    });
+  }
+
+  void handleUpdateCartItem(int index) async {
+    await CartAPI.updateCartAPI(cartUpdateEntity: state.onTapCartItem)
+        .then((value) {
+      state.cartList[index].productSkusNumber =
+          state.onTapCartItem.productSkusNumber;
+      getCartList();
+    });
+  }
+
+  void handleCount() {
+    state.checkedCartItemListNumber = 0;
+    for (var item in state.checkedCartItemList) {
+      state.checkedCartItemListNumber += item.productSkusNumber;
+    }
+  }
+
+  void handleDeleteCartItem() async {
+    await CartAPI.deleteCartAPI(
+            cartDeleteEntity: CartDeleteEntity(id: state.onTapCartItem.id))
+        .then((value) {});
+  }
+
+  void handleDeleteCartItemList() async {
+    List<CartDeleteEntity> cartDeleteEntityList = [];
+    for (var item in state.checkedCartItemList) {
+      cartDeleteEntityList.add(CartDeleteEntity(id: item.id));
+      log("item:"+item.toString());
+    }
+    await CartAPI.deleteCartListAPI(cartDeleteEntityList: cartDeleteEntityList)
+        .then((value) {
+      onRefresh();
+    });
+  }
+
+  void getRecommendList() async {
+    await ProductSkusAPI.listProductSkusSearchIPageAPI(
+            pageSize: state.pageSize,
+            pageNum: 1,
+            id: 0,
+            productName: "",
+            productSkusName: "")
+        .then((value) {
+      state.recommendList = value.data.records;
+    });
+  }
+
   void onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     log("刷新完成");
+    state.pageSize = 8;
+    state.checkedCartItemList = [];
+    state.checkedCartItemListNumber = 0;
+    loadData();
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
+    state.pageSize += 8;
     log("加載完成");
+    getRecommendList();
     refreshController.loadComplete();
   }
 

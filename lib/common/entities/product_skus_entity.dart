@@ -101,15 +101,15 @@ class Record {
     required this.createdAt,
   });
 
-  int id;
-  String productName;
-  int productId;
-  String title;
-  String avatar;
-  String description;
-  int type;
-  int stock;
-  DateTime createdAt;
+  int? id;
+  String? productName;
+  int? productId;
+  String? title;
+  String? avatar;
+  String? description;
+  int? type;
+  int? stock;
+  DateTime? createdAt;
 
   factory Record.fromJson(Map<String, dynamic> json) => Record(
         id: json["id"],
@@ -132,6 +132,6 @@ class Record {
         "description": description,
         "type": type,
         "stock": stock,
-        "createdAt": createdAt.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
       };
 }

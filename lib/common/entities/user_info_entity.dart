@@ -16,9 +16,9 @@ class UserInfoEntity {
     required this.data,
   });
 
-  int code;
-  String message;
-  Data data;
+  int? code;
+  String? message;
+  Data? data;
 
   factory UserInfoEntity.fromJson(Map<String, dynamic> json) => UserInfoEntity(
         code: json["code"],
@@ -29,7 +29,7 @@ class UserInfoEntity {
   Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
-        "data": data.toJson(),
+        "data": data?.toJson(),
       };
 }
 

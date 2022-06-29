@@ -218,10 +218,7 @@ Widget _leftInkWell(int index) {
           ));
     }),
     onTap: () {
-      state.onTapProduct = state.products[index].id;
-      logic.getList();
-      logic.clearNavActive();
-      state.navActive[index] = true;
+      logic.handleChangeNavButton(index);
     },
   );
 }

@@ -15,7 +15,7 @@ class OldConsumablesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context , child) => Scaffold(
+      builder: (context, child) => Scaffold(
         body: NestedScrollView(
           body: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
@@ -55,9 +55,11 @@ class OldConsumablesPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Column(
-                          children: _buildListRecommendOldConsumables(),
-                        ),
+                        Obx(() {
+                          return Column(
+                            children: _buildListRecommendOldConsumables(),
+                          );
+                        })
                       ],
                     )
                   ],
@@ -135,12 +137,12 @@ class OldConsumablesPage extends StatelessWidget {
   }
 
   List<Widget> _buildListRecommendOldConsumables() =>
-      List.generate(10, (index) {
+      List.generate(state.productSkus.data.length, (index) {
         final logic = Get.find<OldConsumablesLogic>();
         return InkWell(
             onTap: () {
-              print("点击了图标$index");
-              Get.toNamed("/consumables_detail");
+              Get.toNamed("/consumables_detail",
+                  arguments: state.productSkus.data[index].productSkusId);
             },
             child: Container(
                 height: ScreenUtil().setHeight(180),
@@ -156,8 +158,8 @@ class OldConsumablesPage extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 10.0),
-                      child: Image.asset(
-                        "assets/images/mock/88a1.png",
+                      child: Image.network(
+                        state.productSkus.data[index].avatar,
                         width: ScreenUtil().setWidth(160),
                       ),
                     ),
@@ -165,14 +167,16 @@ class OldConsumablesPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("这是标题"),
-                        Text("这是描述"),
+                        Text(state.productSkus.data[index].productName +
+                            ' ' +
+                            state.productSkus.data[index].productSkusName),
+                        Text(state.productSkus.data[index].description),
                         Container(
                             width: ScreenUtil().setWidth(170),
                             color: Colors.red,
                             child: Row(
                               children: [
-                                Text("这是剩余数量"),
+                                Text("剩余${state.productSkus.data[index].stock}个"),
                                 Expanded(child: Text("")),
                                 Builder(
                                   builder: (context) {

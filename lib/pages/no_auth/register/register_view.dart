@@ -72,7 +72,8 @@ class RegisterPage extends GetView<RegisterLogic> {
                     controller: controller.textEmailEditingController,
                     decoration: InputDecoration(
                         hintText: '请输入邮箱',
-                        suffixIcon: Obx(() {
+                        suffixIcon:
+                        Obx(() {
                           return Visibility(
                               visible: controller.state.hasEmailContent,
                               child: SizedBox(
@@ -110,7 +111,9 @@ class RegisterPage extends GetView<RegisterLogic> {
                                   ],
                                 ),
                               ));
-                        })),
+                        }
+                        )
+                    ),
                     onChanged: (text) {
                       if (text.isNotEmpty) {
                         controller.state.hasEmailContent = true;

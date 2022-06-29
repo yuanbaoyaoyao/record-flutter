@@ -64,7 +64,8 @@ class LoginPage extends GetView<LoginLogic> {
                       } else {
                         return null;
                       }
-                    }),
+                    }
+                    ),
                 TextFormField(
                     controller: controller.textPasswordEditingController,
                     obscuringCharacter: "*",

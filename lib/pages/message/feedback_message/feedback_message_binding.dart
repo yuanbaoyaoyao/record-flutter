@@ -5,6 +5,6 @@ import 'feedback_message_logic.dart';
 class FeedbackMessageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => Feedback_messageLogic());
+    Get.lazyPut(() => FeedbackMessageLogic());
   }
 }

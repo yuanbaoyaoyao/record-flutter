@@ -17,9 +17,9 @@ class ProductSkusEntity {
     required this.data,
   });
 
-  int code;
-  String message;
-  Data data;
+  int? code;
+  String? message;
+  Data? data;
 
   factory ProductSkusEntity.fromJson(Map<String, dynamic> json) =>
       ProductSkusEntity(
@@ -31,7 +31,7 @@ class ProductSkusEntity {
   Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
-        "data": data.toJson(),
+        "data": data?.toJson(),
       };
 }
 

@@ -8,7 +8,7 @@ import '../utils/http_util.dart';
 class UserReminderAPI {
   static String request = '/userReminderClient/';
 
-  static Future listUserReminderAPI({required int userId}) async {
+  static Future listUserReminderAPI({required int? userId}) async {
     Map<String, dynamic> map = {};
     map["userId"] = userId;
     var response = await HttpUtil().get(
@@ -19,39 +19,39 @@ class UserReminderAPI {
   }
 
   static Future updateUserReminderAPI({
-    required UserReminderEntity userReminderEntity,
+    required UserReminderUpdateEntity updateEntity,
   }) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'update',
-        data: userReminderEntity);
+        data: updateEntity);
 
-    return UserReminderEntity.fromJson(response);
+    return response;
   }
 
   static Future updateUserReminderListAPI(
-      {required UserReminderEntity userReminderEntity}) async {
+      {required List<UserReminderUpdateEntity> updateEntityList}) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'updateByIds',
-        data: userReminderEntity);
+        data: updateEntityList);
 
-    return UserReminderEntity.fromJson(response);
+    return response;
   }
 
   static Future deleteUserReminderAPI(
-      {required UserReminderEntity userReminderEntity}) async {
+      {required UserReminderUpdateEntity updateEntity}) async {
     var response = await HttpUtil().delete(
         UrlConstant.debugClientIp + request + 'delete',
-        data: userReminderEntity);
+        data: updateEntity);
 
-    return UserReminderEntity.fromJson(response);
+    return response;
   }
 
   static Future deleteUserReminderListAPI(
-      {required UserReminderEntity userReminderEntity}) async {
+      {required List<UserReminderUpdateEntity> updateEntityList}) async {
     var response = await HttpUtil().delete(
         UrlConstant.debugClientIp + request + 'deleteByIds',
-        data: userReminderEntity);
+        data: updateEntityList);
 
-    return UserReminderEntity.fromJson(response);
+    return response;
   }
 }

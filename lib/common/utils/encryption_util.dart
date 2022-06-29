@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'dart:typed_data';
 
@@ -9,6 +10,7 @@ class EncryptionUtil {
     String salt = "ILoveYuanbao";
     Uint8List content = const Utf8Encoder().convert(salt + data);
     Digest digest = md5.convert(content);
+    log("digest.toString():" + digest.toString());
     return digest.toString();
   }
 }

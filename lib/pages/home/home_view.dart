@@ -58,10 +58,12 @@ class HomePage extends GetView<HomeLogic> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   buildNewOld(
+                                    isOld: true,
                                     textTitle: "旧耗材",
                                     testDescription: "可能有宝藏哦ヽ(✿ﾟ▽ﾟ)ノ",
                                   ),
                                   buildNewOld(
+                                    isOld: false,
                                     textTitle: "新耗材",
                                     testDescription: "我要的终于来了o(￣▽￣)ｄ",
                                   ),
@@ -85,7 +87,7 @@ class HomePage extends GetView<HomeLogic> {
                               margin: const EdgeInsets.only(top: 20.0),
                               child: Obx(() {
                                 return GridView.count(
-                                    childAspectRatio:9/10,
+                                    childAspectRatio: 9 / 10,
                                     crossAxisCount: 2,
                                     shrinkWrap: true,
                                     physics:
@@ -96,8 +98,9 @@ class HomePage extends GetView<HomeLogic> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.toNamed(
-                                                  "/consumables_detail");
+                                              Get.toNamed("/consumables_detail",
+                                                  arguments: state
+                                                      .productSkus[index].id);
                                             },
                                             child: Card(
                                                 child: Container(

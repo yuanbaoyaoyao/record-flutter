@@ -118,7 +118,11 @@ class CartPage extends StatelessWidget {
                                                     GestureDetector(
                                                       onTap: () {
                                                         Get.toNamed(
-                                                            "/consumables_detail");
+                                                            "/consumables_detail",
+                                                            arguments: state
+                                                                .recommendList[
+                                                                    index]
+                                                                .id);
                                                       },
                                                       child: Card(
                                                           child: Container(

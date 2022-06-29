@@ -13,6 +13,7 @@ import 'package:sp_util/sp_util.dart';
 
 class HttpUtil {
   static final HttpUtil _instance = HttpUtil._internal();
+
   // final UserStoreState userStoreState = UserStoreState();
 
   factory HttpUtil() => _instance;
@@ -62,7 +63,11 @@ class HttpUtil {
       EasyLoading.showToast("未授权，请重新登录", duration: const Duration(seconds: 2));
       // userStoreState.isLogin = false;
       SpUtil.putBool(UserConstant.isLogin, false);
+      SpUtil.remove(UserConstant.userTokenKey);
       Get.toNamed("/login");
+    } else {
+      EasyLoading.showToast(errorEntity.message,
+          duration: const Duration(seconds: 3));
     }
   }
 
@@ -143,7 +148,7 @@ class HttpUtil {
     //     UserStoreState().token.isNotEmpty) {
     //   headers['Authorization'] = 'Bearer ${UserStoreState().token}';
     // } else
-    if (SpUtil.getString(UserConstant.userTokenKey) != null) {
+    if (SpUtil.containsKey(UserConstant.userTokenKey) == true) {
       headers['Authorization'] =
           'Bearer ${SpUtil.getString(UserConstant.userTokenKey)}';
     }

@@ -17,9 +17,9 @@ class FrontShowEntity {
     required this.data,
   });
 
-  int code;
-  String message;
-  List<Datum> data;
+  int? code;
+  String? message;
+  List<Datum>? data;
 
   factory FrontShowEntity.fromJson(Map<String, dynamic> json) =>
       FrontShowEntity(
@@ -31,7 +31,7 @@ class FrontShowEntity {
   Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -43,6 +43,7 @@ class Datum {
     required this.productName,
     required this.avatar,
     required this.stock,
+    required this.description,
     this.showRotation,
     this.showOld,
     this.showNew,
@@ -55,6 +56,7 @@ class Datum {
   String productName;
   String avatar;
   int stock;
+  String? description;
   dynamic showRotation;
   dynamic showOld;
   dynamic showNew;
@@ -65,6 +67,7 @@ class Datum {
         productSkusId: json["productSkusId"],
         productSkusName: json["productSkusName"],
         productName: json["productName"],
+        description: json["description"],
         avatar: json["avatar"],
         stock: json["stock"],
         showRotation: json["showRotation"],
@@ -78,6 +81,7 @@ class Datum {
         "productSkusId": productSkusId,
         "productSkusName": productSkusName,
         "productName": productName,
+        "description": description,
         "avatar": avatar,
         "stock": stock,
         "showRotation": showRotation,

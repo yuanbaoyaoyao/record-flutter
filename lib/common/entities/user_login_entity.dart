@@ -103,3 +103,34 @@ class UserLoginInputEntity {
     "password": password,
   };
 }
+
+
+//userForgetEntity
+UserForgetEntity userForgetEntityFromJson(String str) => UserForgetEntity.fromJson(json.decode(str));
+
+String userForgetEntityToJson(UserForgetEntity data) => json.encode(data.toJson());
+
+class UserForgetEntity {
+  UserForgetEntity({
+    required this.email,
+    required this.emailCode,
+    required this.password,
+  });
+
+  String email;
+  String emailCode;
+  String password;
+
+  factory UserForgetEntity.fromJson(Map<String, dynamic> json) => UserForgetEntity(
+    email: json["email"],
+    emailCode: json["emailCode"],
+    password: json["password"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "email": email,
+    "emailCode": emailCode,
+    "password": password,
+  };
+}
+

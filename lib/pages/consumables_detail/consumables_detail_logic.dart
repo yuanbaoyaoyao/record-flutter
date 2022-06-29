@@ -1,5 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/common/apis/product_skus_api.dart';
+import 'package:record_flutter/common/apis/user_address_api.dart';
+import 'package:record_flutter/common/constant/user_constant.dart';
+import 'package:sp_util/sp_util.dart';
 
 import 'consumables_detail_state.dart';
 
@@ -16,13 +23,61 @@ class ConsumablesDetailLogic extends GetxController
     // TODO: implement onInit
     scrollController = ScrollController();
     tabController = TabController(length: state.tabs.length, vsync: this);
-
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       subInitState();
     });
 
     scrollerAddListener();
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    loadData();
+  }
+
+  void loadData() {
+    int id = Get.arguments;
+    getProductSkusInfo(id);
+    getAddress();
+  }
+
+  void handleAddNumber() {
+    if (state.number < state.productSkusInfo.data.records[0].stock) {
+      state.number++;
+    } else {
+      EasyLoading.showToast("超过库存数量");
+    }
+  }
+
+  void handleReduceNumber() {
+    if (state.number > 1) {
+      state.number--;
+    } else {
+      EasyLoading.showToast("至少购买一件哦！");
+    }
+  }
+
+  void getAddress() async {
+    await UserAddressAPI.listUserAddressAPI(
+            userId: SpUtil.getInt(UserConstant.userId))
+        .then((value) {
+      state.addressList = value;
+    });
+  }
+
+  void getProductSkusInfo(int id) async {
+    await ProductSkusAPI.listProductSkusSearchIPageAPI(
+            pageSize: 8,
+            productName: '',
+            id: id,
+            productSkusName: '',
+            pageNum: 1)
+        .then((value) {
+      state.productSkusInfo = value;
+    });
   }
 
   void subInitState() {

@@ -10,8 +10,6 @@ import 'package:record_flutter/pages/confirm_order/confirm_order_binding.dart';
 import 'package:record_flutter/pages/confirm_order/confirm_order_view.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_binding.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_view.dart';
-import 'package:record_flutter/pages/message/feedback_message/feedback_message_binding.dart';
-import 'package:record_flutter/pages/message/feedback_message/feedback_message_view.dart';
 import 'package:record_flutter/pages/message/message_box/message_box_binding.dart';
 import 'package:record_flutter/pages/message/message_box/message_box_view.dart';
 import 'package:record_flutter/pages/message/notification_message/notification_message_binding.dart';
@@ -23,6 +21,8 @@ import 'package:record_flutter/pages/mine/mine_details/applications/applications
 import 'package:record_flutter/pages/mine/mine_details/collections/collections_binding.dart';
 import 'package:record_flutter/pages/mine/mine_details/collections/collections_logic.dart';
 import 'package:record_flutter/pages/mine/mine_details/collections/collections_view.dart';
+import 'package:record_flutter/pages/mine/mine_details/feedback/feedback_binding.dart';
+import 'package:record_flutter/pages/mine/mine_details/feedback/feedback_view.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/order_detail/order_detail_binding.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/order_detail/order_detail_view.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/orders_binding.dart';
@@ -57,6 +57,11 @@ import 'package:record_flutter/pages/setting/setting_details/password_management
 import 'package:record_flutter/pages/setting/setting_details/user_info/user_info_binding.dart';
 import 'package:record_flutter/pages/setting/setting_details/user_info/user_info_view.dart';
 import 'package:record_flutter/pages/setting/setting_view.dart';
+
+import '../pages/message/feedback_message/feedback_message_binding.dart';
+import '../pages/message/feedback_message/feedback_message_view.dart';
+import '../pages/mine/mine_details/feedback/feedback_detail/feedback_detail_binding.dart';
+import '../pages/mine/mine_details/feedback/feedback_detail/feedback_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -106,6 +111,14 @@ class AppPages {
         name: AppRoutes.FeedbackMessage,
         page: () => FeedbackMessagePage(),
         binding: FeedbackMessageBinding()),
+    GetPage(
+        name: AppRoutes.Feedback,
+        page: () => FeedbackPage(),
+        binding: FeedbackBinding()),
+    GetPage(
+        name: AppRoutes.FeedbackDetail,
+        page: () => FeedbackDetailPage(),
+        binding: FeedbackDetailBinding()),
     GetPage(
         name: AppRoutes.NotificationMessage,
         page: () => NotificationMessagePage(),

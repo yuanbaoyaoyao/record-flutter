@@ -16,7 +16,7 @@ class SettingPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ScreenUtilInit(
-        builder: (context , child) {
+        builder: (context, child) {
           return Container(
             color: Colors.grey,
             child: Column(
@@ -65,7 +65,6 @@ class SettingPage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    print("点击了收货地址管理");
                     Get.toNamed("/address_management");
                   },
                 ),
@@ -89,7 +88,6 @@ class SettingPage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    print("点击了密码修改");
                     Get.toNamed("/password_management");
                   },
                 ),
@@ -113,7 +111,6 @@ class SettingPage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    print("点击了关于我们");
                     Get.toNamed("/about_me");
                   },
                 ),
@@ -130,7 +127,24 @@ class SettingPage extends StatelessWidget {
                         style: TextStyle(fontSize: 16, color: Colors.red),
                       )),
                   onTap: () {
-                    print("点击了退出登录");
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text("提示"),
+                              content: Text("是否退出登录"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancle'),
+                                    child: Text("取消")),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, 'Cancle');
+                                      logic.handleLogOut();
+                                    },
+                                    child: Text("确定")),
+                              ],
+                            ));
                   },
                 ),
               ],

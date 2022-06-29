@@ -37,8 +37,8 @@ Widget buildHomeSwiper() {
           ),
           controller: SwiperController(),
           onTap: (index) {
-            log("点击了${state.rotations[index].avatar}");
-            Get.toNamed("/consumables_detail");
+            Get.toNamed("/consumables_detail",
+                arguments: state.rotations[index].productSkusId);
           },
         );
       }));

@@ -49,9 +49,9 @@ class Datum {
 
   int id;
   int userId;
-  int userFeedbackId;
+  dynamic userFeedbackId;
   dynamic orderProductId;
-  String feedbackTitle;
+  dynamic feedbackTitle;
   dynamic orderSn;
   bool isRead;
   DateTime createdAt;
@@ -76,5 +76,29 @@ class Datum {
         "orderSn": orderSn,
         "isRead": isRead,
         "createdAt": createdAt.toIso8601String(),
+      };
+}
+
+//UserReminderUpdateEntity
+UserReminderUpdateEntity userReminderUpdateEntityFromJson(String str) =>
+    UserReminderUpdateEntity.fromJson(json.decode(str));
+
+String userReminderUpdateEntityToJson(UserReminderUpdateEntity data) =>
+    json.encode(data.toJson());
+
+class UserReminderUpdateEntity {
+  UserReminderUpdateEntity({
+    required this.id,
+  });
+
+  int? id;
+
+  factory UserReminderUpdateEntity.fromJson(Map<String, dynamic> json) =>
+      UserReminderUpdateEntity(
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
       };
 }

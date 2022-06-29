@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/apis/user_api.dart';
 import 'package:record_flutter/common/entities/user_login_entity.dart';
@@ -31,9 +32,20 @@ class RegisterLogic extends GetxController {
   }
 
   void handleSendEmailCode() async {
-    await UserAPI.sendEmailCode(params: textEmailEditingController.text);
-    ToastUtil().showToast("已发送验证码");
-    handleCountDown();
+    if (!isEmail(textEmailEditingController.text)) {
+      EasyLoading.showToast("请输入正确的邮件格式");
+    } else {
+      await UserAPI.sendEmailCode(params: textEmailEditingController.text);
+      ToastUtil().showToast("已发送验证码");
+      handleCountDown();
+    }
+  }
+
+  static bool isEmail(String input) {
+    String regexEmail =
+        "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$";
+    if (input.isEmpty) return false;
+    return RegExp(regexEmail).hasMatch(input);
   }
 
   void handleRegister() async {

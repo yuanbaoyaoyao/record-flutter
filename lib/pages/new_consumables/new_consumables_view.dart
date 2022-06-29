@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:record_flutter/pages/new_consumables/widgets/custom_appbar.dart';
 
 import '../../common/widgets/red_dot_page.dart';
-import '../application/application_logic.dart';
 import 'new_consumables_logic.dart';
 
 class NewConsumablesPage extends StatelessWidget {
@@ -15,7 +16,7 @@ class NewConsumablesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context , child) => Scaffold(
+      builder: (context, child) => Scaffold(
         body: NestedScrollView(
           body: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
@@ -55,9 +56,11 @@ class NewConsumablesPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Column(
-                          children: _buildListRecommendNewConsumables(),
-                        ),
+                        Obx(() {
+                          return Column(
+                            children: _buildListRecommendNewConsumables(),
+                          );
+                        })
                       ],
                     )
                   ],
@@ -79,9 +82,7 @@ class NewConsumablesPage extends StatelessWidget {
                                       color: Colors.white),
                                   child: IconButton(
                                     onPressed: () {
-                                      print("点击了返回按钮");
                                       Get.back();
-                                      print("点击了Get.back()");
                                     },
                                     icon: const Icon(Icons.arrow_back_outlined),
                                   ),
@@ -135,12 +136,15 @@ class NewConsumablesPage extends StatelessWidget {
   }
 
   List<Widget> _buildListRecommendNewConsumables() =>
-      List.generate(10, (index) {
-        final appLogic = Get.find<ApplicationLogic>();
+      List.generate(state.productSkus.data.length, (index) {
+        final logic = Get.find<NewConsumablesLogic>();
         return InkWell(
             onTap: () {
-              print("点击了图标$index");
-              Get.toNamed("/consumables_detail");
+              Get.toNamed("/consumables_detail",
+                  arguments: state.productSkus.data[index].productSkusId);
+              log("123333333333333333333333");
+              log("state.productSkus.data[index]:" +
+                  state.productSkus.data[index].id.toString());
             },
             child: Container(
                 height: ScreenUtil().setHeight(180),
@@ -156,8 +160,8 @@ class NewConsumablesPage extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 10.0),
-                      child: Image.asset(
-                        "assets/images/mock/88a1.png",
+                      child: Image.network(
+                        state.productSkus.data[index].avatar,
                         width: ScreenUtil().setWidth(160),
                       ),
                     ),
@@ -165,20 +169,22 @@ class NewConsumablesPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("这是标题"),
-                        Text("这是描述"),
+                        Text(state.productSkus.data[index].productName +
+                            ' ' +
+                            state.productSkus.data[index].productSkusName),
+                        Text(state.productSkus.data[index].description),
                         Container(
                             width: ScreenUtil().setWidth(170),
                             color: Colors.red,
                             child: Row(
                               children: [
-                                Text("这是剩余数量"),
+                                Text(
+                                    "剩余${state.productSkus.data[index].stock}个"),
                                 Expanded(child: Text("")),
                                 Builder(
                                   builder: (context) {
                                     return IconButton(
                                         onPressed: () {
-                                          print("点击了添加按钮");
                                           OverlayEntry? _overlayEntry =
                                               OverlayEntry(builder: (_) {
                                             RenderBox? box =
@@ -188,8 +194,7 @@ class NewConsumablesPage extends StatelessWidget {
                                                 box!.localToGlobal(Offset.zero);
                                             return RedDotPage(
                                                 startPosition: offset,
-                                                endPosition:
-                                                    appLogic.endOffset);
+                                                endPosition: logic.endOffset);
                                           });
                                           Overlay.of(context)
                                               ?.insert(_overlayEntry);

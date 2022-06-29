@@ -9,11 +9,12 @@ import '../utils/http_util.dart';
 class UserAddressAPI {
   static String request = '/client/userAddress/';
 
-  static Future listUserAddressAPI({required int userId}) async {
+  static Future listUserAddressAPI({required int? userId}) async {
     Map<String, dynamic> map = {};
     map["userId"] = userId;
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', queryParameters: map);
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'list',
+        queryParameters: map);
 
     return UserAddressEntity.fromJson(response);
   }
@@ -21,36 +22,37 @@ class UserAddressAPI {
   static Future listOneUserAddressAPI({required int id}) async {
     Map<String, dynamic> map = {};
     map["id"] = id;
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'listOne', queryParameters: map);
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'listOne',
+        queryParameters: map);
 
     return UserAddressEntity.fromJson(response);
   }
 
   static Future createUserAddressAPI(
-      {required UserAddressEntity userAddressEntity}) async {
+      {required UserAddressUpdateEntity updateEntity}) async {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
-        data: userAddressEntity);
+        data: updateEntity);
 
-    return UserAddressEntity.fromJson(response);
+    return response;
   }
 
   static Future deleteUserAddressAPI(
-      {required UserAddressEntity userAddressEntity}) async {
+      {required UserAddressUpdateEntity updateEntity}) async {
     var response = await HttpUtil().delete(
         UrlConstant.debugClientIp + request + 'delete',
-        data: userAddressEntity);
+        data: updateEntity);
 
-    return UserAddressEntity.fromJson(response);
+    return response;
   }
 
   static Future updateUserAddressAPI(
-      {required UserAddressEntity userAddressEntity}) async {
+      {required UserAddressUpdateEntity updateEntity}) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'update',
-        data: userAddressEntity);
+        data: updateEntity);
 
-    return UserAddressEntity.fromJson(response);
+    return response;
   }
 }

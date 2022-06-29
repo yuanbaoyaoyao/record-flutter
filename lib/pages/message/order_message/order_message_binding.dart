@@ -5,6 +5,6 @@ import 'order_message_logic.dart';
 class OrderMessageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => Order_messageLogic());
+    Get.lazyPut(() => OrderMessageLogic());
   }
 }

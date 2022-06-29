@@ -11,11 +11,11 @@ class UserOrderAPI {
   static Future listUserOrderIPageAPI(
       {required int pageSize,
       required int pageNum,
-      required int userId,
-      required String productTitle,
-      required String productSkusTitle,
-      required int orderSn,
-      required bool orderStatus}) async {
+      required int? userId,
+      required String? productTitle,
+      required String? productSkusTitle,
+      required int? orderSn,
+      required bool? orderStatus}) async {
     Map<String, dynamic> map = {};
     map["pageSize"] = pageSize;
     map["pageNum"] = pageNum;

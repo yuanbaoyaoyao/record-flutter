@@ -88,6 +88,13 @@ class ClassificationLogic extends GetxController {
     });
   }
 
+  void handleChangeNavButton(int index){
+    state.onTapProduct = state.products[index].id;
+    getList();
+    clearNavActive();
+    state.navActive[index] = true;
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose

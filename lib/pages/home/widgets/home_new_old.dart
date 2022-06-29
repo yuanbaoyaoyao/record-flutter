@@ -10,14 +10,18 @@ final state = Get.find<HomeLogic>().state;
 Widget buildNewOld({
   required textTitle,
   required testDescription,
+  required bool isOld,
 }) {
   return Card(child: Obx(() {
     return Container(
         width: ScreenUtil().screenWidth * (0.47),
         child: GestureDetector(
           onTap: () {
-            print("点击了旧耗材");
-            Get.toNamed("/old_consumables");
+            if (isOld) {
+              Get.toNamed("/old_consumables");
+            } else {
+              Get.toNamed("/new_consumables");
+            }
           },
           child: Column(
             children: [

@@ -135,3 +135,28 @@ class Record {
         "createdAt": createdAt.toIso8601String(),
       };
 }
+
+//UserFeedbackDetailUpdateEntity
+
+UserFeedbackUpdateEntity userFeedbackUpdateEntityFromJson(String str) =>
+    UserFeedbackUpdateEntity.fromJson(json.decode(str));
+
+String userFeedbackUpdateEntityToJson(UserFeedbackUpdateEntity data) =>
+    json.encode(data.toJson());
+
+class UserFeedbackUpdateEntity {
+  UserFeedbackUpdateEntity({
+    required this.id,
+  });
+
+  int id;
+
+  factory UserFeedbackUpdateEntity.fromJson(Map<String, dynamic> json) =>
+      UserFeedbackUpdateEntity(
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+      };
+}

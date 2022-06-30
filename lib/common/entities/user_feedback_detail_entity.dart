@@ -17,9 +17,9 @@ class UserFeedbackDetailEntity {
     required this.data,
   });
 
-  int code;
-  String message;
-  List<Datum> data;
+  int? code;
+  String? message;
+  List<Datum>? data;
 
   factory UserFeedbackDetailEntity.fromJson(Map<String, dynamic> json) =>
       UserFeedbackDetailEntity(
@@ -31,7 +31,7 @@ class UserFeedbackDetailEntity {
   Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -68,5 +68,36 @@ class Datum {
         "adminUserName": adminUserName,
         "content": content,
         "createdAt": createdAt,
+      };
+}
+
+//UserFeedbackDetailUpdateEntity
+
+UserFeedbackDetailUpdateEntity userFeedbackDetailUpdateEntityFromJson(
+        String str) =>
+    UserFeedbackDetailUpdateEntity.fromJson(json.decode(str));
+
+String userFeedbackDetailUpdateEntityToJson(
+        UserFeedbackDetailUpdateEntity data) =>
+    json.encode(data.toJson());
+
+class UserFeedbackDetailUpdateEntity {
+  UserFeedbackDetailUpdateEntity({
+    required this.userFeedbackId,
+    required this.content,
+  });
+
+  int userFeedbackId;
+  String content;
+
+  factory UserFeedbackDetailUpdateEntity.fromJson(Map<String, dynamic> json) =>
+      UserFeedbackDetailUpdateEntity(
+        userFeedbackId: json["userFeedbackId"],
+        content: json["content"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userFeedbackId": userFeedbackId,
+        "content": content,
       };
 }

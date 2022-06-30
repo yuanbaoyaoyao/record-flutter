@@ -15,17 +15,17 @@ class UserFeedbackDetailAPI {
     map["userFeedbackId"] = userFeedbackId;
     var response = await HttpUtil().get(
         UrlConstant.debugClientIp + request + 'list',
-        data: userFeedbackId);
+        queryParameters: map);
 
     return UserFeedbackDetailEntity.fromJson(response);
   }
 
   static Future createUserFeedbackDetailAPI(
-      {required UserFeedbackDetailEntity userFeedbackDetailEntity}) async {
+      {required UserFeedbackDetailUpdateEntity updateEntity}) async {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
-        data: userFeedbackDetailEntity);
+        data: updateEntity);
 
-    return UserFeedbackDetailEntity.fromJson(response);
+    return response;
   }
 }

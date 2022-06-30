@@ -8,9 +8,7 @@ import 'consumables_detail_logic.dart';
 
 class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
   final logic = Get.find<ConsumablesDetailLogic>();
-  final state = Get
-      .find<ConsumablesDetailLogic>()
-      .state;
+  final state = Get.find<ConsumablesDetailLogic>().state;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +16,13 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
       body: NestedScrollView(
         body: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
-              if (notification is ScrollUpdateNotification) {
-                ScrollMetrics metrics = notification.metrics;
-                print(metrics.pixels);
-                logic.onScroll(notification.metrics.pixels);
-              }
-              return false;
-            }, child: Obx(() {
+          if (notification is ScrollUpdateNotification) {
+            ScrollMetrics metrics = notification.metrics;
+            print(metrics.pixels);
+            logic.onScroll(notification.metrics.pixels);
+          }
+          return false;
+        }, child: Obx(() {
           return Stack(
             children: [
               ListView(
@@ -42,7 +40,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                 child: Image.network(
                                   state.productSkusInfo.code != null
                                       ? state.productSkusInfo.data.records[0]
-                                      .avatar
+                                          .avatar
                                       : "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202004%2F18%2F20200418035054_wLmeh.thumb.1000_0.gif&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658886566&t=be8a42d75e73cb5186788b9634f4687b",
                                   fit: BoxFit.fill,
                                   height: 350,
@@ -55,29 +53,18 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      "${state.productSkusInfo.code != null
-                                          ? state.productSkusInfo.data
-                                          .records[0].productName + " " +
-                                          state.productSkusInfo.data.records[0]
-                                              .title
-                                          : ""}",
+                                      "${state.productSkusInfo.code != null ? state.productSkusInfo.data.records[0].productName + " " + state.productSkusInfo.data.records[0].title : ""}",
                                       style: TextStyle(
                                           fontSize: 30,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     Text(
-                                        "${state.productSkusInfo.code != null
-                                            ? state.productSkusInfo.data
-                                            .records[0].description
-                                            : ""}"),
+                                        "${state.productSkusInfo.code != null ? state.productSkusInfo.data.records[0].description : ""}"),
                                     Text(
-                                      "剩余${state.productSkusInfo.code != null
-                                          ? state.productSkusInfo.data
-                                          .records[0].stock
-                                          : ""}个",
+                                      "剩余${state.productSkusInfo.code != null ? state.productSkusInfo.data.records[0].stock : ""}个",
                                       style: TextStyle(
                                           fontSize: 40,
                                           fontWeight: FontWeight.w600),
@@ -91,7 +78,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                     Container(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("数量"),
                                           Expanded(child: Text("")),
@@ -121,12 +108,12 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                           horizontal: 5.0),
                                       decoration: BoxDecoration(
                                           border:
-                                          Border.all(color: Colors.black)),
+                                              Border.all(color: Colors.black)),
                                     ),
                                     Container(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("地址"),
                                           Expanded(child: Text("")),
@@ -135,21 +122,25 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                                 print("123");
                                                 showModalBottomSheet(
                                                     context: context,
-                                                    builder: (
-                                                        BuildContext context) {
+                                                    builder:
+                                                        (BuildContext context) {
                                                       return Container(
                                                           height: ScreenUtil()
                                                               .setHeight(300.0),
                                                           color: Colors.amber,
-                                                          child: ListView
-                                                              .builder(
-                                                              itemCount: state
-                                                                  .addressList
-                                                                  .data.length,
-                                                              itemBuilder:(context, index) =>Container(
-                                                                child: Text("123"),
-                                                              ))
-                                                      );
+                                                          child:
+                                                              ListView.builder(
+                                                                  itemCount: state
+                                                                      .addressList
+                                                                      .data
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                              index) =>
+                                                                          Container(
+                                                                            child:
+                                                                                Text("123"),
+                                                                          )));
                                                     });
                                               },
                                               child: Text("选择地址"))
@@ -159,7 +150,7 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                           horizontal: 5.0),
                                       decoration: BoxDecoration(
                                           border:
-                                          Border.all(color: Colors.black)),
+                                              Border.all(color: Colors.black)),
                                     ),
                                     Container(
                                       child: Text("为你推荐"),
@@ -319,10 +310,9 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
             labelStyle: const TextStyle(fontSize: 16),
             unselectedLabelStyle: const TextStyle(fontSize: 16),
             tabs: state.tabs
-                .map((e) =>
-                Tab(
-                  text: e,
-                ))
+                .map((e) => Tab(
+                      text: e,
+                    ))
                 .toList(),
             onTap: (int index) {
               switch (index) {
@@ -333,19 +323,13 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                 case 1:
                   logic.scrollController.jumpTo(state.twoY -
                       state.oneY -
-                      MediaQuery
-                          .of(context)
-                          .padding
-                          .top);
+                      MediaQuery.of(context).padding.top);
                   logic.tabController.animateTo(1);
                   break;
                 case 2:
                   logic.scrollController.jumpTo(state.threeY -
                       state.oneY -
-                      MediaQuery
-                          .of(context)
-                          .padding
-                          .top);
+                      MediaQuery.of(context).padding.top);
                   logic.tabController.animateTo(2);
                   break;
               }

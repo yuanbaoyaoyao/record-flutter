@@ -81,8 +81,7 @@ Widget serviceWidget() {
                       margin: const EdgeInsets.all(10.0),
                       child: TextButton(
                           onPressed: () {
-                            print("点击了我的反馈");
-                            Get.toNamed("/feedback_message");
+                            Get.toNamed("/feedback");
                           },
                           child: Column(
                             children: [

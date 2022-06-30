@@ -1,3 +1,4 @@
+import 'package:record_flutter/common/entities/user_feedback_detail_entity.dart';
 import 'package:record_flutter/common/entities/user_feedback_entity.dart';
 
 import '../constant/url_constant.dart';
@@ -10,7 +11,7 @@ class UserFeedbackAPI {
   static Future listUserFeedbackAPI(
       {required int pageSize,
       required int pageNum,
-      required int userId}) async {
+      required int? userId}) async {
     Map<String, dynamic> map = {};
     map["pageSize"] = pageSize;
     map["pageNum"] = pageNum;
@@ -33,11 +34,11 @@ class UserFeedbackAPI {
   }
 
   static Future updateUserFeedbackFinishedAPI(
-      {required UserFeedbackEntity userFeedbackEntity}) async {
+      {required UserFeedbackUpdateEntity updateEntity}) async {
     var response = await HttpUtil().put(
         UrlConstant.debugClientIp + request + 'updateFinished',
-        data: userFeedbackEntity);
+        data: updateEntity);
 
-    return UserFeedbackEntity.fromJson(response);
+    return response;
   }
 }

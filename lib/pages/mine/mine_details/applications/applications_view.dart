@@ -18,7 +18,8 @@ class ApplicationsPage extends StatelessWidget {
           title: Text("直接申请耗材"),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
+        body:
+        SingleChildScrollView(
           child: Form(
             child: Column(
               children: [
@@ -283,6 +284,7 @@ class ApplicationsPage extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        ) 
+    );
   }
 }

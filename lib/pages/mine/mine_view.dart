@@ -177,6 +177,9 @@ class MinePage extends StatelessWidget {
                                                               return IconButton(
                                                                   onPressed:
                                                                       () {
+                                                                        logic.handleAddIntoCart(
+                                                                            state.recommendList[index].id,
+                                                                            1);
                                                                     OverlayEntry?
                                                                         _overlayEntry =
                                                                         OverlayEntry(builder:

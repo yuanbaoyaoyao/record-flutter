@@ -64,7 +64,7 @@ class HttpUtil {
       // userStoreState.isLogin = false;
       SpUtil.putBool(UserConstant.isLogin, false);
       SpUtil.remove(UserConstant.userTokenKey);
-      Get.toNamed("/login");
+      Get.offAllNamed("/login");
     } else {
       EasyLoading.showToast(errorEntity.message,
           duration: const Duration(seconds: 3));
@@ -204,9 +204,6 @@ class HttpUtil {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
-    log("1");
-    log("http_util:" + authorization.toString());
-    log("2");
     requestOptions.headers!.addAll(authorization);
     var response = await dio.post(
       path,

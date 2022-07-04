@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:record_flutter/common/entities/order_product_entity.dart';
 
 import '../constant/url_constant.dart';
-import '../entities/front_show_entity.dart';
 import '../utils/http_util.dart';
 
 class OrderProductAPI {
@@ -27,11 +24,11 @@ class OrderProductAPI {
   }
 
   static Future createOrderProductAPI(
-      {required OrderProductEntity orderProductEntity}) async {
+      {required List<OrderProductCreateEntity> orderProductList}) async {
     var response = await HttpUtil().post(
-        UrlConstant.debugClientIp + request + 'create',
-        data: orderProductEntity);
+        UrlConstant.debugClientIp + request + 'createList',
+        data: orderProductList);
 
-    return OrderProductEntity.fromJson(response);
+    return response;
   }
 }

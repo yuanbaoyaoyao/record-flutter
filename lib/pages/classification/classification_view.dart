@@ -139,7 +139,8 @@ Widget _buildConsumables() {
                                     builder: (context) {
                                       return IconButton(
                                           onPressed: () {
-                                            print("点击了添加按钮");
+                                            logic.handleAddIntoCart(
+                                                state.productSkus[index].id, 1);
                                             OverlayEntry? _overlayEntry =
                                                 OverlayEntry(builder: (_) {
                                               RenderBox? box =

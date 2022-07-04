@@ -1,17 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/apis/cart_api.dart';
 import 'package:record_flutter/common/apis/product_skus_api.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';
 import 'package:record_flutter/common/entities/cart_entity.dart';
-import 'package:record_flutter/common/store/user_store/user_store_state.dart';
 import 'package:sp_util/sp_util.dart';
 
-import '../application/application_state.dart';
 import 'cart_state.dart';
 
 class CartLogic extends GetxController {
@@ -36,7 +33,7 @@ class CartLogic extends GetxController {
     await CartAPI.listCartAPI(userId: SpUtil.getInt(UserConstant.userId))
         .then((value) {
       state.cartList = value.data;
-      log("state.cartList:" + state.cartList.toString());
+      log("value.toJson().toString()" + value.toJson().toString());
     });
   }
 
@@ -56,6 +53,17 @@ class CartLogic extends GetxController {
     }
   }
 
+  void handleAddIntoCart(int productSkusId, int productSkusNumber) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: productSkusId,
+                productSkusNumber: productSkusNumber))
+        .then((value) {
+      EasyLoading.showToast("加入购物车成功");
+    });
+  }
+
   void handleDeleteCartItem() async {
     await CartAPI.deleteCartAPI(
             cartDeleteEntity: CartDeleteEntity(id: state.onTapCartItem.id))
@@ -66,7 +74,7 @@ class CartLogic extends GetxController {
     List<CartDeleteEntity> cartDeleteEntityList = [];
     for (var item in state.checkedCartItemList) {
       cartDeleteEntityList.add(CartDeleteEntity(id: item.id));
-      log("item:"+item.toString());
+      log("item:" + item.toString());
     }
     await CartAPI.deleteCartListAPI(cartDeleteEntityList: cartDeleteEntityList)
         .then((value) {

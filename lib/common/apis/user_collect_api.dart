@@ -13,7 +13,7 @@ class UserCollectAPI {
   static Future listUserCollectAPI(
       {required int pageSize,
       required int pageNum,
-      required int userId}) async {
+      required int? userId}) async {
     Map<String, dynamic> map = {};
     map["userId"] = userId;
     map["pageSize"] = pageSize;

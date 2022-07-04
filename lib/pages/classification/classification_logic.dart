@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/apis/product_skus_api.dart';
@@ -8,7 +9,9 @@ import 'package:record_flutter/common/entities/user_info_entity.dart';
 import 'package:record_flutter/common/store/user_store/user_store_state.dart';
 import 'package:sp_util/sp_util.dart';
 
+import '../../common/apis/cart_api.dart';
 import '../../common/apis/product_api.dart';
+import '../../common/entities/cart_entity.dart';
 import 'classification_state.dart';
 
 class ClassificationLogic extends GetxController {
@@ -33,6 +36,17 @@ class ClassificationLogic extends GetxController {
         break;
       }
     }
+  }
+
+  void handleAddIntoCart(int productSkusId, int productSkusNumber) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: productSkusId,
+                productSkusNumber: productSkusNumber))
+        .then((value) {
+      EasyLoading.showToast("加入购物车成功");
+    });
   }
 
   void onRefresh() async {
@@ -78,17 +92,17 @@ class ClassificationLogic extends GetxController {
 
   void getList() async {
     await ProductSkusAPI.listCountByProductIdAndTypeIPage(
-        pageSize: state.pageSize,
-        pageNum: 1,
-        productId: state.onTapProduct,
-        userId: SpUtil.getInt(UserConstant.userId),
-        type: state.onTapType)
+            pageSize: state.pageSize,
+            pageNum: 1,
+            productId: state.onTapProduct,
+            userId: SpUtil.getInt(UserConstant.userId),
+            type: state.onTapType)
         .then((value) {
       state.productSkus = value.data.records;
     });
   }
 
-  void handleChangeNavButton(int index){
+  void handleChangeNavButton(int index) {
     state.onTapProduct = state.products[index].id;
     getList();
     clearNavActive();

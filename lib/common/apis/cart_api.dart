@@ -41,12 +41,11 @@ class CartAPI {
     return CartEntity.fromJson(response);
   }
 
-  static Future createCartAPI({required CartEntity cartEntity}) async {
+  static Future createCartAPI({required CartCreateEntity createEntity}) async {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
-        data: cartEntity.toJson());
-
-    return CartEntity.fromJson(response);
+        data: createEntity);
+    return response;
   }
 
   static Future updateCartAPI(

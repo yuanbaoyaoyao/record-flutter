@@ -2,11 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class CollectionsState {
-  GlobalKey collectionKey = GlobalKey();
+  final _pageSize = 8.obs;
 
-  final _isEditing = false.obs;
+  final _productSkus = [].obs;
 
-  set isEditing(value) => _isEditing.value = value;
+  final _length = 0.obs;
 
-  get isEditing => _isEditing.value;
+  GlobalKey oldNewCartKey = GlobalKey();
+
+  set pageSize(value) => _pageSize.value = value;
+
+  get pageSize => _pageSize.value;
+
+  set productSkus(value) => _productSkus.value = value;
+
+  get productSkus => _productSkus;
+
+  set length(value) => _length.value = value;
+
+  get length => _length.value;
+
+  final _appBarT = 0.0.obs;
+
+  set appBarT(value) => _appBarT.value = value;
+
+  get appBarT => _appBarT.value;
 }

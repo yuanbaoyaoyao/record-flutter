@@ -159,3 +159,93 @@ class Record {
     "orderProductVoList": orderProductVoList,
   };
 }
+
+//UserOrderCreateEntity
+UserOrderCreateEntity userOrderCreateEntityFromJson(String str) => UserOrderCreateEntity.fromJson(json.decode(str));
+
+String userOrderCreateEntityToJson(UserOrderCreateEntity data) => json.encode(data.toJson());
+
+class UserOrderCreateEntity {
+  UserOrderCreateEntity({
+    required this.userId,
+    required this.userAddressId,
+    required this.receiver,
+    required this.user,
+    required this.addressDetail,
+    required this.orderRemarks,
+  });
+
+  int? userId;
+  int? userAddressId;
+  String? receiver;
+  String? user;
+  String? addressDetail;
+  String? orderRemarks;
+
+  factory UserOrderCreateEntity.fromJson(Map<String, dynamic> json) => UserOrderCreateEntity(
+    userId: json["userId"],
+    userAddressId: json["userAddressId"],
+    receiver: json["receiver"],
+    user: json["user"],
+    addressDetail: json["addressDetail"],
+    orderRemarks: json["orderRemarks"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "userId": userId,
+    "userAddressId": userAddressId,
+    "receiver": receiver,
+    "user": user,
+    "addressDetail": addressDetail,
+    "orderRemarks": orderRemarks,
+  };
+}
+
+//UserOrderCreateBackEntity
+UserOrderCreateBackEntity userOrderCreateBackEntityFromJson(String str) => UserOrderCreateBackEntity.fromJson(json.decode(str));
+
+String userOrderCreateBackEntityToJson(UserOrderCreateBackEntity data) => json.encode(data.toJson());
+
+class UserOrderCreateBackEntity {
+  UserOrderCreateBackEntity({
+    required this.code,
+    required this.message,
+    required this.data,
+  });
+
+  int code;
+  String message;
+  Data2 data;
+
+  factory UserOrderCreateBackEntity.fromJson(Map<String, dynamic> json) => UserOrderCreateBackEntity(
+    code: json["code"],
+    message: json["message"],
+    data: Data2.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "code": code,
+    "message": message,
+    "data": data.toJson(),
+  };
+}
+
+class Data2 {
+  Data2({
+    required this.orderSn,
+    required this.id,
+  });
+
+  double orderSn;
+  int id;
+
+  factory Data2.fromJson(Map<String, dynamic> json) => Data2(
+    orderSn: json["orderSn"].toDouble(),
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "orderSn": orderSn,
+    "id": id,
+  };
+}

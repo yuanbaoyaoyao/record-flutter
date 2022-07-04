@@ -1,10 +1,15 @@
 import 'dart:developer';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/apis/user_api.dart';
+import 'package:sp_util/sp_util.dart';
 
+import '../../common/apis/cart_api.dart';
 import '../../common/apis/product_skus_api.dart';
+import '../../common/constant/user_constant.dart';
+import '../../common/entities/cart_entity.dart';
 import 'mine_state.dart';
 
 class MineLogic extends GetxController {
@@ -43,6 +48,17 @@ class MineLogic extends GetxController {
             productSkusName: "")
         .then((value) {
       state.recommendList = value.data.records;
+    });
+  }
+
+  void handleAddIntoCart(int productSkusId, int productSkusNumber) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: productSkusId,
+                productSkusNumber: productSkusNumber))
+        .then((value) {
+      EasyLoading.showToast("加入购物车成功");
     });
   }
 

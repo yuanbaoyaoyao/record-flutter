@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -147,8 +149,12 @@ class HomePage extends GetView<HomeLogic> {
                                                             builder: (context) {
                                                           return IconButton(
                                                               onPressed: () {
-                                                                print(
-                                                                    "点击了添加按钮");
+                                                                logic.handleAddIntoCart(
+                                                                    state
+                                                                        .productSkus[
+                                                                            index]
+                                                                        .id,
+                                                                    1);
                                                                 OverlayEntry?
                                                                     _overlayEntry =
                                                                     OverlayEntry(

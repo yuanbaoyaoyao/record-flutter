@@ -102,3 +102,55 @@ class Datum {
         "updatedAt": updatedAt.toIso8601String(),
       };
 }
+
+//List<OrderProductCreateEntity>
+OrderProductCreateEntity orderProductCreateEntityFromJson(String str) =>
+    OrderProductCreateEntity.fromJson(json.decode(str));
+
+String orderProductCreateEntityToJson(OrderProductCreateEntity data) =>
+    json.encode(data.toJson());
+
+class OrderProductCreateEntity {
+  OrderProductCreateEntity({
+    required this.userOrderId,
+    required this.orderSn,
+    required this.productId,
+    required this.productSkusId,
+    required this.productTitle,
+    required this.productSkusTitle,
+    required this.number,
+    required this.productPicUrl,
+  });
+
+  int userOrderId;
+  int orderSn;
+  int productId;
+  int productSkusId;
+  String productTitle;
+  String productSkusTitle;
+  int number;
+  String productPicUrl;
+
+  factory OrderProductCreateEntity.fromJson(Map<String, dynamic> json) =>
+      OrderProductCreateEntity(
+        userOrderId: json["userOrderId"],
+        orderSn: json["orderSn"],
+        productId: json["productId"],
+        productSkusId: json["productSkusId"],
+        productTitle: json["productTitle"],
+        productSkusTitle: json["productSkusTitle"],
+        number: json["number"],
+        productPicUrl: json["productPicUrl"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userOrderId": userOrderId,
+        "orderSn": orderSn,
+        "productId": productId,
+        "productSkusId": productSkusId,
+        "productTitle": productTitle,
+        "productSkusTitle": productSkusTitle,
+        "number": number,
+        "productPicUrl": productPicUrl,
+      };
+}

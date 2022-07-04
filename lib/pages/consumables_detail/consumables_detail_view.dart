@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -31,9 +33,10 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                 children: [
                   Column(
                     children: [
-                      Container(
+                      SizedBox(
                           key: state.headerWKey,
-                          height: 700,
+                          // height: ScreenUtil().setHeight(850),
+                          height: ScreenUtil().setHeight(560),
                           child: Column(
                             children: [
                               Container(
@@ -72,158 +75,303 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text("数量"),
-                                          Expanded(child: Text("")),
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      logic
-                                                          .handleReduceNumber();
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.remove_circle)),
-                                                Text(state.number.toString()),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      logic.handleAddNumber();
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.add_circle)),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black)),
+                              Column(
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text("数量"),
+                                        Expanded(child: Text("")),
+                                        Container(
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    logic.handleReduceNumber();
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.remove_circle)),
+                                              Text(state.number.toString()),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    logic.handleAddNumber();
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.add_circle)),
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text("地址"),
-                                          Expanded(child: Text("")),
-                                          TextButton(
-                                              onPressed: () {
-                                                print("123");
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return Container(
-                                                          height: ScreenUtil()
-                                                              .setHeight(300.0),
-                                                          color: Colors.amber,
-                                                          child:
-                                                              ListView.builder(
-                                                                  itemCount: state
-                                                                      .addressList
-                                                                      .data
-                                                                      .length,
-                                                                  itemBuilder:
-                                                                      (context,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.black)),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text("地址"),
+                                        Expanded(child: Text("")),
+                                        Text(state.defaultAddress.length > 10
+                                            ? "${state.defaultAddress.substring(0, 10)}...."
+                                            : state.defaultAddress),
+                                        TextButton(
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return Container(
+                                                        height: ScreenUtil()
+                                                            .setHeight(300.0),
+                                                        color: Colors.amber,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              child: const Text(
+                                                                "选择地址",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16.0),
+                                                              ),
+                                                              color: Colors
+                                                                  .pinkAccent,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              height:
+                                                                  ScreenUtil()
+                                                                      .setHeight(
+                                                                          50.0),
+                                                            ),
+                                                            Flexible(
+                                                              child: ListView
+                                                                  .builder(
+                                                                      itemCount: state
+                                                                          .addressList
+                                                                          .data
+                                                                          .length,
+                                                                      itemBuilder: (context,
                                                                               index) =>
-                                                                          Container(
+                                                                          InkWell(
                                                                             child:
-                                                                                Text("123"),
-                                                                          )));
-                                                    });
-                                              },
-                                              child: Text("选择地址"))
-                                        ],
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black)),
+                                                                                Container(
+                                                                              margin: EdgeInsets.all(ScreenUtil().setHeight(10.0)),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Container(
+                                                                                    margin: EdgeInsets.only(right: ScreenUtil().setHeight(5.0)),
+                                                                                    child: state.addressList.data[index].addressDetail == state.defaultAddress ? Icon(Icons.check) : Icon(Icons.location_on),
+                                                                                  ),
+                                                                                  Text(state.addressList.data[index].addressDetail)
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            onTap:
+                                                                                () {
+                                                                              Get.back();
+                                                                              state.defaultAddress = state.addressList.data[index].addressDetail;
+                                                                            },
+                                                                          )),
+                                                            )
+                                                          ],
+                                                        ));
+                                                  });
+                                            },
+                                            child: Text(
+                                                state.defaultAddress == ""
+                                                    ? "选择地址"
+                                                    : "更改地址"))
+                                      ],
                                     ),
-                                    Container(
-                                      child: Text("为你推荐"),
-                                    )
-                                  ],
-                                ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.black)),
+                                  ),
+                                  // Container(
+                                  //   padding: EdgeInsets.all(
+                                  //       ScreenUtil().setWidth(5.0)),
+                                  //   width: ScreenUtil().screenWidth,
+                                  //   child: const Text(
+                                  //     "为你推荐",
+                                  //     style: TextStyle(
+                                  //       fontSize: 16.0,
+                                  //     ),
+                                  //   ),
+                                  //   color: Colors.pinkAccent,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: ScreenUtil().setHeight(240.0),
+                                  //   child: GridView.count(
+                                  //     crossAxisCount: 3,
+                                  //     children: List.generate(
+                                  //         state.recommendList.length, (index) {
+                                  //       return InkWell(
+                                  //         onTap: () {
+                                  //           logic.onDelete;
+                                  //           Get.offAndToNamed("/consumables_detail",
+                                  //               arguments: state
+                                  //                   .recommendList[index].id);
+                                  //           log("arguments: state.recommendList[index].id:" +
+                                  //               state.recommendList[index].id
+                                  //                   .toString());
+                                  //         },
+                                  //         child: Container(
+                                  //           padding: const EdgeInsets.only(
+                                  //               left: 5.0),
+                                  //           child: Column(
+                                  //             crossAxisAlignment:
+                                  //                 CrossAxisAlignment.start,
+                                  //             children: [
+                                  //               SizedBox(
+                                  //                 width:
+                                  //                     ScreenUtil().screenWidth /
+                                  //                             3 -
+                                  //                         ScreenUtil()
+                                  //                             .setWidth(10.0),
+                                  //                 height: ScreenUtil()
+                                  //                     .setHeight(80.0),
+                                  //                 child: Image.network(state
+                                  //                     .recommendList[index]
+                                  //                     .avatar),
+                                  //               ),
+                                  //               Text(state.recommendList[index]
+                                  //                       .productName +
+                                  //                   " " +
+                                  //                   state.recommendList[index]
+                                  //                       .title),
+                                  //               Text(
+                                  //                 "剩余${state.recommendList[index].stock.toString()}个",
+                                  //                 style: const TextStyle(
+                                  //                     fontSize: 15.0),
+                                  //               )
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //       );
+                                  //     }),
+                                  //   ),
+                                  // )
+                                ],
                               )
                             ],
                           )),
                       Container(
                         key: state.evaluateWKey,
                         color: Colors.green,
-                        height: 300,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        height: ScreenUtil().setHeight(200),
                         child: Column(
                           children: [
                             Row(
                               children: [
-                                Text("评价"),
+                                Text("  评价"),
                                 Expanded(child: Text("")),
                                 TextButton(
                                     onPressed: () {
-                                      print("点击了评价详情页");
+                                      Get.toNamed("/consumables_evaluation",
+                                          arguments: state.productSkusInfo.data
+                                              .records[0].id);
                                     },
                                     child: Text("评价详情"))
                               ],
                             ),
-                            Container(
-                              height: 30.0,
-                              child: Text("关键词提取"),
-                            ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/dingding.png",
-                                  width: 20.0,
-                                  fit: BoxFit.fill,
-                                ),
-                                Container(
-                                  width: 20,
-                                ),
-                                Text("名称")
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 40,
-                                ),
-                                Column(
-                                  children: [
-                                    Text("这是评价"),
-                                    Container(
-                                      height: 150,
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: 3,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Container(
-                                              height: 10,
-                                              child: Image.asset(
-                                                "assets/images/dingding.png",
-                                                fit: BoxFit.fill,
+                            Visibility(
+                                visible: state.evaluation.length > 0,
+                                child: Container(
+                                    padding: EdgeInsets.only(
+                                        top: ScreenUtil().setHeight(5.0),
+                                        bottom: ScreenUtil().setHeight(5.0)),
+                                    width: ScreenUtil().screenWidth,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom:
+                                                  ScreenUtil().setHeight(10.0)),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(
+                                                    ScreenUtil()
+                                                        .setHeight(5.0)),
+                                                child: ClipOval(
+                                                    child: Column(
+                                                  children: [
+                                                    Visibility(
+                                                      visible: state
+                                                              .evaluationAvatar ==
+                                                          "",
+                                                      child: Image.asset(
+                                                        "assets/images/cat.png",
+                                                        height: ScreenUtil()
+                                                            .setHeight(30.0),
+                                                        width: ScreenUtil()
+                                                            .setHeight(30.0),
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: state
+                                                              .evaluationAvatar !=
+                                                          "",
+                                                      child: Image.network(
+                                                        state.evaluationAvatar,
+                                                        height: ScreenUtil()
+                                                            .setHeight(30.0),
+                                                        width: ScreenUtil()
+                                                            .setHeight(30.0),
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )),
                                               ),
-                                            );
-                                          }),
-                                    )
-                                  ],
-                                )
-                              ],
-                            )
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(state.evaluationName),
+                                                  Text(
+                                                      state.evaluationCreatedAt)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width:
+                                                  ScreenUtil().setHeight(40.0),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                  bottom: ScreenUtil()
+                                                      .setHeight(10.0)),
+                                              width: ScreenUtil().screenWidth -
+                                                  ScreenUtil().setWidth(50.0),
+                                              child: Text(
+                                                  state.evaluation.length > 80
+                                                      ? state.evaluation
+                                                              .substring(
+                                                                  0, 80) +
+                                                          "......"
+                                                      : state.evaluation),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )))
                           ],
                         ),
                       ),
@@ -252,7 +400,6 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                     color: Colors.white),
                                 child: IconButton(
                                   onPressed: () {
-                                    print("点击了返回按钮");
                                     Get.back();
                                     print("点击了Get.back()");
                                   },
@@ -271,7 +418,6 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
                                     color: Colors.white),
                                 child: IconButton(
                                   onPressed: () {
-                                    print("点击了搜索按钮");
                                     Get.toNamed("/search");
                                   },
                                   icon: const Icon(Icons.search_outlined),
@@ -341,7 +487,31 @@ class ConsumablesDetailPage extends GetView<ConsumablesDetailLogic> {
   }
 
   Widget webViewsWidget() {
-    return const Text(
-        "阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法文字详情阿萨德发萨达是的发送到发送到发送到阿斯顿发的说法是的发送到发送到发送到阿斯顿发的说法");
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10.0)),
+          child: Text("图文详情"),
+        ),
+        Visibility(
+            visible: state.productSkusDetails.length == 0,
+            child: SizedBox(
+              width: ScreenUtil().screenWidth,
+              height: ScreenUtil().setHeight(1000.0),
+            )),
+        Visibility(
+            visible: state.productSkusDetails.length != 0,
+            child: SizedBox(
+              width: ScreenUtil().screenWidth,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.productSkusDetails.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Image.network(
+                        state.productSkusDetails[index].avatar);
+                  }),
+            ))
+      ],
+    );
   }
 }

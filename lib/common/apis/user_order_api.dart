@@ -24,20 +24,21 @@ class UserOrderAPI {
     map["productSkusTitle"] = productSkusTitle;
     map["orderSn"] = orderSn;
     map["orderStatus"] = orderStatus;
-    var response = await HttpUtil()
-        .get(UrlConstant.debugClientIp + request + 'list', queryParameters: map);
+    var response = await HttpUtil().get(
+        UrlConstant.debugClientIp + request + 'list',
+        queryParameters: map);
 
     return UserOrderEntity.fromJson(response);
   }
 
   static Future createUserOrderAPI({
-    required UserOrderEntity userOrderEntity,
+    required UserOrderCreateEntity userOrderCreateEntity,
   }) async {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
-        data: userOrderEntity);
+        data: userOrderCreateEntity);
 
-    return UserOrderEntity.fromJson(response);
+    return UserOrderCreateBackEntity.fromJson(response);
   }
 
   static Future deleteUserOrderAPI(

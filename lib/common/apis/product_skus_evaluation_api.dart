@@ -12,8 +12,8 @@ class ProductSkusEvaluationAPI {
   static Future listProductSkusEvaluationIPageAPI(
       {required int pageSize,
       required int pageNum,
-      required int orderSn,
-      required int orderProductId,
+      required int? orderSn,
+      required int? orderProductId,
       required int productSkusId}) async {
     Map<String, dynamic> map = {};
     map["pageSize"] = pageSize;

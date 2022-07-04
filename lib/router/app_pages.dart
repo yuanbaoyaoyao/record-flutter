@@ -10,6 +10,8 @@ import 'package:record_flutter/pages/confirm_order/confirm_order_binding.dart';
 import 'package:record_flutter/pages/confirm_order/confirm_order_view.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_binding.dart';
 import 'package:record_flutter/pages/consumables_detail/consumables_detail_view.dart';
+import 'package:record_flutter/pages/consumables_detail/consumables_evaluation/consumables_evaluation_binding.dart';
+import 'package:record_flutter/pages/consumables_detail/consumables_evaluation/consumables_evaluation_view.dart';
 import 'package:record_flutter/pages/message/message_box/message_box_binding.dart';
 import 'package:record_flutter/pages/message/message_box/message_box_view.dart';
 import 'package:record_flutter/pages/message/notification_message/notification_message_binding.dart';
@@ -139,6 +141,10 @@ class AppPages {
         name: AppRoutes.ConsumablesDetail,
         page: () => ConsumablesDetailPage(),
         binding: ConsumablesDetailBinding()),
+    GetPage(
+        name: AppRoutes.ConsumablesEvaluation,
+        page: () => ConsumablesEvaluationPage(),
+        binding: ConsumablesEvaluationBinding()),
     GetPage(
         name: AppRoutes.Setting,
         page: () => SettingPage(),

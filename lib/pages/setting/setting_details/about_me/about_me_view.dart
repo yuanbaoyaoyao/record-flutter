@@ -20,7 +20,8 @@ class AboutMePage extends StatelessWidget {
             builder: (context, child) => Container(
                   width: ScreenUtil().screenWidth,
                   alignment: Alignment.center,
-                  child: Container(
+                  child:
+                  Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50)),
                       child: Column(

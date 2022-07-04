@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-CartEntity cartEntityFromJson(String str) =>
-    CartEntity.fromJson(json.decode(str));
+CartEntity cartEntityFromJson(String str) => CartEntity.fromJson(json.decode(str));
 
 String cartEntityToJson(CartEntity data) => json.encode(data.toJson());
 
@@ -21,21 +20,22 @@ class CartEntity {
   List<Datum> data;
 
   factory CartEntity.fromJson(Map<String, dynamic> json) => CartEntity(
-        code: json["code"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+    code: json["code"],
+    message: json["message"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    "code": code,
+    "message": message,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class Datum {
   Datum({
     required this.id,
+    required this.productId,
     required this.userId,
     required this.productSkusId,
     required this.productSkusNumber,
@@ -50,6 +50,7 @@ class Datum {
   });
 
   int id;
+  int productId;
   int userId;
   int productSkusId;
   int productSkusNumber;
@@ -63,35 +64,38 @@ class Datum {
   dynamic deleted;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        userId: json["userId"],
-        productSkusId: json["productSkusId"],
-        productSkusNumber: json["productSkusNumber"],
-        avatar: json["avatar"],
-        title: json["title"],
-        productName: json["productName"],
-        stock: json["stock"],
-        checked: json["checked"],
-        createdAt: json["createdAt"],
-        updatedAt: json["updatedAt"],
-        deleted: json["deleted"],
-      );
+    id: json["id"],
+    productId: json["productId"],
+    userId: json["userId"],
+    productSkusId: json["productSkusId"],
+    productSkusNumber: json["productSkusNumber"],
+    avatar: json["avatar"],
+    title: json["title"],
+    productName: json["productName"],
+    stock: json["stock"],
+    checked: json["checked"],
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
+    deleted: json["deleted"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "userId": userId,
-        "productSkusId": productSkusId,
-        "productSkusNumber": productSkusNumber,
-        "avatar": avatar,
-        "title": title,
-        "productName": productName,
-        "stock": stock,
-        "checked": checked,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt,
-        "deleted": deleted,
-      };
+    "id": id,
+    "productId": productId,
+    "userId": userId,
+    "productSkusId": productSkusId,
+    "productSkusNumber": productSkusNumber,
+    "avatar": avatar,
+    "title": title,
+    "productName": productName,
+    "stock": stock,
+    "checked": checked,
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "deleted": deleted,
+  };
 }
+
 
 CartUpdateEntity cartUpdateEntityFromJson(String str) => CartUpdateEntity.fromJson(json.decode(str));
 
@@ -149,3 +153,33 @@ class CartDeleteEntity {
         "id": id,
       };
 }
+
+//CartCreateEntity
+CartCreateEntity cartCreateEntityFromJson(String str) => CartCreateEntity.fromJson(json.decode(str));
+
+String cartCreateEntityToJson(CartCreateEntity data) => json.encode(data.toJson());
+
+class CartCreateEntity {
+  CartCreateEntity({
+    required this.userId,
+    required this.productSkusId,
+    required this.productSkusNumber,
+  });
+
+  int? userId;
+  int productSkusId;
+  int productSkusNumber;
+
+  factory CartCreateEntity.fromJson(Map<String, dynamic> json) => CartCreateEntity(
+    userId: json["userId"],
+    productSkusId: json["productSkusId"],
+    productSkusNumber: json["productSkusNumber"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "userId": userId,
+    "productSkusId": productSkusId,
+    "productSkusNumber": productSkusNumber,
+  };
+}
+

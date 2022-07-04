@@ -78,7 +78,11 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 onPressed: () {
                   print("点击了去结算");
                   if (state.isEditing == false) {
-                    Get.toNamed("/confirm_order");
+                    if (state.checkedCartItemList.length > 0) {
+                      Get.toNamed("/confirm_order");
+                    } else {
+                      EasyLoading.showToast("请勾选需要结算的耗材");
+                    }
                   } else {
                     if (state.checkedCartItemList.length == 0) {
                       EasyLoading.showToast("请选择耗材");

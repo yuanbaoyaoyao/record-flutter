@@ -1,9 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:record_flutter/common/apis/cart_api.dart';
 import 'package:record_flutter/common/apis/front_show_api.dart';
+import 'package:record_flutter/common/constant/user_constant.dart';
+import 'package:record_flutter/common/entities/cart_entity.dart';
+import 'package:sp_util/sp_util.dart';
 
 import '../../common/apis/product_api.dart';
 import '../../common/apis/product_skus_api.dart';
@@ -86,13 +91,11 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
       if (state.sliderMaxValue == 0) {
         state.sliderMaxValue = scrollController.position.maxScrollExtent;
       }
-      log("state.sliderValue:" + state.sliderValue);
       state.sliderValue = scrollController.position.pixels;
     });
   }
 
   void tabsScrollerAddListener() {
-    log("state.tabsSliderValue:" + state.tabsSliderValue.toString());
     tabsScrollController.addListener(() {
       //此处50 待处理
       var of = tabsScrollController.position.pixels +
@@ -111,6 +114,17 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     tabController.addListener(() {
       // log("当前菜单index:" + (tabController.index + 1).toString());
       state.listPage = tabController.index;
+    });
+  }
+
+  void handleAddIntoCart(int productSkusId, int productSkusNumber) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: productSkusId,
+                productSkusNumber: productSkusNumber))
+        .then((value) {
+      EasyLoading.showToast("加入购物车成功");
     });
   }
 
@@ -143,8 +157,8 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
     await ProductSkusAPI.listProductSkusByTypeIPageAPI(
             pageNum: 1, type: state.listPage + 1, pageSize: state.pageSize)
         .then((value) {
-      log(value.data.records[0].avatar.toString());
       state.productSkus = value.data.records;
+      log("value.toJson().toString" + value.toJson().toString());
     });
   }
 

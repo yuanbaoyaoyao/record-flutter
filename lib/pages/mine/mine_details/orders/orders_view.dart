@@ -1,88 +1,140 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/pages/mine/mine_details/orders/widgets/order_appbar.dart';
+import 'package:skeletons/skeletons.dart';
 
 import 'orders_logic.dart';
 
-class OrdersPage extends StatelessWidget {
-  final logic = Get.find<OrdersLogic>();
-  final state = Get.find<OrdersLogic>().state;
+final logic = Get.find<OrdersLogic>();
+final state = Get.find<OrdersLogic>().state;
 
+//smartRefresher无效,会导致卡死
+class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildOrdersAppBar(),
-        body: ScreenUtilInit(
-          builder: (context , child) {
-            return Container(
-                color: Colors.grey,
-                child: MediaQuery.removePadding(
-                  removeTop: true,
-                  context: context,
-                  child: ListView.builder(
-                      itemCount: 8,
-                      itemBuilder: (context, index) => Container(
-                            color: Colors.white,
-                            padding:
-                                EdgeInsets.all(ScreenUtil().setWidth(10.0)),
-                            margin: EdgeInsets.only(
-                                top: ScreenUtil().setHeight(5.0)),
-                            child: Column(
-                              children: [
-                                Row(
+      appBar: buildOrdersAppBar(),
+      body: ScreenUtilInit(
+        builder: (context, child) {
+          return Obx(() {
+            return Skeleton(
+                isLoading: state.countDown > 0 ? true : false,
+                skeleton: SkeletonListView(),
+                child: Container(
+                    color: Colors.grey,
+                    child: MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: ListView.builder(
+                            itemCount: state.orderList.length,
+                            itemBuilder: (context, index) => Container(
+                                color: Colors.white,
+                                padding:
+                                    EdgeInsets.all(ScreenUtil().setWidth(10.0)),
+                                margin: EdgeInsets.only(
+                                    top: ScreenUtil().setHeight(5.0)),
+                                child: Column(
                                   children: [
-                                    Text("2022-05-28 09:53:13"),
-                                    Expanded(child: Text("")),
-                                    Text("这是状态"),
-                                  ],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: ScreenUtil().setHeight(5.0)),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey)),
-                                  child: GestureDetector(
-                                    child: Container(
+                                    Row(
+                                      children: [
+                                        Text(state.orderList[index].createdAt
+                                            .toString()),
+                                        Expanded(child: Text("")),
+                                        state.orderList[index].orderStatus == 1
+                                            ? Text("审核中")
+                                            : state.orderList[index]
+                                                        .orderStatus ==
+                                                    2
+                                                ? Text("待收货")
+                                                : state.orderList[index]
+                                                            .orderStatus ==
+                                                        3
+                                                    ? Text("待评价")
+                                                    : state.orderList[index]
+                                                                .orderStatus ==
+                                                            4
+                                                        ? Text("已结束")
+                                                        : state.orderList[index]
+                                                                    .orderStatus ==
+                                                                0
+                                                            ? Text("已驳回")
+                                                            : Text("已取消"),
+                                      ],
+                                    ),
+                                    Container(
                                       margin: EdgeInsets.symmetric(
                                           vertical:
-                                              ScreenUtil().setHeight(10.0)),
-                                      child: Row(
-                                        children: [
-                                          Text("这是图片"),
-                                          Expanded(child: Text("")),
-                                          Text("这是总件数"),
-                                          Icon(Icons.chevron_right)
-                                        ],
+                                              ScreenUtil().setHeight(5.0)),
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey)),
+                                      child: GestureDetector(
+                                        child: Container(
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: ScreenUtil()
+                                                    .setHeight(10.0)),
+                                            child: Row(
+                                              children: [
+                                                Row(
+                                                  children: state.orderList
+                                                              .length >
+                                                          0
+                                                      ? _buildConsumables(index)
+                                                      : [Text("")],
+                                                ),
+                                                Expanded(child: Text("")),
+                                                Text(
+                                                    "总共${state.orderProductCount.length > 0 ? state.orderProductCount[index].toString() : "0"}个"),
+                                                Icon(Icons.chevron_right)
+                                              ],
+                                            )),
+                                        onTap: () {
+                                          Get.toNamed("/order_detail",
+                                              arguments:
+                                                  state.orderList[index].id);
+                                        },
                                       ),
                                     ),
-                                    onTap: () {
-                                      Get.toNamed("/order_detail");
-                                    },
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    ElevatedButton(
-                                        style: ButtonStyle(
-                                            shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100.0)))),
-                                        onPressed: () {
-                                          print("点击了button1");
-                                        },
-                                        child: Text("再次购买"))
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ElevatedButton(
+                                            style: ButtonStyle(
+                                                shape: MaterialStateProperty
+                                                    .all(RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    100.0)))),
+                                            onPressed: () {
+                                              Get.toNamed("order_detail",
+                                                  arguments: state
+                                                      .orderList[index].id);
+                                            },
+                                            child: Text("查看详情"))
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
-                            ),
-                          )),
-                ));
-          },
-        ));
+                                ))))));
+          });
+        },
+      ),
+    );
   }
 }
+
+List<Widget> _buildConsumables(int i) => state.orderProductList.length > 0
+    ? List.generate(state.orderProductList[i].data.length, (index) {
+        return Container(
+          padding: EdgeInsets.only(left: 3.0),
+          child: Image.network(
+            state.orderProductList[i].data[index].productPicUrl,
+            width: ScreenUtil().setWidth(60.0),
+            fit: BoxFit.fitWidth,
+          ),
+        );
+      })
+    : List.generate(1, (index) => Text(""));

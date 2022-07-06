@@ -177,9 +177,11 @@ class MinePage extends StatelessWidget {
                                                               return IconButton(
                                                                   onPressed:
                                                                       () {
-                                                                        logic.handleAddIntoCart(
-                                                                            state.recommendList[index].id,
-                                                                            1);
+                                                                    logic.handleAddIntoCart(
+                                                                        state
+                                                                            .recommendList[index]
+                                                                            .id,
+                                                                        1);
                                                                     OverlayEntry?
                                                                         _overlayEntry =
                                                                         OverlayEntry(builder:
@@ -240,116 +242,4 @@ class MinePage extends StatelessWidget {
               },
             )));
   }
-
-  List<Widget> _buildRecommendList() => List.generate(8, (index) {
-        final appLogic = Get.find<ApplicationLogic>();
-        return Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/consumables_detail");
-              },
-              child: Card(
-                  child: Container(
-                width: ScreenUtil().screenWidth / 2.1,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/mock/88a1.png"),
-                    Text("这是标题"),
-                    Text("这是描述"),
-                    Row(
-                      children: [
-                        const Text(
-                          "这是剩余数量",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        Expanded(child: Text("")),
-                        Builder(
-                          builder: (context) {
-                            return IconButton(
-                                onPressed: () {
-                                  print("点击了添加按钮");
-                                  OverlayEntry? _overlayEntry =
-                                      OverlayEntry(builder: (_) {
-                                    RenderBox? box = context.findRenderObject()
-                                        as RenderBox?;
-                                    var offset =
-                                        box!.localToGlobal(Offset.zero);
-                                    return RedDotPage(
-                                        startPosition: offset,
-                                        endPosition: appLogic.endOffset);
-                                  });
-                                  Overlay.of(context)?.insert(_overlayEntry);
-                                  Future.delayed(Duration(milliseconds: 800),
-                                      () {
-                                    _overlayEntry?.remove();
-                                    _overlayEntry = null;
-                                  });
-                                },
-                                icon: Icon(Icons.add_circle_outline));
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/consumables_detail");
-              },
-              child: Card(
-                  child: Container(
-                width: ScreenUtil().screenWidth / 2.1,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/mock/88a1.png"),
-                    Text("这是标题"),
-                    Text("这是描述"),
-                    Row(
-                      children: [
-                        Text(
-                          "这是剩余数量",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        Expanded(child: Text("")),
-                        Builder(
-                          builder: (context) {
-                            return IconButton(
-                                onPressed: () {
-                                  print("点击了添加按钮");
-                                  OverlayEntry? _overlayEntry =
-                                      OverlayEntry(builder: (_) {
-                                    RenderBox? box = context.findRenderObject()
-                                        as RenderBox?;
-                                    var offset =
-                                        box!.localToGlobal(Offset.zero);
-                                    return RedDotPage(
-                                        startPosition: offset,
-                                        endPosition: appLogic.endOffset);
-                                  });
-                                  Overlay.of(context)?.insert(_overlayEntry);
-                                  Future.delayed(Duration(milliseconds: 800),
-                                      () {
-                                    _overlayEntry?.remove();
-                                    _overlayEntry = null;
-                                  });
-                                },
-                                icon: Icon(Icons.add_circle_outline));
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )),
-            )
-          ],
-        );
-      });
 }

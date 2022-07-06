@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'search_orders_logic.dart';
 
 class SearchOrdersPage extends GetView<SearchOrdersLogic> {
   final logic = Get.find<SearchOrdersLogic>();
-  final state = Get.find<SearchOrdersLogic>().state;
+  final state = Get
+      .find<SearchOrdersLogic>()
+      .state;
 
   AppBar _buildAppBar() {
     return AppBar(
@@ -23,10 +26,14 @@ class SearchOrdersPage extends GetView<SearchOrdersLogic> {
             hintText: '商品名称/订单编号',
             suffix: ElevatedButton.icon(
               onPressed: () {
-                Get.offNamed("/search_orders_details");
                 if (controller.textSearchOrdersEditingController.text != "") {
+                  Get.offNamed("/search_orders_details",
+                      arguments:
+                      controller.textSearchOrdersEditingController.text);
                   controller.putSearchOrdersHistory(
                       controller.textSearchOrdersEditingController.text);
+                } else {
+                  EasyLoading.showToast("请输入搜索内容");
                 }
               },
               icon: const Icon(Icons.search_outlined),
@@ -36,9 +43,7 @@ class SearchOrdersPage extends GetView<SearchOrdersLogic> {
                       borderRadius: BorderRadius.circular(40))),
                   elevation: MaterialStateProperty.all(0.0)),
             )),
-        onTap: () {
-          print("点击了title");
-        },
+        onTap: () {},
       ),
     );
   }
@@ -135,7 +140,9 @@ class SearchOrdersPage extends GetView<SearchOrdersLogic> {
           child: ActionChip(
               label: Text("${controller.state.searchOrdersHistory[index]}"),
               onPressed: () {
-                print("点击了标签");
+                Get.toNamed("/search_orders_details",
+                    arguments: controller.state.searchOrdersHistory[index]
+                        .toString());
               }),
         );
       });
@@ -162,4 +169,3 @@ class SearchOrdersPage extends GetView<SearchOrdersLogic> {
     );
   }
 }
-

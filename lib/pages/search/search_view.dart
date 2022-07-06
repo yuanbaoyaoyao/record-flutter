@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'search_logic.dart';
@@ -23,10 +24,13 @@ class SearchPage extends GetView<SearchLogic> {
             hintText: '请输入搜索内容',
             suffix: ElevatedButton.icon(
               onPressed: () {
-                Get.offNamed("/search_details");
                 if (controller.textSearchEditingController.text != "") {
+                  Get.offNamed("/search_details",
+                      arguments: controller.textSearchEditingController.text);
                   controller.putSearchHistory(
                       controller.textSearchEditingController.text);
+                } else {
+                  EasyLoading.showToast("请输入搜索内容");
                 }
               },
               icon: const Icon(Icons.search_outlined),
@@ -43,7 +47,6 @@ class SearchPage extends GetView<SearchLogic> {
     );
   }
 
-  //再加一个探索发现，后端直接来个接口
   Widget _buildBodyView() {
     return Column(
       children: [
@@ -70,29 +73,27 @@ class SearchPage extends GetView<SearchLogic> {
                     ),
                     Visibility(
                         visible: state.onDeleteHistory,
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    logic.clearSearchHistory();
-                                    state.onDeleteHistory = false;
-                                  },
-                                  child: const Text("全部删除",
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(
-                                              28, 28, 28, 1.0)))),
-                              const Text("|"),
-                              TextButton(
-                                  onPressed: () {
-                                    state.onDeleteHistory = false;
-                                  },
-                                  child: const Text(
-                                    "完成",
-                                  ))
-                            ],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  logic.clearSearchHistory();
+                                  state.onDeleteHistory = false;
+                                },
+                                child: const Text("全部删除",
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromRGBO(28, 28, 28, 1.0)))),
+                            const Text("|"),
+                            TextButton(
+                                onPressed: () {
+                                  state.onDeleteHistory = false;
+                                },
+                                child: const Text(
+                                  "完成",
+                                ))
+                          ],
                         ))
                   ],
                 ),
@@ -135,7 +136,8 @@ class SearchPage extends GetView<SearchLogic> {
           child: ActionChip(
               label: Text("${controller.state.searchHistory[index]}"),
               onPressed: () {
-                print("点击了标签");
+                Get.offNamed("/search_details",
+                    arguments: controller.state.searchHistory[index]);
               }),
         );
       });

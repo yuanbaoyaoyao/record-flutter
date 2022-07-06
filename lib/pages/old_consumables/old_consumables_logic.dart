@@ -1,13 +1,20 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:record_flutter/common/apis/front_show_api.dart';
+import 'package:sp_util/sp_util.dart';
 
+import '../../common/apis/cart_api.dart';
+import '../../common/constant/user_constant.dart';
+import '../../common/entities/cart_entity.dart';
+import '../cart/cart_logic.dart';
 import 'old_consumables_state.dart';
 
 class OldConsumablesLogic extends GetxController {
   final OldConsumablesState state = OldConsumablesState();
+  final cartLogic = Get.find<CartLogic>();
 
   late final Offset endOffset;
 
@@ -35,6 +42,18 @@ class OldConsumablesLogic extends GetxController {
     } else if (state.appBarT > 1.0) {
       state.appBarT = 1.0;
     }
+  }
+
+  void handleAddIntoCart(int productSkusId, int productSkusNumber) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: productSkusId,
+                productSkusNumber: productSkusNumber))
+        .then((value) {
+      EasyLoading.showToast("加入购物车成功");
+      cartLogic.onRefresh();
+    });
   }
 
   void getInfo() async {

@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/pages/mine/mine_details/orders/orders_logic.dart';
 
+final ordersLogic = Get.find<OrdersLogic>();
 Widget orderWidget() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
@@ -58,7 +63,7 @@ Widget orderWidget() {
                 margin: const EdgeInsets.all(10.0),
                 child: TextButton(
                     onPressed: () {
-                      print("点击了待确认");
+                      Get.toNamed("/orders",arguments: 1);
                     },
                     child: Column(
                       children: [
@@ -67,7 +72,7 @@ Widget orderWidget() {
                           size: ScreenUtil().setWidth(20),
                         ),
                         Text(
-                          "待确认",
+                          "审核中",
                           style: TextStyle(fontSize: ScreenUtil().setWidth(12)),
                         )
                       ],
@@ -77,7 +82,7 @@ Widget orderWidget() {
                 margin: const EdgeInsets.all(10.0),
                 child: TextButton(
                     onPressed: () {
-                      print("点击了待确认");
+                      Get.toNamed("/orders",arguments: 2);
                     },
                     child: Column(
                       children: [
@@ -96,7 +101,7 @@ Widget orderWidget() {
                 margin: const EdgeInsets.all(10.0),
                 child: TextButton(
                     onPressed: () {
-                      print("点击了待确认");
+                      Get.toNamed("/orders",arguments: 3);
                     },
                     child: Column(
                       children: [
@@ -115,7 +120,7 @@ Widget orderWidget() {
                 margin: const EdgeInsets.all(10.0),
                 child: TextButton(
                     onPressed: () {
-                      print("点击了待确认");
+                      EasyLoading.showToast("请联系管理员退换货");
                     },
                     child: Column(
                       children: [

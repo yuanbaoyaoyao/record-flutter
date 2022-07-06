@@ -12,10 +12,12 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context , child) => Scaffold(
+      builder: (context, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(),
-        body: rightCatePageView(),
+        body: Obx(() {
+          return rightCatePageView();
+        }),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // Add your onPressed code here!
@@ -41,13 +43,14 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
     );
   }
 
-  List<Widget> _buildConsumables() => List.generate(8, (index) {
+  List<Widget> _buildConsumables() =>
+      List.generate(state.productSkusList.length, (index) {
         final logic = Get.find<SearchDetailsLogic>();
-        return GestureDetector(
+        return InkWell(
           child: Row(
             children: [
-              Image.asset(
-                "assets/images/mock/88a1.png",
+              Image.network(
+                state.productSkusList[index].avatar,
                 width: 100.0,
                 fit: BoxFit.fill,
               ),
@@ -55,17 +58,18 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("标题"),
-                  Text("描述"),
+                  Text(state.productSkusList[index].productName +
+                      " " +
+                      state.productSkusList[index].title),
+                  Text(state.productSkusList[index].description),
                   Row(
                     children: [
-                      Text("数量"),
+                      Text("剩余${state.productSkusList[index].stock}个"),
                       Expanded(child: Text("")),
                       Builder(
                         builder: (context) {
                           return IconButton(
                               onPressed: () {
-                                print("点击了添加按钮");
                                 OverlayEntry? _overlayEntry =
                                     OverlayEntry(builder: (_) {
                                   RenderBox? box =
@@ -91,7 +95,8 @@ class SearchDetailsPage extends GetView<SearchDetailsLogic> {
             ],
           ),
           onTap: () {
-            Get.toNamed("/consumables_detail");
+            Get.toNamed("/consumables_detail",
+                arguments: state.productSkusList[index].id);
           },
         );
       });
@@ -111,7 +116,6 @@ AppBar _buildAppBar() {
           hintText: '请输入搜索内容',
           suffix: ElevatedButton.icon(
             onPressed: () {
-              print("点击了搜索");
               Get.toNamed("/search");
             },
             icon: const Icon(Icons.search_outlined),
@@ -122,7 +126,6 @@ AppBar _buildAppBar() {
                 elevation: MaterialStateProperty.all(0.0)),
           )),
       onTap: () {
-        print("点击了title");
         Get.toNamed("/search");
       },
     ),
@@ -134,7 +137,7 @@ AppBar _buildAppBar() {
   );
 }
 
-List<Widget> _buildTabsItemsList() => List.generate(4, (index) {
+List<Widget> _buildTabsItemsList() => List.generate(2, (index) {
       return Container(
         width: double.infinity,
         alignment: Alignment.center,

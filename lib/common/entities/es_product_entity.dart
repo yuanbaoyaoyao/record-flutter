@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-EsProductEntity esProductEntityFromJson(String str) =>
-    EsProductEntity.fromJson(json.decode(str));
+EsProductEntity esProductEntityFromJson(String str) => EsProductEntity.fromJson(json.decode(str));
 
-String esProductEntityToJson(EsProductEntity data) =>
-    json.encode(data.toJson());
+String esProductEntityToJson(EsProductEntity data) => json.encode(data.toJson());
 
 class EsProductEntity {
   EsProductEntity({
@@ -21,18 +19,17 @@ class EsProductEntity {
   String message;
   Data data;
 
-  factory EsProductEntity.fromJson(Map<String, dynamic> json) =>
-      EsProductEntity(
-        code: json["code"],
-        message: json["message"],
-        data: Data.fromJson(json["data"]),
-      );
+  factory EsProductEntity.fromJson(Map<String, dynamic> json) => EsProductEntity(
+    code: json["code"],
+    message: json["message"],
+    data: Data.fromJson(json["data"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "message": message,
-        "data": data.toJson(),
-      };
+    "code": code,
+    "message": message,
+    "data": data.toJson(),
+  };
 }
 
 class Data {
@@ -40,8 +37,8 @@ class Data {
     required this.content,
     required this.pageable,
     required this.totalPages,
-    required this.totalElements,
     required this.last,
+    required this.totalElements,
     required this.number,
     required this.size,
     required this.sort,
@@ -53,8 +50,8 @@ class Data {
   List<Content> content;
   Pageable pageable;
   int totalPages;
-  int totalElements;
   bool last;
+  int totalElements;
   int number;
   int size;
   Sort sort;
@@ -63,33 +60,32 @@ class Data {
   bool empty;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        content:
-            List<Content>.from(json["content"].map((x) => Content.fromJson(x))),
-        pageable: Pageable.fromJson(json["pageable"]),
-        totalPages: json["totalPages"],
-        totalElements: json["totalElements"],
-        last: json["last"],
-        number: json["number"],
-        size: json["size"],
-        sort: Sort.fromJson(json["sort"]),
-        numberOfElements: json["numberOfElements"],
-        first: json["first"],
-        empty: json["empty"],
-      );
+    content: List<Content>.from(json["content"].map((x) => Content.fromJson(x))),
+    pageable: Pageable.fromJson(json["pageable"]),
+    totalPages: json["totalPages"],
+    last: json["last"],
+    totalElements: json["totalElements"],
+    number: json["number"],
+    size: json["size"],
+    sort: Sort.fromJson(json["sort"]),
+    numberOfElements: json["numberOfElements"],
+    first: json["first"],
+    empty: json["empty"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "content": List<dynamic>.from(content.map((x) => x.toJson())),
-        "pageable": pageable.toJson(),
-        "totalPages": totalPages,
-        "totalElements": totalElements,
-        "last": last,
-        "number": number,
-        "size": size,
-        "sort": sort.toJson(),
-        "numberOfElements": numberOfElements,
-        "first": first,
-        "empty": empty,
-      };
+    "content": List<dynamic>.from(content.map((x) => x.toJson())),
+    "pageable": pageable.toJson(),
+    "totalPages": totalPages,
+    "last": last,
+    "totalElements": totalElements,
+    "number": number,
+    "size": size,
+    "sort": sort.toJson(),
+    "numberOfElements": numberOfElements,
+    "first": first,
+    "empty": empty,
+  };
 }
 
 class Content {
@@ -112,24 +108,24 @@ class Content {
   int stock;
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
-        id: json["id"],
-        productId: json["productId"],
-        productName: json["productName"],
-        title: json["title"],
-        avatar: json["avatar"],
-        description: json["description"],
-        stock: json["stock"],
-      );
+    id: json["id"],
+    productId: json["productId"],
+    productName: json["productName"],
+    title: json["title"],
+    avatar: json["avatar"],
+    description: json["description"],
+    stock: json["stock"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "productId": productId,
-        "productName": productName,
-        "title": title,
-        "avatar": avatar,
-        "description": description,
-        "stock": stock,
-      };
+    "id": id,
+    "productId": productId,
+    "productName": productName,
+    "title": title,
+    "avatar": avatar,
+    "description": description,
+    "stock": stock,
+  };
 }
 
 class Pageable {
@@ -150,22 +146,22 @@ class Pageable {
   bool paged;
 
   factory Pageable.fromJson(Map<String, dynamic> json) => Pageable(
-        sort: Sort.fromJson(json["sort"]),
-        offset: json["offset"],
-        pageNumber: json["pageNumber"],
-        pageSize: json["pageSize"],
-        unpaged: json["unpaged"],
-        paged: json["paged"],
-      );
+    sort: Sort.fromJson(json["sort"]),
+    offset: json["offset"],
+    pageNumber: json["pageNumber"],
+    pageSize: json["pageSize"],
+    unpaged: json["unpaged"],
+    paged: json["paged"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "sort": sort.toJson(),
-        "offset": offset,
-        "pageNumber": pageNumber,
-        "pageSize": pageSize,
-        "unpaged": unpaged,
-        "paged": paged,
-      };
+    "sort": sort.toJson(),
+    "offset": offset,
+    "pageNumber": pageNumber,
+    "pageSize": pageSize,
+    "unpaged": unpaged,
+    "paged": paged,
+  };
 }
 
 class Sort {
@@ -180,14 +176,14 @@ class Sort {
   bool empty;
 
   factory Sort.fromJson(Map<String, dynamic> json) => Sort(
-        sorted: json["sorted"],
-        unsorted: json["unsorted"],
-        empty: json["empty"],
-      );
+    sorted: json["sorted"],
+    unsorted: json["unsorted"],
+    empty: json["empty"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "sorted": sorted,
-        "unsorted": unsorted,
-        "empty": empty,
-      };
+    "sorted": sorted,
+    "unsorted": unsorted,
+    "empty": empty,
+  };
 }

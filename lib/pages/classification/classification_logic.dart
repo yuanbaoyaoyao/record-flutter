@@ -12,10 +12,12 @@ import 'package:sp_util/sp_util.dart';
 import '../../common/apis/cart_api.dart';
 import '../../common/apis/product_api.dart';
 import '../../common/entities/cart_entity.dart';
+import '../cart/cart_logic.dart';
 import 'classification_state.dart';
 
 class ClassificationLogic extends GetxController {
   final ClassificationState state = ClassificationState();
+  final cartLogic = Get.find<CartLogic>();
 
   late final RefreshController refreshController;
 
@@ -46,6 +48,7 @@ class ClassificationLogic extends GetxController {
                 productSkusNumber: productSkusNumber))
         .then((value) {
       EasyLoading.showToast("加入购物车成功");
+      cartLogic.onRefresh();
     });
   }
 

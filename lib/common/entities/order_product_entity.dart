@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-OrderProductEntity orderProductEntityFromJson(String str) =>
-    OrderProductEntity.fromJson(json.decode(str));
+OrderProductEntity orderProductEntityFromJson(String str) => OrderProductEntity.fromJson(json.decode(str));
 
-String orderProductEntityToJson(OrderProductEntity data) =>
-    json.encode(data.toJson());
+String orderProductEntityToJson(OrderProductEntity data) => json.encode(data.toJson());
 
 class OrderProductEntity {
   OrderProductEntity({
@@ -21,18 +19,17 @@ class OrderProductEntity {
   String message;
   List<Datum> data;
 
-  factory OrderProductEntity.fromJson(Map<String, dynamic> json) =>
-      OrderProductEntity(
-        code: json["code"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory OrderProductEntity.fromJson(Map<String, dynamic> json) => OrderProductEntity(
+    code: json["code"],
+    message: json["message"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    "code": code,
+    "message": message,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class Datum {
@@ -48,6 +45,7 @@ class Datum {
     required this.productSkusId,
     required this.productTitle,
     required this.productSkusTitle,
+    required this.productPicUrl,
     required this.number,
     required this.createdAt,
     required this.updatedAt,
@@ -56,7 +54,7 @@ class Datum {
   int id;
   int userOrderId;
   dynamic receiver;
-  int orderSn;
+  double orderSn;
   dynamic orderStatus;
   dynamic countOrderNumber;
   dynamic sumProductNumber;
@@ -64,44 +62,48 @@ class Datum {
   int productSkusId;
   String productTitle;
   String productSkusTitle;
-  int number;
+  String productPicUrl;
+  int? number;
   DateTime createdAt;
   DateTime updatedAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        userOrderId: json["userOrderId"],
-        receiver: json["receiver"],
-        orderSn: json["orderSn"],
-        orderStatus: json["orderStatus"],
-        countOrderNumber: json["countOrderNumber"],
-        sumProductNumber: json["sumProductNumber"],
-        productId: json["productId"],
-        productSkusId: json["productSkusId"],
-        productTitle: json["productTitle"],
-        productSkusTitle: json["productSkusTitle"],
-        number: json["number"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-      );
+    id: json["id"],
+    userOrderId: json["userOrderId"],
+    receiver: json["receiver"],
+    orderSn: json["orderSn"].toDouble(),
+    orderStatus: json["orderStatus"],
+    countOrderNumber: json["countOrderNumber"],
+    sumProductNumber: json["sumProductNumber"],
+    productId: json["productId"],
+    productSkusId: json["productSkusId"],
+    productTitle: json["productTitle"],
+    productSkusTitle: json["productSkusTitle"],
+    productPicUrl: json["productPicUrl"],
+    number: json["number"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "userOrderId": userOrderId,
-        "receiver": receiver,
-        "orderSn": orderSn,
-        "orderStatus": orderStatus,
-        "countOrderNumber": countOrderNumber,
-        "sumProductNumber": sumProductNumber,
-        "productId": productId,
-        "productSkusId": productSkusId,
-        "productTitle": productTitle,
-        "productSkusTitle": productSkusTitle,
-        "number": number,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-      };
+    "id": id,
+    "userOrderId": userOrderId,
+    "receiver": receiver,
+    "orderSn": orderSn,
+    "orderStatus": orderStatus,
+    "countOrderNumber": countOrderNumber,
+    "sumProductNumber": sumProductNumber,
+    "productId": productId,
+    "productSkusId": productSkusId,
+    "productTitle": productTitle,
+    "productSkusTitle": productSkusTitle,
+    "productPicUrl": productPicUrl,
+    "number": number,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+  };
 }
+
 
 //List<OrderProductCreateEntity>
 OrderProductCreateEntity orderProductCreateEntityFromJson(String str) =>

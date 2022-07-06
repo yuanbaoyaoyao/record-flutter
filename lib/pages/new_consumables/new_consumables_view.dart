@@ -142,9 +142,6 @@ class NewConsumablesPage extends StatelessWidget {
             onTap: () {
               Get.toNamed("/consumables_detail",
                   arguments: state.productSkus.data[index].productSkusId);
-              log("123333333333333333333333");
-              log("state.productSkus.data[index]:" +
-                  state.productSkus.data[index].id.toString());
             },
             child: Container(
                 height: ScreenUtil().setHeight(180),
@@ -185,6 +182,8 @@ class NewConsumablesPage extends StatelessWidget {
                                   builder: (context) {
                                     return IconButton(
                                         onPressed: () {
+                                          logic.handleAddIntoCart(
+                                              state.productSkus.data[index].id, 1);
                                           OverlayEntry? _overlayEntry =
                                               OverlayEntry(builder: (_) {
                                             RenderBox? box =

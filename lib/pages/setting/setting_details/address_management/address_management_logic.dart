@@ -14,6 +14,7 @@ class AddressManagementLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    log("init");
     getAddress();
   }
 
@@ -32,5 +33,11 @@ class AddressManagementLogic extends GetxController {
         state.isLimit = false;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }

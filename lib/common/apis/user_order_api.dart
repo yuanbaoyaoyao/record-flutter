@@ -15,7 +15,8 @@ class UserOrderAPI {
       required String? productTitle,
       required String? productSkusTitle,
       required int? orderSn,
-      required bool? orderStatus}) async {
+      required int? id,
+      required int? orderStatus}) async {
     Map<String, dynamic> map = {};
     map["pageSize"] = pageSize;
     map["pageNum"] = pageNum;

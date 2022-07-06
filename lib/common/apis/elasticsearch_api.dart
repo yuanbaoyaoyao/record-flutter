@@ -9,7 +9,7 @@ import '../utils/http_util.dart';
 class ElasticsearchAPI {
   static String request = '/esProduct/';
 
-  static Future listFrontShowRotationAPI(
+  static Future search(
       {required int pageSize,
       required int pageNum,
       required String keyword}) async {
@@ -19,6 +19,21 @@ class ElasticsearchAPI {
     map["keyword"] = keyword;
     var response = await HttpUtil().get(
         UrlConstant.debugSearchIp + request + 'search',
+        queryParameters: map);
+
+    return EsProductEntity.fromJson(response);
+  }
+
+  static Future searchByStock(
+      {required int pageSize,
+        required int pageNum,
+        required String keyword}) async {
+    Map<String, dynamic> map = {};
+    map["pageSize"] = pageSize;
+    map["pageNum"] = pageNum;
+    map["keyword"] = keyword;
+    var response = await HttpUtil().get(
+        UrlConstant.debugSearchIp + request + 'searchByStock',
         queryParameters: map);
 
     return EsProductEntity.fromJson(response);

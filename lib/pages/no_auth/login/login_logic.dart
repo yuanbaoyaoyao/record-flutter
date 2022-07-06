@@ -32,7 +32,7 @@ class LoginLogic extends GetxController {
         password: textPasswordEditingController.text);
 
     await UserAPI.login(userLoginInputEntity: params);
-    Get.offNamed("/application");
+    Get.offAllNamed("/application");
   }
 
   @override

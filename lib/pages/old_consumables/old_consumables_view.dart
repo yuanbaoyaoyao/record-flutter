@@ -176,13 +176,16 @@ class OldConsumablesPage extends StatelessWidget {
                             color: Colors.red,
                             child: Row(
                               children: [
-                                Text("剩余${state.productSkus.data[index].stock}个"),
+                                Text(
+                                    "剩余${state.productSkus.data[index].stock}个"),
                                 Expanded(child: Text("")),
                                 Builder(
                                   builder: (context) {
                                     return IconButton(
                                         onPressed: () {
-                                          print("点击了添加按钮");
+                                          logic.handleAddIntoCart(
+                                              state.productSkus.data[index].id,
+                                              1);
                                           OverlayEntry? _overlayEntry =
                                               OverlayEntry(builder: (_) {
                                             RenderBox? box =

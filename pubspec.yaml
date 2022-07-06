@@ -50,6 +50,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flutter_chat_bubble: ^2.0.0
   modal_bottom_sheet: ^2.0.1
+  skeletons: ^0.0.3
 
 dev_dependencies:
   flutter_test:

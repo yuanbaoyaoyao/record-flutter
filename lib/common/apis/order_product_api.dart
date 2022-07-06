@@ -8,9 +8,9 @@ class OrderProductAPI {
 
   static Future listOrderProductAPI(
       {required int userOrderId,
-      required int orderSn,
-      required String productTitle,
-      required String productSkusTitle}) async {
+      required int? orderSn,
+      required String? productTitle,
+      required String? productSkusTitle}) async {
     Map<String, dynamic> map = {};
     map["userOrderId"] = userOrderId;
     map["orderSn"] = orderSn;

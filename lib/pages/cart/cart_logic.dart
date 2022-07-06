@@ -61,6 +61,7 @@ class CartLogic extends GetxController {
                 productSkusNumber: productSkusNumber))
         .then((value) {
       EasyLoading.showToast("加入购物车成功");
+      onRefresh();
     });
   }
 

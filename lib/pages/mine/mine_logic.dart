@@ -10,11 +10,12 @@ import '../../common/apis/cart_api.dart';
 import '../../common/apis/product_skus_api.dart';
 import '../../common/constant/user_constant.dart';
 import '../../common/entities/cart_entity.dart';
+import '../cart/cart_logic.dart';
 import 'mine_state.dart';
 
 class MineLogic extends GetxController {
   final MineState state = MineState();
-
+  final cartLogic = Get.find<CartLogic>();
   late final RefreshController refreshController;
 
   @override
@@ -59,6 +60,7 @@ class MineLogic extends GetxController {
                 productSkusNumber: productSkusNumber))
         .then((value) {
       EasyLoading.showToast("加入购物车成功");
+      cartLogic.onRefresh();
     });
   }
 

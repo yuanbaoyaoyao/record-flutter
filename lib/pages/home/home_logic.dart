@@ -13,11 +13,13 @@ import 'package:sp_util/sp_util.dart';
 import '../../common/apis/product_api.dart';
 import '../../common/apis/product_skus_api.dart';
 import '../application/application_state.dart';
+import '../cart/cart_logic.dart';
 import 'home_state.dart';
 
 class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
   final HomeState state = HomeState();
   final ApplicationState appState = ApplicationState();
+  final cartLogic = Get.find<CartLogic>();
 
   late final ScrollController scrollController;
 
@@ -125,6 +127,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
                 productSkusNumber: productSkusNumber))
         .then((value) {
       EasyLoading.showToast("加入购物车成功");
+      cartLogic.onRefresh();
     });
   }
 

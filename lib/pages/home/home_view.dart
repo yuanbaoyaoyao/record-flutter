@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/common/widgets/appBar.dart';
 import 'package:record_flutter/common/widgets/red_dot_page.dart';
 import 'package:record_flutter/pages/application/application_logic.dart';
@@ -28,20 +28,22 @@ class HomePage extends GetView<HomeLogic> {
           appBar: state.showTab ? buildHomeAppBar() : buildAppBar(),
           body: ScreenUtilInit(
             designSize: const Size(375, 812),
-            builder: (context, child) => SmartRefresher(
+            builder: (context, child) =>
+                SmartRefresher(
                 controller: logic.refreshController,
                 onRefresh: logic.onRefresh,
                 onLoading: logic.onLoading,
                 enablePullDown: true,
                 enablePullUp: true,
-                scrollController: logic.tabsScrollController,
+                // scrollController: logic.tabsScrollController,
                 child: Container(
                     color: Colors.grey,
                     child: MediaQuery.removePadding(
                       context: context,
                       child: ListView(
                         shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                        // physics: const NeverScrollableScrollPhysics(),
+                        controller: logic.tabsScrollController,
                         children: [
                           SizedBox(
                               height: ScreenUtil().setHeight(200),

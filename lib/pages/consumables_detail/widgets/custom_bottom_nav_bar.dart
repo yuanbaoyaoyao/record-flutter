@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   @override
@@ -23,7 +25,7 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
             icon: Icon(Icons.star_border)),
         IconButton(
             onPressed: () {
-              print("点击了购物车按钮");
+              Get.toNamed("/cart");
             },
             icon: Icon(Icons.shopping_cart)),
         Expanded(child: Text("")),

@@ -15,7 +15,7 @@ class SettingLogic extends GetxController {
 
   void handleLogOut()async{
     UserAPI.logOut().then((value){
-      Get.offNamed("/login");
+      Get.offAllNamed("/login");
     });
   }
 }

@@ -12,8 +12,19 @@ class UrlConstant {
 // static const String debugShiroIp = "http://192.168.18.2:8082";
 // static const String debugClientIp = "http://192.168.18.2:8083";
 
-static const String debugAdminIp = "http://192.168.147.104:8081";
-static const String debugShiroIp = "http://192.168.147.104:8082";
-static const String debugClientIp = "http://192.168.147.104:8083";
-static const String debugSearchIp = "http://192.168.147.104:8084";
+// static const String debugAdminIp = "http://192.168.147.104:8081";
+// static const String debugShiroIp = "http://192.168.147.104:8082";
+// static const String debugClientIp = "http://192.168.147.104:8083";
+// static const String debugSearchIp = "http://192.168.147.104:8084";
+
+
+static const String debugAdminIp = "http://192.168.147.210:8081";
+static const String debugShiroIp = "http://192.168.147.210:8082";
+static const String debugClientIp = "http://192.168.147.210:8083";
+static const String debugSearchIp = "http://192.168.147.210:8084";
+
+// static const String debugAdminIp = "http://192.168.31.216:8081";
+// static const String debugShiroIp = "http://192.168.31.216:8082";
+// static const String debugClientIp = "http://192.168.31.216:8083";
+// static const String debugSearchIp = "http://192.168.31.216:8084";
 }

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/common/apis/user_api.dart';
 import 'package:sp_util/sp_util.dart';
 

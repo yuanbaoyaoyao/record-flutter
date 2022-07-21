@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/global.dart';
 import 'package:record_flutter/pages/no_auth/splash/splash_binding.dart';
 import 'package:record_flutter/router/app_pages.dart';

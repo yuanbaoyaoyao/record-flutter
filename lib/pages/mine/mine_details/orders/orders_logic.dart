@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:record_flutter/common/apis/order_product_api.dart';
 import 'package:record_flutter/common/apis/user_order_api.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';

@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/common/apis/cart_api.dart';
 import 'package:record_flutter/common/apis/product_skus_api.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';
@@ -14,14 +15,17 @@ import 'cart_state.dart';
 class CartLogic extends GetxController {
   final CartState state = CartState();
 
-  late final RefreshController refreshController;
+  // late final RefreshController refreshController;
+  late final EasyRefreshController easyRefreshController;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     loadData();
-    refreshController = RefreshController();
+    easyRefreshController = EasyRefreshController(
+        controlFinishLoad: true, controlFinishRefresh: true);
+    // refreshController = RefreshController();
   }
 
   void loadData() async {
@@ -102,7 +106,9 @@ class CartLogic extends GetxController {
     state.checkedCartItemList = [];
     state.checkedCartItemListNumber = 0;
     loadData();
-    refreshController.refreshCompleted();
+    easyRefreshController.finishRefresh();
+    easyRefreshController.resetFooter();
+    // refreshController.refreshCompleted();
   }
 
   void onLoading() async {
@@ -110,13 +116,15 @@ class CartLogic extends GetxController {
     state.pageSize += 8;
     log("加載完成");
     getRecommendList();
-    refreshController.loadComplete();
+    easyRefreshController.finishLoad();
+    // refreshController.loadComplete();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    refreshController.dispose();
+    easyRefreshController.dispose();
+    // refreshController.dispose();
   }
 }

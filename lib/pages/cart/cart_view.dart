@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';
 import 'package:record_flutter/common/entities/cart_entity.dart';
 import 'package:sp_util/sp_util.dart';
@@ -46,12 +47,13 @@ class CartPage extends StatelessWidget {
                   })
                 ],
               ),
-              body: SmartRefresher(
-                  controller: logic.refreshController,
+          // body: SmartRefresher(
+            body: EasyRefresh(
+                  controller: logic.easyRefreshController,
+                  header: const ClassicHeader(),
+                  footer: const ClassicFooter(),
                   onRefresh: logic.onRefresh,
-                  onLoading: logic.onLoading,
-                  enablePullDown: true,
-                  enablePullUp: true,
+                  onLoad: logic.onLoading,
                   child: SingleChildScrollView(
                       child: Container(
                           color: Colors.grey,

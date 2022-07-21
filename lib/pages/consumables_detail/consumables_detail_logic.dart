@@ -122,6 +122,9 @@ class ConsumablesDetailLogic extends GetxController
       state.productSkusDetails = value.data;
     });
   }
+  void handleToCart(){
+
+  }
 
   // void getRecommendList() async {
   //   await ProductSkusAPI.listProductSkusSearchIPageAPI(

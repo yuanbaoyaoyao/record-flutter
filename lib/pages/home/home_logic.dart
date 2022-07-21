@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:record_flutter/common/apis/cart_api.dart';
 import 'package:record_flutter/common/apis/front_show_api.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';
@@ -44,7 +44,7 @@ class HomeLogic extends GetxController with GetSingleTickerProviderStateMixin {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
+    log("home_logic");
     tabsScrollController = ScrollController();
     scrollController = ScrollController();
     refreshController = RefreshController();

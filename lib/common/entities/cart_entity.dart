@@ -183,3 +183,34 @@ class CartCreateEntity {
   };
 }
 
+//cartCreateBackEntity
+
+CartCreateBackEntity cartCreateBackEntityFromJson(String str) => CartCreateBackEntity.fromJson(json.decode(str));
+
+String cartCreateBackEntityToJson(CartCreateBackEntity data) => json.encode(data.toJson());
+
+class CartCreateBackEntity {
+  CartCreateBackEntity({
+    required this.code,
+    required this.message,
+    required this.data,
+  });
+
+  int code;
+  String message;
+  String data;
+
+  factory CartCreateBackEntity.fromJson(Map<String, dynamic> json) => CartCreateBackEntity(
+    code: json["code"],
+    message: json["message"],
+    data: json["data"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "code": code,
+    "message": message,
+    "data": data,
+  };
+}
+
+

@@ -45,7 +45,7 @@ class CartAPI {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
         data: createEntity);
-    return response;
+    return CartCreateBackEntity.fromJson(response);
   }
 
   static Future updateCartAPI(

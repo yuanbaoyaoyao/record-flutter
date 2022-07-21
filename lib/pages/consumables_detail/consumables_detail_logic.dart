@@ -3,9 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:record_flutter/common/apis/cart_api.dart';
 import 'package:record_flutter/common/apis/product_skus_api.dart';
 import 'package:record_flutter/common/apis/user_address_api.dart';
+import 'package:record_flutter/common/apis/user_collect_api.dart';
 import 'package:record_flutter/common/constant/user_constant.dart';
+import 'package:record_flutter/common/entities/cart_entity.dart';
+import 'package:record_flutter/common/entities/user_collect_entity.dart';
+import 'package:record_flutter/pages/cart/cart_logic.dart';
 import 'package:sp_util/sp_util.dart';
 
 import '../../common/apis/product_skus_details.api.dart';
@@ -15,6 +20,8 @@ import 'consumables_detail_state.dart';
 class ConsumablesDetailLogic extends GetxController
     with GetSingleTickerProviderStateMixin {
   final ConsumablesDetailState state = ConsumablesDetailState();
+
+  final cartLogic = Get.find<CartLogic>();
 
   late TabController tabController;
 
@@ -46,10 +53,12 @@ class ConsumablesDetailLogic extends GetxController
 
   void loadData() {
     int id = Get.arguments;
+    state.productSkusId = id;
     getProductSkusInfo(id);
     getAddress();
     getProductSkusDetails(id);
     getEvaluationInfo(id);
+    handleIsLike(id);
     // getRecommendList();
   }
 
@@ -80,7 +89,7 @@ class ConsumablesDetailLogic extends GetxController
           break;
         }
       }
-      log("state.address:"+state.addressList.toJson().toString());
+      log("state.address:" + state.addressList.toJson().toString());
     });
   }
 
@@ -122,8 +131,88 @@ class ConsumablesDetailLogic extends GetxController
       state.productSkusDetails = value.data;
     });
   }
-  void handleToCart(){
 
+  void handleAddIntoCart(BuildContext context) async {
+    await CartAPI.createCartAPI(
+            createEntity: CartCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: state.productSkusId,
+                productSkusNumber: state.number))
+        .then((value) {
+      log(value.code.toString());
+      state.cartCode = value.code;
+      if (value.code == 200) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text("添加成功"),
+                  content: Text("是否前往购物车"),
+                  actions: [
+                    TextButton(onPressed: () => Get.back(), child: Text("取消")),
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.offAndToNamed("/cart");
+                          cartLogic.loadData();
+                        },
+                        child: Text("确定")),
+                  ],
+                ));
+      }
+    });
+  }
+
+  void handleIsLike(int id) async {
+    await UserCollectAPI.IsLikeUserCollectAPI(
+            productSkusId: id, userId: SpUtil.getInt(UserConstant.userId))
+        .then((value) {
+      if (value.data.length > 0) {
+        log("触发了true");
+        state.collectionId = value.data[0].id;
+        state.isLike = true;
+      } else {
+        log("触发了false");
+        state.isLike = false;
+      }
+      log(state.collectionId.toString());
+      log(state.isLike.toString());
+    });
+  }
+
+  void handleAddIntoCollections() {
+    UserCollectAPI.createUserCollectAPI(
+            userCollectionsCreateEntity: UserCollectionsCreateEntity(
+                userId: SpUtil.getInt(UserConstant.userId),
+                productSkusId: state.productSkusId))
+        .then((value) {
+      log("valueeeeeeee:" + value.toString());
+      log(value.code.toString());
+      if (value.code == 200) {
+        EasyLoading.showToast("加入收藏成功");
+        state.collectionId = value.data.id;
+        state.isLike = true;
+        log("state.collectionId:" + state.collectionId.toString());
+      }
+    });
+  }
+
+  void handleRemoveFromCollections() {
+    UserCollectAPI.deleteUserCollectAPI(
+            userCollectionsDeleteEntity:
+                UserCollectionsDeleteEntity(id: state.collectionId))
+        .then((value) {
+      // if(value.code == 200){
+      EasyLoading.showToast("删除收藏成功");
+      state.isLike = false;
+      // }
+    });
+  }
+
+  void handleToConfirmOrder() {
+    Get.toNamed("/confirm_order", parameters: {
+      "productSkusId": state.productSkusId.toString(),
+      "number": state.number.toString()
+    });
   }
 
   // void getRecommendList() async {

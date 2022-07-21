@@ -3,6 +3,7 @@ import 'package:record_flutter/common/constant/user_constant.dart';
 import 'package:record_flutter/common/entities/user_order_entity.dart';
 import 'package:sp_util/sp_util.dart';
 
+import '../../common/entities/product_skus_entity.dart';
 import '../../common/entities/user_address_entity.dart';
 import '../cart/cart_state.dart';
 
@@ -29,11 +30,29 @@ class ConfirmOrderState {
   final _defaultAddressTemp = "".obs;
   final _orderRemarks = "".obs;
 
+  final _number = 0.obs;
+  final _productSkusId = 0.obs;
+
   final _orderId = 0.obs;
+
+  final _productSkusInfo =
+      ProductSkusEntity(code: null, message: null, data: null).obs;
+
+  set productSkusInfo(value) => _productSkusInfo.value = value;
+
+  get productSkusInfo => _productSkusInfo.value;
 
   set addressList(value) => _addressList.value = value;
 
   get addressList => _addressList.value;
+
+  set number(value) => _number.value = value;
+
+  get number => _number.value;
+
+  set productSkusId(value) => _productSkusId.value = value;
+
+  get productSkusId => _productSkusId.value;
 
   set addressDetail(value) => _addressDetail.value = value;
 

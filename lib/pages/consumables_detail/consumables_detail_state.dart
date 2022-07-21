@@ -27,6 +27,9 @@ class ConsumablesDetailState {
   final _evaluationCreatedAt = "".obs;
   final _evaluation = "".obs;
 
+  final _isLike = false.obs;
+  final _collectionId = 0.obs;
+
   final _productSkusInfo =
       ProductSkusEntity(code: null, message: null, data: null).obs;
 
@@ -43,15 +46,35 @@ class ConsumablesDetailState {
   final _twoY = 0.0.obs;
   final _threeY = 0.0.obs;
 
+  final _productSkusId = 0.obs;
+
   List tabs = ["耗材", "评价", "详情"];
 
   final _appBarT = 0.0.obs;
 
   final _recommendList = [].obs;
 
+  final _cartCode = 0.obs;
+
+  set productSkusId(value) => _productSkusId.value = value;
+
+  get productSkusId => _productSkusId.value;
+
+  set cartCode(value) => _cartCode.value = value;
+
+  get cartCode => _cartCode.value;
+
   set evaluation(value) => _evaluation.value = value;
 
   get evaluation => _evaluation.value;
+
+  set isLike(value) => _isLike.value = value;
+
+  get isLike => _isLike.value;
+
+  set collectionId(value) => _collectionId.value = value;
+
+  get collectionId => _collectionId.value;
 
   set evaluationCreatedAt(value) => _evaluationCreatedAt.value = value;
 

@@ -11,8 +11,10 @@ import 'package:record_flutter/common/entities/user_order_entity.dart';
 import 'package:sp_util/sp_util.dart';
 
 import '../../common/apis/cart_api.dart';
+import '../../common/apis/product_skus_api.dart';
 import '../../common/apis/user_address_api.dart';
 import '../../common/entities/cart_entity.dart';
+import '../../common/entities/product_skus_entity.dart';
 import '../cart/cart_logic.dart';
 import '../cart/cart_state.dart';
 import 'confirm_order_state.dart';
@@ -29,7 +31,6 @@ class ConfirmOrderLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     orderRemarksController = TextEditingController();
-
     load();
   }
 
@@ -50,6 +51,7 @@ class ConfirmOrderLogic extends GetxController {
           number: data.productSkusNumber,
           productPicUrl: data.avatar));
     }
+
     await OrderProductAPI.createOrderProductAPI(
             orderProductList: orderProductList)
         .then((value) {

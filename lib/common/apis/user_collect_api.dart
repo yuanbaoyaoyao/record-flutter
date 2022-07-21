@@ -26,7 +26,7 @@ class UserCollectAPI {
   }
 
   static Future IsLikeUserCollectAPI(
-      {required int productSkusId, required int userId}) async {
+      {required int productSkusId, required int? userId}) async {
     Map<String, dynamic> map = {};
     map["productSkusId"] = productSkusId;
     map["userId"] = userId;
@@ -34,24 +34,26 @@ class UserCollectAPI {
         UrlConstant.debugClientIp + request + 'IsLike',
         queryParameters: map);
 
-    return UserCollectEntity.fromJson(response);
+    return IsLikeCollectionEntity.fromJson(response);
   }
 
   static Future createUserCollectAPI(
-      {required UserCollectEntity userCollectEntity}) async {
+      {required UserCollectionsCreateEntity
+          userCollectionsCreateEntity}) async {
     var response = await HttpUtil().post(
         UrlConstant.debugClientIp + request + 'create',
-        data: userCollectEntity);
+        data: userCollectionsCreateEntity);
 
-    return UserCollectEntity.fromJson(response);
+    return UserCollectionsCreateBackEntity.fromJson(response);
   }
 
   static Future deleteUserCollectAPI(
-      {required UserCollectEntity userCollectEntity}) async {
+      {required UserCollectionsDeleteEntity
+          userCollectionsDeleteEntity}) async {
     var response = await HttpUtil().delete(
         UrlConstant.debugClientIp + request + 'delete',
-        data: userCollectEntity);
+        data: userCollectionsDeleteEntity);
 
-    return UserCollectEntity.fromJson(response);
+    return response;
   }
 }

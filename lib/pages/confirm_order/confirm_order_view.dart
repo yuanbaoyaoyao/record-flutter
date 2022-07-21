@@ -99,7 +99,10 @@ class ConfirmOrderPage extends StatelessWidget {
                                               state.userOrder.addressDetail =
                                                   state.addressList.data[index]
                                                       .addressDetail;
-                                              log("state.userOrder:"+state.userOrder.toJson().toString());
+                                              log("state.userOrder:" +
+                                                  state.userOrder
+                                                      .toJson()
+                                                      .toString());
                                             },
                                           )),
                                 )

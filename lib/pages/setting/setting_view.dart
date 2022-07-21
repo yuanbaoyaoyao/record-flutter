@@ -129,7 +129,8 @@ class SettingPage extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) => AlertDialog(
+                        builder: (BuildContext context) =>
+                            AlertDialog(
                               title: Text("提示"),
                               content: Text("是否退出登录"),
                               actions: [
